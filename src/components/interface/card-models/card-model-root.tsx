@@ -5,6 +5,6 @@ type CardModelsRootProps = ComponentProps<"div">
 
 export const CardModelRoot = ({className, ...props}: CardModelsRootProps) => {
   return (
-    <div className={twMerge("", className)} />
+    <div className={twMerge("", className)} {...props} />
   )
 }

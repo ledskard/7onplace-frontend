@@ -9,5 +9,4 @@ export const Card = {
   Img: CardModelImage,
   Name: CardModelName,
   Fav: CardModelFavorite,
-
 }
