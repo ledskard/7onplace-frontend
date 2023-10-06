@@ -15,6 +15,7 @@ const dataModels = {
   "likes": 2,
   "telegramVip": "https://localhost/saop",
   "telegramFree": "https://localhost/saop",
+  "type": "mulheres",
   "images": [
     {
       "id": 1,
@@ -36,7 +37,6 @@ export async function ModelsList({modelType, className, ...props}: ModelsListTyp
   return (
     // <section className={twMerge("md:grid-cols-3 gap-4 grid-cols-2 w-full items-center justify-center", className)} {...props}>
     <div className={twMerge("md:grid-cols-3 gap-4 grid-cols-2 w-full items-center justify-center", className)}>
-        card
         <Card.Root key={dataModels.id}>
           <Card.Img src={dataModels.images[0].url} alt={dataModels.username} />
           <Card.Name>{dataModels.username}</Card.Name>
