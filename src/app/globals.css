@@ -1,7 +1,26 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
- 
+
+/* .swiper-button-next::after,
+.swiper-button-prev::after {
+  color: #ccc;
+  background-color: #393b4e;
+  border-radius: 100%;
+  font-size: .5rem;
+  width: 10px;
+  padding: .4rem;
+}
+
+.swiper-pagination-bullet-active {
+  background-color: #ff0000;
+}
+
+.swiper-pagination-bullet {
+  background-color: #00ff00;
+} */
+
+
 @layer base {
   :root {
     --background: 0 0% 100%;
