@@ -9,8 +9,8 @@ type CardModelFavoriteProps = ComponentProps<"button"> & {
 
 export const CardModelFavorite = ({ favorites, className, ...props}: CardModelFavoriteProps) => {
   return (
-    <span className={twMerge("", className)} {...props}>
-      <AiFillHeart />{" "}{favorites}
+    <span className={twMerge("flex gap-2 text-lg md:text-2xl font-bold items-center md:mt-2 justify-center text-red-main", className)} {...props}>
+      <AiFillHeart className="md:text-2xl lg:text-3xl" color={"#9A1F33"} />{" "}{favorites}
     </span>
   )
 }
