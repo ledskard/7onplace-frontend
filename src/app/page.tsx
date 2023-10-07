@@ -3,7 +3,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export default function Home() {
   return (
-    <main className="w-10/12 mx-auto pt-5">
+    <main className="w-8/12 mx-auto pt-5">
       <Tabs defaultValue="mulheres" className="w-full bg-transparent">
         <TabsList>
           <TabsTrigger
@@ -37,7 +37,6 @@ export default function Home() {
         <TabsContent value="trans">
           <ModelsList modelType="trans" />
         </TabsContent>
-        
       </Tabs>
     </main>
   );

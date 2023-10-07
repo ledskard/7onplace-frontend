@@ -1,4 +1,4 @@
-export type CarouselContentProps = {
+export type CarouselRootProps = {
   model: {
     id: number;
     username: string;

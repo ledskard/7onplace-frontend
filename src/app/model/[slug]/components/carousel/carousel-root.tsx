@@ -1,4 +1,11 @@
 "use client";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import "swiper/css/scrollbar";
+import "swiper/css/effect-fade";
+import "swiper/css/autoplay";
+
 import { SwiperSlide, Swiper } from "swiper/react";
 import { Autoplay, Navigation, Pagination, EffectFade } from "swiper/modules";
 import { useRef } from "react";
@@ -10,15 +17,9 @@ import { Carousel } from "./index";
 import { PerfilImage } from "@/components/interface/perfil-image";
 import { FlexDiv } from "@/components/interface/flex-div";
 import { ModelDetails } from "../model-details";
-import { CarouselContentProps } from "@/types/model/carousel-content-props";
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
-import "swiper/css/scrollbar";
-import "swiper/css/effect-fade";
-import "swiper/css/autoplay";
+import { CarouselRootProps } from "@/types/model/carousel-root-props";
 
-export const CarouselContent = ({ model }: CarouselContentProps) => {
+export const CarouselRoot = ({ model }: CarouselRootProps) => {
   const swiperRef = useRef<any>();
 
   const nextSlide = () => {
@@ -29,7 +30,7 @@ export const CarouselContent = ({ model }: CarouselContentProps) => {
   };
 
   return (
-    <section className="mx-auto max-w-7xl border-black border rounded-md shadow-md shadow-gray-400 mb-6 max-h-">
+    <section className="mx-auto max-w-7xl border-black border rounded-md shadow-md shadow-gray-400 mb-6">
       <Swiper
         onSwiper={(e) => (swiperRef.current = e)}
         modules={[Navigation, Pagination, Autoplay, EffectFade]}
@@ -42,19 +43,21 @@ export const CarouselContent = ({ model }: CarouselContentProps) => {
         }}
         className="rounded-md relative btn-swiper cursor-grab"
       >
-        {model && model.images.length > 0 && model.images.map((image) => (
-          <SwiperSlide key={image.id}>
-            <Image
-              src={image.url}
-              alt={image.name}
-              height={600}
-              width={1280}
-              quality={100}
-              className="max-h-[600px] object-cover object-center"
-            />
-          </SwiperSlide>
-        ))}
-        
+        {model &&
+          model.images.length > 0 &&
+          model.images.map((image) => (
+            <SwiperSlide key={image.id}>
+              <Image
+                src={image.url}
+                alt={image.name}
+                height={600}
+                width={1280}
+                quality={100}
+                className="max-h-[500px] object-cover object-center"
+              />
+            </SwiperSlide>
+          ))}
+
         <Carousel.CenterButtonDiv>
           <Carousel.BorderButton>
             <Carousel.SlideButton onClick={prevSlide}>
@@ -73,17 +76,12 @@ export const CarouselContent = ({ model }: CarouselContentProps) => {
       <FlexDiv className="justify-between my-4 px-4">
         <FlexDiv col>
           <FlexDiv>
-            <PerfilImage
-              src={model.images[0].url}
-              alt={model.username}
-            />
+            <PerfilImage src={model.images[0].url} alt={model.username} />
             <Card.Name>{model.username}</Card.Name>
           </FlexDiv>
           <FlexDiv>
             <MdLocationOn className="text-black md:text-3xl text-2xl" />
-            <ModelDetails.Location>
-              {model.location}
-            </ModelDetails.Location>
+            <ModelDetails.Location>{model.location}</ModelDetails.Location>
           </FlexDiv>
         </FlexDiv>
         <FlexDiv>

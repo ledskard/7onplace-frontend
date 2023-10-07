@@ -8,10 +8,7 @@ type HeaderProps = ComponentProps<"header">;
 export const Header = ({ className, ...props }: HeaderProps) => {
   return (
     <header
-      className={twMerge(
-        "bg-red-main w-full h-14",
-        className
-      )}
+      className={twMerge("bg-red-main w-full h-14", className)}
       {...props}
     >
       <Navbar>

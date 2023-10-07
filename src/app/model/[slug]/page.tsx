@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
-import { CarouselContent } from "./components/carousel/carousel-content";
 import { AboutModel } from "./components/about-model";
 import { FlexDiv } from "@/components/interface/flex-div";
+import { CarouselRoot } from "./components/carousel/carousel-root";
 
 export default function Model({ params }: { params: { slug: string } }) {
   // console.log(params.slug)
@@ -29,20 +29,14 @@ export default function Model({ params }: { params: { slug: string } }) {
 
   return (
     <main className="w-10/12 max-w-7xl mx-auto py-10">
-      <CarouselContent model={dataModel} />
+      <CarouselRoot model={dataModel} />
       <FlexDiv col>
         <AboutModel.Heading>sobre:</AboutModel.Heading>
         <AboutModel.Description>{dataModel.description}</AboutModel.Description>
-        <Button>
-          <a href={dataModel.telegramVip} target="_blank">
-            telegram vip
-          </a>
-        </Button>
-        <Button>
-          <a href={dataModel.telegramFree} target="_blank">
-            canal free
-          </a>
-        </Button>
+
+        <Button href={dataModel.telegramVip}>telegram vip</Button>
+
+        <Button href={dataModel.telegramFree}>canal free</Button>
       </FlexDiv>
     </main>
   );
