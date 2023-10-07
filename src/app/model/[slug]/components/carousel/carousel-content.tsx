@@ -1,34 +1,22 @@
 "use client";
 import { SwiperSlide, Swiper } from "swiper/react";
 import { Autoplay, Navigation, Pagination, EffectFade } from "swiper/modules";
-import { Button } from "@/components/ui/button";
 import { useRef } from "react";
 import { MdLocationOn } from "react-icons/md";
+import { Card } from "@/components/interface/card-models";
 import Image from "next/image";
+import { BsArrowLeftShort, BsArrowRightShort } from "react-icons/bs";
+import { Carousel } from "./index";
+import { PerfilImage } from "@/components/interface/perfil-image";
+import { FlexDiv } from "@/components/interface/flex-div";
+import { ModelDetails } from "../model-details";
+import { CarouselContentProps } from "@/types/model/carousel-content-props";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import "swiper/css/effect-fade";
 import "swiper/css/autoplay";
-import { Card } from "@/components/interface/card-models";
-
-type CarouselContentProps = {
-  model: {
-    id: number;
-    username: string;
-    location: string;
-    description: string;
-    likes: number;
-    telegramVip: string;
-    telegramFree: string;
-    images: {
-      id: number;
-      url: string;
-      name: string;
-    }[];
-  };
-};
 
 export const CarouselContent = ({ model }: CarouselContentProps) => {
   const swiperRef = useRef<any>();
@@ -46,19 +34,15 @@ export const CarouselContent = ({ model }: CarouselContentProps) => {
         onSwiper={(e) => (swiperRef.current = e)}
         modules={[Navigation, Pagination, Autoplay, EffectFade]}
         slidesPerView={1}
-        // pagination={{ clickable: true }}
-        // navigation={{
-        //   enabled: true,
-        // }}
+        pagination={{ clickable: true }}
         loop={true}
         autoplay={{
           delay: 3000,
           disableOnInteraction: false,
         }}
-        // effect="fade"
-        className="rounded-md relative cursor-grab"
+        className="rounded-md relative btn-swiper cursor-grab"
       >
-        {model.images.map((image) => (
+        {model && model.images.length > 0 && model.images.map((image) => (
           <SwiperSlide key={image.id}>
             <Image
               src={image.url}
@@ -70,34 +54,42 @@ export const CarouselContent = ({ model }: CarouselContentProps) => {
             />
           </SwiperSlide>
         ))}
-        {/* <Button className="absolute" onClick={nextSlide}>
-            Next
-          </Button> */}
+        
+        <Carousel.CenterButtonDiv>
+          <Carousel.BorderButton>
+            <Carousel.SlideButton onClick={prevSlide}>
+              <BsArrowLeftShort />
+            </Carousel.SlideButton>
+          </Carousel.BorderButton>
+
+          <Carousel.BorderButton>
+            <Carousel.SlideButton onClick={nextSlide}>
+              <BsArrowRightShort />
+            </Carousel.SlideButton>
+          </Carousel.BorderButton>
+        </Carousel.CenterButtonDiv>
       </Swiper>
-      <div className="flex justify-between w-full items-center my-4 px-4">
-        <div className="flex flex-col gap-4">
-          <div className="flex items-center gap-4">
-            <Image
+
+      <FlexDiv className="justify-between my-4 px-4">
+        <FlexDiv col>
+          <FlexDiv>
+            <PerfilImage
               src={model.images[0].url}
-              width={400}
-              height={400}
-              quality={100}
-              className="rounded-full w-[40px] h-[40px] aspect-square shadow-md shadow-gray-500 object-cover object-center"
               alt={model.username}
             />
             <Card.Name>{model.username}</Card.Name>
-          </div>
-          <div className="flex gap-2 items-center">
-            <MdLocationOn className="text-black md:text-3xl text-xl" />
-            <p className="rounded-[30px] capitalize bg-gray-300 text-zinc-950 px-6 py-2">
+          </FlexDiv>
+          <FlexDiv>
+            <MdLocationOn className="text-black md:text-3xl text-2xl" />
+            <ModelDetails.Location>
               {model.location}
-            </p>
-          </div>
-        </div>
-        <div className="flex items-center">
+            </ModelDetails.Location>
+          </FlexDiv>
+        </FlexDiv>
+        <FlexDiv>
           <Card.Fav favorites={model.likes} />
-        </div>
-      </div>
+        </FlexDiv>
+      </FlexDiv>
     </section>
   );
 };

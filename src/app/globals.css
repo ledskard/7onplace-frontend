@@ -2,24 +2,32 @@
 @tailwind components;
 @tailwind utilities;
 
-/* .swiper-button-next::after,
-.swiper-button-prev::after {
-  color: #ccc;
-  background-color: #393b4e;
-  border-radius: 100%;
-  font-size: .5rem;
-  width: 10px;
-  padding: .4rem;
+.swiper-pagination-bullet {
+  background: #6d6d6d5d !important;
+  opacity: 1 !important;
 }
 
 .swiper-pagination-bullet-active {
-  background-color: #ff0000;
+  background-color: #333333 !important;
+  position: relative;
 }
 
-.swiper-pagination-bullet {
-  background-color: #00ff00;
-} */
+.swiper {
+  overflow-y: initial !important;
+  padding-bottom: 2rem !important;
+}
 
+.container-button-swiper {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  left: 0;
+  transform: translateY(-50%);
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: center;
+}
 
 @layer base {
   :root {
