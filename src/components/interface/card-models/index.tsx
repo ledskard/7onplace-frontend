@@ -1,3 +1,4 @@
+import { CardModelContentDiv } from "./card-model-content-div";
 import { CardModelFavorite } from "./card-model-favorite";
 import { CardModelImage } from "./card-model-img";
 import { CardModelName } from "./card-model-name";
@@ -9,4 +10,5 @@ export const Card = {
   Img: CardModelImage,
   Name: CardModelName,
   Fav: CardModelFavorite,
+  ContentDiv: CardModelContentDiv
 }
