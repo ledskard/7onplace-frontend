@@ -79,7 +79,6 @@ export async function ModelsList({
   ...props
 }: ModelsListType) {
   // const modelsByFilter = await fetch(`/${type}`)
-  // ec2-54-161-22-227.compute-1.amazonaws.com:8080/
 
   return (
     <section
