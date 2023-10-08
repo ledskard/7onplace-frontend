@@ -37,7 +37,6 @@ export default function Home() {
         <TabsContent value="trans">
           <ModelsList modelType="trans" />
         </TabsContent>
-        
       </Tabs>
     </main>
   );

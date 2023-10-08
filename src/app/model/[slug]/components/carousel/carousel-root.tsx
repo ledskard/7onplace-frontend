@@ -11,6 +11,8 @@ import { PerfilImage } from "@/components/interface/perfil-image";
 import { FlexDiv } from "@/components/interface/flex-div";
 import { ModelDetails } from "../model-details";
 import { CarouselContentProps } from "@/types/model/carousel-content-props";
+import { GridCol } from "@/components/interface/grid-col";
+
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
@@ -18,7 +20,7 @@ import "swiper/css/scrollbar";
 import "swiper/css/effect-fade";
 import "swiper/css/autoplay";
 
-export const CarouselContent = ({ model }: CarouselContentProps) => {
+export const CarouselRoot = ({ model }: CarouselContentProps) => {
   const swiperRef = useRef<any>();
 
   const nextSlide = () => {
@@ -29,7 +31,7 @@ export const CarouselContent = ({ model }: CarouselContentProps) => {
   };
 
   return (
-    <section className="mx-auto max-w-7xl border-black border rounded-md shadow-md shadow-gray-400 mb-6 max-h-">
+    <section className="mx-auto border-black border rounded-md shadow-md shadow-gray-400 mb-6 max-h-">
       <Swiper
         onSwiper={(e) => (swiperRef.current = e)}
         modules={[Navigation, Pagination, Autoplay, EffectFade]}
@@ -42,19 +44,21 @@ export const CarouselContent = ({ model }: CarouselContentProps) => {
         }}
         className="rounded-md relative btn-swiper cursor-grab"
       >
-        {model && model.images.length > 0 && model.images.map((image) => (
-          <SwiperSlide key={image.id}>
-            <Image
-              src={image.url}
-              alt={image.name}
-              height={600}
-              width={1280}
-              quality={100}
-              className="max-h-[600px] object-cover object-center"
-            />
-          </SwiperSlide>
-        ))}
-        
+        {model &&
+          model.images.length > 0 &&
+          model.images.map((image) => (
+            <SwiperSlide key={image.id}>
+              <Image
+                src={image.url}
+                alt={image.name}
+                height={600}
+                width={1280}
+                quality={100}
+                className="max-h-[350px] object-cover object-center"
+              />
+            </SwiperSlide>
+          ))}
+
         <Carousel.CenterButtonDiv>
           <Carousel.BorderButton>
             <Carousel.SlideButton onClick={prevSlide}>
@@ -70,25 +74,20 @@ export const CarouselContent = ({ model }: CarouselContentProps) => {
         </Carousel.CenterButtonDiv>
       </Swiper>
 
-      <FlexDiv className="justify-between my-4 px-4">
-        <FlexDiv col>
+      <FlexDiv className="px-4 pt-3 pb-8">
+        <FlexDiv col className="flex-1 max-w-[70%] sm:max-w-none">
           <FlexDiv>
-            <PerfilImage
-              src={model.images[0].url}
-              alt={model.username}
-            />
+            <PerfilImage src={model.images[0].url} alt={model.username} />
             <Card.Name>{model.username}</Card.Name>
           </FlexDiv>
           <FlexDiv>
-            <MdLocationOn className="text-black md:text-3xl text-2xl" />
-            <ModelDetails.Location>
-              {model.location}
-            </ModelDetails.Location>
+            <span>
+              <MdLocationOn className="text-black md:text-3xl text-2xl" />
+            </span>
+            <ModelDetails.Location>{model.location}</ModelDetails.Location>
           </FlexDiv>
         </FlexDiv>
-        <FlexDiv>
-          <Card.Fav favorites={model.likes} />
-        </FlexDiv>
+        <Card.Fav className="self-start leading-10" favorites={model.likes} />
       </FlexDiv>
     </section>
   );

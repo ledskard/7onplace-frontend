@@ -1,16 +1,18 @@
 import { Button } from "@/components/ui/button";
-import { CarouselContent } from "./components/carousel/carousel-content";
+import { CarouselRoot } from "./components/carousel/carousel-root";
 import { AboutModel } from "./components/about-model";
 import { FlexDiv } from "@/components/interface/flex-div";
+import { randomInt } from "crypto";
 
 export default function Model({ params }: { params: { slug: string } }) {
   // console.log(params.slug)
   const dataModel = {
     id: 1,
-    username: "katia",
-    location: "brasil",
-    description: "puta virtual",
-    likes: 2,
+    username: "katia fernanda pereira silva mendes",
+    location: "brasil duhsd dssaasas saassa sdajghvsadjhgasdh",
+    description:
+      "puta virtual dhsdahuasd dasasdgasdi dsgkhjsdahasddhashjadha as adgajhsgahjd ashjdhs dhad gahjsghjag dihasdhashjd ahd  haguhgahd ahsd hashd jahd hjasgdahjdashjd asd jas dad jhgas jhad fjhas dhjahuaj a ja fdjgha hjdf ajdfajsa fdhj asdjhfadjhfd ahjd fjha djha djha dhja hjdj fhafadjfdhjsajhajhasfjhdashdasjh  jahhjdgasfdhdfagshj dhsdahuasd dasasdgasdi dsgkhjsdahasddhashjadha as adgajhsgahjd ashjdhs dhad gahjsghjag dihasdhashjd ahd  haguhgahd ahsd hashd jahd hjasgdahjdashjd asd jas dad jhgas jhad fjhas dhjahuaj a ja fdjgha hjdf ajdfajsa fdhj asdjhfadjhfd ahjd fjha djha djha dhja hjdj fhafadjfdhjsajhajhasfjhdashdasjh  jahhjdgasfdhdfagshj",
+    likes: randomInt(100000000),
     telegramVip: "https://localhost/saop",
     telegramFree: "https://localhost/saop",
     images: [
@@ -20,7 +22,22 @@ export default function Model({ params }: { params: { slug: string } }) {
         name: "imagem",
       },
       {
-        id: 1,
+        id: 2,
+        url: "https://xbio.s3.us-east-1.amazonaws.com/1694470269400_sensualwonaperifl.jfif",
+        name: "imagem",
+      },
+      {
+        id: 3,
+        url: "https://xbio.s3.us-east-1.amazonaws.com/1694470269400_sensualwonaperifl.jfif",
+        name: "imagem",
+      },
+      {
+        id: 4,
+        url: "https://xbio.s3.us-east-1.amazonaws.com/1694470269400_sensualwonaperifl.jfif",
+        name: "imagem",
+      },
+      {
+        id: 5,
         url: "https://xbio.s3.us-east-1.amazonaws.com/1694470269400_sensualwonaperifl.jfif",
         name: "imagem",
       },
@@ -28,8 +45,8 @@ export default function Model({ params }: { params: { slug: string } }) {
   };
 
   return (
-    <main className="w-10/12 max-w-7xl mx-auto py-10">
-      <CarouselContent model={dataModel} />
+    <main className="w-10/12 max-w-5xl mx-auto py-10">
+      <CarouselRoot model={dataModel} />
       <FlexDiv col>
         <AboutModel.Heading>sobre:</AboutModel.Heading>
         <AboutModel.Description>{dataModel.description}</AboutModel.Description>
