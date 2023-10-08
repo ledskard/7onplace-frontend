@@ -2,47 +2,13 @@ import { Button } from "@/components/ui/button";
 import { CarouselRoot } from "./components/carousel/carousel-root";
 import { AboutModel } from "./components/about-model";
 import { FlexDiv } from "@/components/interface/flex-div";
-import { randomInt } from "crypto";
+import { incrementLike } from "@/utils/increment-like-to-model";
+import { getDataById } from "@/utils/get-model-by-id";
 
-export default function Model({ params }: { params: { slug: string } }) {
-  // console.log(params.slug)
-  const dataModel = {
-    id: 1,
-    username: "katia fernanda pereira silva mendes",
-    location: "brasil duhsd dssaasas saassa sdajghvsadjhgasdh",
-    description:
-      "puta virtual dhsdahuasd dasasdgasdi dsgkhjsdahasddhashjadha as adgajhsgahjd ashjdhs dhad gahjsghjag dihasdhashjd ahd  haguhgahd ahsd hashd jahd hjasgdahjdashjd asd jas dad jhgas jhad fjhas dhjahuaj a ja fdjgha hjdf ajdfajsa fdhj asdjhfadjhfd ahjd fjha djha djha dhja hjdj fhafadjfdhjsajhajhasfjhdashdasjh  jahhjdgasfdhdfagshj dhsdahuasd dasasdgasdi dsgkhjsdahasddhashjadha as adgajhsgahjd ashjdhs dhad gahjsghjag dihasdhashjd ahd  haguhgahd ahsd hashd jahd hjasgdahjdashjd asd jas dad jhgas jhad fjhas dhjahuaj a ja fdjgha hjdf ajdfajsa fdhj asdjhfadjhfd ahjd fjha djha djha dhja hjdj fhafadjfdhjsajhajhasfjhdashdasjh  jahhjdgasfdhdfagshj",
-    likes: randomInt(100000000),
-    telegramVip: "https://localhost/saop",
-    telegramFree: "https://localhost/saop",
-    images: [
-      {
-        id: 1,
-        url: "https://xbio.s3.us-east-1.amazonaws.com/1694470269400_sensualwonaperifl.jfif",
-        name: "imagem",
-      },
-      {
-        id: 2,
-        url: "https://xbio.s3.us-east-1.amazonaws.com/1694470269400_sensualwonaperifl.jfif",
-        name: "imagem",
-      },
-      {
-        id: 3,
-        url: "https://xbio.s3.us-east-1.amazonaws.com/1694470269400_sensualwonaperifl.jfif",
-        name: "imagem",
-      },
-      {
-        id: 4,
-        url: "https://xbio.s3.us-east-1.amazonaws.com/1694470269400_sensualwonaperifl.jfif",
-        name: "imagem",
-      },
-      {
-        id: 5,
-        url: "https://xbio.s3.us-east-1.amazonaws.com/1694470269400_sensualwonaperifl.jfif",
-        name: "imagem",
-      },
-    ],
-  };
+export default async function Model({ params }: { params: { slug: string } }) {
+  const dataModel = await getDataById(params.slug);
+
+  await incrementLike(params.slug);
 
   return (
     <main className="w-10/12 max-w-5xl mx-auto py-10">
@@ -50,16 +16,12 @@ export default function Model({ params }: { params: { slug: string } }) {
       <FlexDiv col>
         <AboutModel.Heading>sobre:</AboutModel.Heading>
         <AboutModel.Description>{dataModel.description}</AboutModel.Description>
-        <Button>
-          <a href={dataModel.telegramVip} target="_blank">
-            telegram vip
-          </a>
-        </Button>
-        <Button>
-          <a href={dataModel.telegramFree} target="_blank">
-            canal free
-          </a>
-        </Button>
+        <a href={dataModel.telegramVip} target="_blank">
+          <Button>telegram vip</Button>
+        </a>
+        <a href={dataModel.telegramFree} target="_blank">
+          <Button>canal free</Button>
+        </a>
       </FlexDiv>
     </main>
   );
