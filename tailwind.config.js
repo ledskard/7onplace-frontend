@@ -2,11 +2,11 @@
 module.exports = {
   darkMode: ["class"],
   content: [
-    './pages/**/*.{ts,tsx}',
-    './components/**/*.{ts,tsx}',
-    './app/**/*.{ts,tsx}',
-    './src/**/*.{ts,tsx}',
-	],
+    "./pages/**/*.{ts,tsx}",
+    "./components/**/*.{ts,tsx}",
+    "./app/**/*.{ts,tsx}",
+    "./src/**/*.{ts,tsx}",
+  ],
   theme: {
     container: {
       center: true,
@@ -17,11 +17,11 @@ module.exports = {
     },
     extend: {
       gridTemplateColumns: {
-        'auto-fit-100': 'repeat(auto-fit, minmax(100px, 1fr))',
-        'auto-fit-300': 'repeat(auto-fit, minmax(300px, 1fr))',
+        "auto-fit-100": "repeat(auto-fit, minmax(100px, 1fr))",
+        "auto-fit-300": "repeat(auto-fit, minmax(300px, 1fr))",
       },
       colors: {
-        'red-main': "#9A1F33",
+        "red-main": "#9A1F33",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
@@ -75,13 +75,7 @@ module.exports = {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
       },
-      backgroundColor: {
-        'red-main': "#9A1F33"
-      },
-      borderColor: {
-        'red-main': "#9A1F33"
-      }
     },
   },
   plugins: [require("tailwindcss-animate")],
-}
+};
