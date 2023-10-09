@@ -7,7 +7,7 @@ export const CardModelRoot = ({ className, ...props }: CardModelsRootProps) => {
   return (
     <div
       className={twMerge(
-        "rounded-lg w-full border h-72 border-black",
+        "rounded-lg w-full md:h-96 relative border border-black",
         className
       )}
       {...props}

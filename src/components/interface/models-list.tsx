@@ -19,7 +19,7 @@ export async function ModelsList({
   return (
     <section
       className={twMerge(
-        "grid md:grid-cols-3 gap-4 grid-cols-2 w-full mx-auto items-center justify-center",
+        "grid lg:grid-cols-3 gap-4 grid-cols-2 w-full mx-auto items-center justify-center",
         className
       )}
       {...props}

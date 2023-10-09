@@ -11,7 +11,7 @@ export const CardModelImage = ({
   return (
     <Image
       className={twMerge(
-        `w-full h-[70%] rounded-t-lg object-cover object-center`,
+        `w-full rounded-t-lg md:h-64 h-28 object-cover object-center`,
         className
       )}
       width={800}
