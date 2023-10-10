@@ -8,10 +8,11 @@ type FormErrorProps = ComponentProps<"p"> & {
 export const FormError = ({ className, error, ...props }: FormErrorProps) => {
   return (
     <p
-      className={twMerge("text-red-main font-semibold text-sm", className)}
+      className={twMerge(
+        "text-center block mt-2 text-xs opacity-70 font-bold text-red-500",
+        className
+      )}
       {...props}
-    >
-      {error}
-    </p>
+    />
   );
 };
