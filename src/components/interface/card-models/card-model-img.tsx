@@ -1,13 +1,22 @@
+import Image from "next/image";
+import { ComponentProps, useState } from "react";
+import { twMerge } from "tailwind-merge";
 
-import Image from "next/image"
-import { ComponentProps, useState } from "react"
-import { twMerge } from "tailwind-merge"
+type CardModelImageProps = ComponentProps<typeof Image>;
 
-type CardModelImageProps = ComponentProps<typeof Image>
-
-export const CardModelImage = ({className, ...props}: CardModelImageProps) => {
-
+export const CardModelImage = ({
+  className,
+  ...props
+}: CardModelImageProps) => {
   return (
-    <Image className={twMerge(`w-full h-full rounded-t-lg`, className)} width={800} height={800} {...props}/>
-  )
-}
+    <Image
+      className={twMerge(
+        `w-full rounded-t-lg md:h-64 h-28 object-cover object-center`,
+        className
+      )}
+      width={800}
+      height={800}
+      {...props}
+    />
+  );
+};

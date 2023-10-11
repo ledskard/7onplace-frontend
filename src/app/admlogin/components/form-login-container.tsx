@@ -2,8 +2,11 @@
 import { Button } from "@/components/ui/button";
 import { Form } from "../../../components/interface/form-default/index";
 import { FormLoginProps, UseLogin } from "@/hooks/use-login";
+import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 export const FormLoginContainer = () => {
+  const route = useRouter();
   const {
     errors,
     isSubmitting,
@@ -13,8 +16,19 @@ export const FormLoginContainer = () => {
     handleSubmit,
   } = UseLogin();
 
-  const handleSubmitLogin = (data: FormLoginProps) => {
-    console.log(data);
+  const handleSubmitLogin = async (data: FormLoginProps) => {
+    try {
+      const res = await signIn("credentials", {
+        ...data,
+        redirect: false,
+      });
+
+      if (!res?.error) {
+        route.push("/admregister");
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -28,7 +42,6 @@ export const FormLoginContainer = () => {
         success={errors.username ? false : true}
         error={errors.username ? true : false}
         helperText={errors.username?.message}
-        disabled={isSubmitSuccessful}
       />
       <Form.Input
         type="password"
@@ -38,17 +51,12 @@ export const FormLoginContainer = () => {
         success={errors.password ? false : true}
         error={errors.password ? true : false}
         helperText={errors.password?.message}
-        disabled={isSubmitSuccessful}
       />
       <Button
         type="submit"
         className="rounded-md max-w-[30%] md:max-w-[40%] mt-4"
       >
-        {isSubmitting
-          ? "Enviando..."
-          : isSubmitSuccessful
-          ? "Enviado"
-          : "Enviar"}
+        {isSubmitting ? "Enviando..." : "Enviar"}
       </Button>
     </Form.Root>
   );

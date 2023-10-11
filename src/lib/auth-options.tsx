@@ -1,3 +1,4 @@
+import { ModelLoginProps } from "@/types/login/login-model-props";
 import { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
@@ -6,14 +7,63 @@ export const authOptions: NextAuthOptions = {
     CredentialsProvider({
       name: "credentials",
       credentials: {
-        email: { label: "E-mail", type: "email" },
+        username: { label: "username", type: "text" },
         password: { label: "password", type: "password" },
       },
-      async authorize(credentials, req) {
-        // Chamar a api de login aqui e fazer as verificações
-        console.log(credentials);
-        return null;
+      async authorize(credentials) {
+        const username = credentials?.username;
+        const password = credentials?.password;
+
+        const response = await fetch(
+          "http://ec2-54-161-22-227.compute-1.amazonaws.com:8080/users/login",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ username, password }),
+          }
+        );
+        console.log(response);
+
+        if (response.status !== 200) {
+          throw new Error("User not found");
+        }
+
+        const user = await response.json();
+
+        if (!user) {
+          throw new Error("User not found");
+        }
+
+        return user;
       },
     }),
   ],
+  callbacks: {
+    async session({ session, token }) {
+      if (token) {
+        session = {
+          ...session,
+          user: {
+            ...session.user,
+            user: token.user,
+            token: token.token,
+          },
+        };
+      }
+      return session;
+    },
+    async jwt({ token, user }) {
+      if (user) {
+        token.token = user.token;
+        token.user = user.user;
+      }
+      return token;
+    },
+  },
+  jwt: {
+    maxAge: 60 * 60 * 24,
+  },
+  secret: process.env.NEXTAUTH_SECRET,
 };

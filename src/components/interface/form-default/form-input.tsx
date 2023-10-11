@@ -1,6 +1,7 @@
 import React from "react";
-import { UseFormRegister } from "react-hook-form";
+import { Form, UseFormRegister } from "react-hook-form";
 import { twMerge } from "tailwind-merge";
+import { FormError } from "./form-error";
 
 type InputProps = React.InputHTMLAttributes<HTMLInputElement> & {
   register: UseFormRegister<any>;
@@ -8,6 +9,7 @@ type InputProps = React.InputHTMLAttributes<HTMLInputElement> & {
   error?: boolean;
   success?: boolean;
   helperText?: string;
+  wf?: boolean;
 };
 
 export const FormInput = ({
@@ -16,11 +18,17 @@ export const FormInput = ({
   helperText,
   error,
   success,
+  wf,
   id,
   ...props
 }: InputProps) => {
   return (
-    <div className="sm:w-6/12 w-10/12 flex flex-col gap-4 space-y-1 text-center">
+    <div
+      className={twMerge(
+        "sm:w-6/12 w-10/12 flex flex-col gap-4 space-y-1 text-center",
+        wf && "sm:w-full"
+      )}
+    >
       <input
         className={twMerge(
           "outline-none border-b-2 px-2 py-1 md:p-3 drop-shadow-md disabled:bg-inherit border-slate-200 rounded md:rounded-lg placeholder:text-slate-400",
@@ -33,11 +41,7 @@ export const FormInput = ({
         {...register(id)}
         {...props}
       />
-      {helperText && (
-        <p className="text-center block mt-2 text-xs opacity-70 font-semibold text-red-500">
-          {helperText}
-        </p>
-      )}
+      {helperText && <FormError>{helperText}</FormError>}
     </div>
   );
 };
