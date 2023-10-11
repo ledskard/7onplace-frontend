@@ -9,7 +9,7 @@ const acceptedImageTypes = [
 ];
 
 export const registerSchema = z.object({
-  name: z.string().min(2, "Campo nome deve conter pelo menos 2 dígitos"),
+  username: z.string().min(2, "Campo nome deve conter pelo menos 2 dígitos"),
   perfilImg: z
     .any()
     .refine((files: Array<File>) => {
