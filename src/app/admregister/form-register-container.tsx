@@ -95,7 +95,6 @@ export const FormRegisterContainer = () => {
         });
       }, `Tamanho máximo do arquivo é de 5MB.`)
       .refine((files: Array<File>) => {
-        console.log(files);
         if (files.length === 0) {
           return false;
         }
@@ -103,10 +102,16 @@ export const FormRegisterContainer = () => {
       }, "Somente os formatos .jpg, .jpeg, .png e .webp são suportados"),
     telegramVip: z
       .string()
-      .regex(/https:\/\/t\.me\/\+\w+/, "Só aceitamos links do telegram"),
+      .regex(
+        /https:\/\/t\.me\/[A-Za-z0-9_]+/,
+        "Só aceitamos links do telegram"
+      ),
     telegramFree: z
       .string()
-      .regex(/https:\/\/t\.me\/\+\w+/, "Só aceitamos links do telegram"),
+      .regex(
+        /https:\/\/t\.me\/[A-Za-z0-9_]+/,
+        "Só aceitamos links do telegram"
+      ),
     description: z
       .string()
       .min(10, "Descrição deve conter pelo menos 10 caracteres"),
@@ -123,14 +128,26 @@ export const FormRegisterContainer = () => {
     resolver: zodResolver(registerSchema),
   });
 
-  const handleCreateModel = (data: any) => {
+  const handleCreateModel = async (data: any) => {
     const modelData = {
       ...data,
       location: locationData,
       gender: genderData,
       likes: 1,
     };
-    console.log(modelData);
+    const res = await fetch(
+      "http://ec2-54-161-22-227.compute-1.amazonaws.com:8080/models",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(modelData),
+      }
+    );
+
+    const result = await res.json();
+    console.log(result);
   };
 
   const handleFileChange = (
@@ -198,9 +215,9 @@ export const FormRegisterContainer = () => {
         wf
         id="username"
         placeholder="Nome"
-        helperText={errors.name?.message?.toString()}
-        success={errors.name ? false : true}
-        error={errors.name ? true : false}
+        helperText={errors.username?.message?.toString()}
+        success={errors.username ? false : true}
+        error={errors.username ? true : false}
         register={register}
         className="w-full"
       />
