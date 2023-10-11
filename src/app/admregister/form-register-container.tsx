@@ -4,7 +4,6 @@ import { Form } from "@/components/interface/form-default";
 import { FormError } from "@/components/interface/form-default/form-error";
 import { GridCol } from "@/components/interface/grid-col";
 import { Button } from "@/components/ui/button";
-import { LocationProps } from "@/types/register-model/location";
 import {
   Select,
   SelectContent,
@@ -20,7 +19,7 @@ import z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-const maxFileSize = 1024 * 1024 * 5; // 5MB
+const maxFileSize = 1024 * 1024 * 10; // 10MB
 const acceptedImageTypes = [
   "image/jpeg",
   "image/jpg",
@@ -68,7 +67,7 @@ export const FormRegisterContainer = () => {
   ];
 
   const registerSchema = z.object({
-    name: z.string().min(2, "Campo nome deve conter pelo menos 2 dígitos"),
+    username: z.string().min(2, "Campo nome deve conter pelo menos 2 dígitos"),
     perfilImg: z
       .any()
       .refine((files: Array<File>) => {
@@ -125,8 +124,12 @@ export const FormRegisterContainer = () => {
   });
 
   const handleCreateModel = (data: any) => {
-    console.log(data);
-    const modelData = { ...data, location: locationData, gender: genderData };
+    const modelData = {
+      ...data,
+      location: locationData,
+      gender: genderData,
+      likes: 1,
+    };
     console.log(modelData);
   };
 
@@ -193,7 +196,7 @@ export const FormRegisterContainer = () => {
       </FlexDiv>
       <Form.Input
         wf
-        id="name"
+        id="username"
         placeholder="Nome"
         helperText={errors.name?.message?.toString()}
         success={errors.name ? false : true}
@@ -267,7 +270,7 @@ export const FormRegisterContainer = () => {
       />
 
       <label
-        htmlFor="displayImages"
+        htmlFor="displayImg"
         className="text-center first-letter:capitalize rounded font-medium py-2 px-1 md:rounded-md bg-red-main text-white w-full m-0"
       >
         Adicionar imagem de pré visualização
