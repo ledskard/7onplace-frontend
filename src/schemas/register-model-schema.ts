@@ -28,6 +28,7 @@ export const registerSchema = z.object({
   displayImg: z
     .any()
     .refine((files: Array<File>) => {
+      console.log(files);
       if (files.length === 0) {
         return false;
       }

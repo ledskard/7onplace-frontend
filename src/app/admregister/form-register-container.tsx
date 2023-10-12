@@ -19,7 +19,7 @@ import z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-const maxFileSize = 1024 * 1024 * 10; // 10MB
+const maxFileSize = 1024 * 1024 * 5; // 10MB
 const acceptedImageTypes = [
   "image/jpeg",
   "image/jpg",
@@ -68,7 +68,7 @@ export const FormRegisterContainer = () => {
 
   const registerSchema = z.object({
     username: z.string().min(2, "Campo nome deve conter pelo menos 2 dígitos"),
-    perfilImg: z
+    profileImg: z
       .any()
       .refine((files: Array<File>) => {
         handleFileChange(files, "single");
@@ -76,24 +76,25 @@ export const FormRegisterContainer = () => {
           return false;
         }
         return files[0]?.size <= maxFileSize;
-      }, `Tamanho máximo do arquivo é de 5MB.`)
+      }, `Tamanho máximo do arquivo é de 10MB.`)
       .refine((file: Array<File>) => {
         if (file.length === 0) {
           return false;
         }
         return acceptedImageTypes.includes(file[0]?.type);
       }, "Somente os formatos .jpg, .jpeg, .png e .webp são suportados"),
-    displayImg: z
+    images: z
       .any()
       .refine((files: Array<File>) => {
         handleFileChange(files, "multiple");
-        if (files.length === 0) {
+        const filesConverted = Object.keys(files).map((key: any) => {
+          return files[key];
+        });
+        if (filesConverted.length === 0) {
           return false;
         }
-        return !files?.find((img) => {
-          return img.size >= maxFileSize;
-        });
-      }, `Tamanho máximo do arquivo é de 5MB.`)
+        return filesConverted.every((file: File) => file.size <= maxFileSize);
+      }, `Tamanho máximo do arquivo é de 10MB.`)
       .refine((files: Array<File>) => {
         if (files.length === 0) {
           return false;
@@ -117,24 +118,28 @@ export const FormRegisterContainer = () => {
       .min(10, "Descrição deve conter pelo menos 10 caracteres"),
   });
 
+  type RegisterModelProps = z.infer<typeof registerSchema>;
+
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitSuccessful, isSubmitting },
     reset,
-  } = useForm<any>({
+  } = useForm<RegisterModelProps>({
     mode: "onChange",
     reValidateMode: "onChange",
     resolver: zodResolver(registerSchema),
   });
 
-  const handleCreateModel = async (data: any) => {
+  const handleCreateModel = async (data: RegisterModelProps) => {
     const modelData = {
       ...data,
       location: locationData,
-      gender: genderData,
+      type: genderData,
       likes: 1,
     };
+    modelData.images = Object.values(data.images);
+    console.log(modelData.images);
     const res = await fetch(
       "http://ec2-54-161-22-227.compute-1.amazonaws.com:8080/models",
       {
@@ -168,6 +173,12 @@ export const FormRegisterContainer = () => {
           const reader = new FileReader();
           reader.onload = (e) =>
             setDisplayImages((prev) => {
+              const isExist = prev.some((img) => {
+                return img === (e.target?.result as string);
+              });
+              if (isExist) {
+                return prev;
+              }
               return [...prev, e.target?.result as string];
             });
           reader.readAsDataURL(file);
@@ -194,7 +205,7 @@ export const FormRegisterContainer = () => {
         )}
         <FlexDiv col className="flex-1">
           <label
-            htmlFor="perfilImg"
+            htmlFor="profileImg"
             className="text-center first-letter:capitalize rounded font-medium py-2 px-1 md:rounded-md bg-red-main text-white w-full"
           >
             Adicionar imagem de perfil
@@ -203,11 +214,11 @@ export const FormRegisterContainer = () => {
             className="hidden"
             type="file"
             accept="image/png, image/jpeg, image/webp, image/jpg"
-            id="perfilImg"
-            {...register("perfilImg")}
+            id="profileImg"
+            {...register("profileImg")}
           />
-          {errors.perfilImg && (
-            <FormError>{errors.perfilImg.message?.toString()}</FormError>
+          {errors.profileImg && (
+            <FormError>{errors.profileImg.message?.toString()}</FormError>
           )}
         </FlexDiv>
       </FlexDiv>
@@ -287,7 +298,7 @@ export const FormRegisterContainer = () => {
       />
 
       <label
-        htmlFor="displayImg"
+        htmlFor="images"
         className="text-center first-letter:capitalize rounded font-medium py-2 px-1 md:rounded-md bg-red-main text-white w-full m-0"
       >
         Adicionar imagem de pré visualização
@@ -309,16 +320,16 @@ export const FormRegisterContainer = () => {
         className="hidden p-0 m-0"
         type="file"
         multiple
-        accept="image/png, image/jpeg, image/webp, image/jpg"
-        success={errors.perfilImg ? false : true}
-        error={errors.perfilImg ? true : false}
-        helperText={errors.perfilImg?.message?.toString()}
-        id="displayImg"
+        // accept="image/png, image/jpeg, image/webp, image/jpg"
+        success={errors.profileImg ? false : true}
+        error={errors.profileImg ? true : false}
+        helperText={errors.profileImg?.message?.toString()}
+        id="images"
         register={register}
       />
 
       <Button
-        className="max-w-[70%] first-letter:capitalize lowercase md:max-w-[40%]"
+        className="max-w-[70%] first-letter:capitalize lowercase mb-10 md:max-w-[40%]"
         type="submit"
         disabled={isSubmitting}
       >
