@@ -8,6 +8,8 @@ import { getDataById } from "@/utils/get-model-by-id";
 export default async function Model({ params }: { params: { slug: string } }) {
   const dataModel = await getDataById(params.slug);
 
+  console.log(dataModel);
+
   await incrementLike(params.slug);
 
   return (

@@ -30,6 +30,9 @@ export const CarouselRoot = ({ model }: CarouselContentProps) => {
     swiperRef.current?.slidePrev();
   };
 
+  console.log(model)
+
+
   return (
     <section className="mx-auto border-black border rounded-md shadow-md shadow-gray-400 mb-6 max-h-">
       <Swiper
