@@ -174,6 +174,7 @@ export const FormRegisterContainer = () => {
     );
 
     const result = await res.json();
+    console.log(result);
     if (result.status === 200) {
       reset();
     }
