@@ -18,10 +18,11 @@ export async function ModelsList({
 }: ModelsListType) {
   const model: ModelsFilterProps[] = await getModelsByFilter(modelType);
 
+
   return (
     <section
       className={twMerge(
-        "grid lg:grid-cols-3 gap-4 grid-cols-2 w-full mx-auto items-center justify-center",
+        "grid lg:grid-cols-3 gap-4 grid-cols-2 w-full mx-auto items-center justify-center z-0",
         className
       )}
       {...props}
@@ -31,10 +32,12 @@ export async function ModelsList({
           .filter((mod) =>
             query ? mod.username.toLowerCase().includes(query) : mod
           )
-          .map((model) => (
-            <Link href={`model/${model.id}`} key={model.id}>
+          .map((model) => {
+
+            return  (
               <Card.Root key={model.id}>
-                <Card.Img src={model.profileImage.url} alt={model.username} />
+                <Link href={`model/${model.id}`} className='z-20 absolute inset-0' key={model.id} />
+                <Card.Img src={model.profileImage?.url ?? '/default-profile.jpg'} alt={model.username} />
                 <Card.ContentDiv>
                   <Card.Img
                     className="w-[30px] h-[30px] object-cover aspect-square object-center md:w-[45px] top-[-19%] md:h-[45px] rounded-full shadow-md shadow-gray-500 absolute"
@@ -45,8 +48,8 @@ export async function ModelsList({
                   <Card.Fav favorites={model.likes} />
                 </Card.ContentDiv>
               </Card.Root>
-            </Link>
-          ))}
+          )
+          })}
     </section>
   );
 }
