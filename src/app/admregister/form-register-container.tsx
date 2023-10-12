@@ -19,7 +19,7 @@ import z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-const maxFileSize = 1024 * 1024 * 5; // 10MB
+const maxFileSize = 1024 * 1024 * 10; // 10MB
 const acceptedImageTypes = [
   "image/jpeg",
   "image/jpg",
@@ -70,6 +70,10 @@ export const FormRegisterContainer = () => {
     username: z.string().min(2, "Campo nome deve conter pelo menos 2 dígitos"),
     profileImg: z
       .any()
+      // .refine(
+      //   (file: Array<File>) => file[0].name ?? "",
+      //   "A modelo deve ter uma foto de perfil própria"
+      // )
       .refine((files: Array<File>) => {
         handleFileChange(files, "single");
         if (files.length === 0) {
@@ -103,16 +107,10 @@ export const FormRegisterContainer = () => {
       }, "Somente os formatos .jpg, .jpeg, .png e .webp são suportados"),
     telegramVip: z
       .string()
-      .regex(
-        /https:\/\/t\.me\/[A-Za-z0-9_]+/,
-        "Só aceitamos links do telegram"
-      ),
+      .regex(/https:\/\/t\.me\/\+?\w+/, "Só aceitamos links do telegram"),
     telegramFree: z
       .string()
-      .regex(
-        /https:\/\/t\.me\/[A-Za-z0-9_]+/,
-        "Só aceitamos links do telegram"
-      ),
+      .regex(/https:\/\/t\.me\/\+?\w+/, "Só aceitamos links do telegram"),
     description: z
       .string()
       .min(10, "Descrição deve conter pelo menos 10 caracteres"),
@@ -123,7 +121,7 @@ export const FormRegisterContainer = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitSuccessful, isSubmitting },
+    formState: { errors, isSubmitting },
     reset,
   } = useForm<RegisterModelProps>({
     mode: "onChange",
@@ -140,6 +138,8 @@ export const FormRegisterContainer = () => {
     };
     modelData.images = Object.values(data.images);
     console.log(modelData.images);
+    console.log(perfilImage);
+    console.log(displayImages);
     const res = await fetch(
       "http://ec2-54-161-22-227.compute-1.amazonaws.com:8080/models",
       {
@@ -152,6 +152,9 @@ export const FormRegisterContainer = () => {
     );
 
     const result = await res.json();
+    if (result.status === 200) {
+      reset();
+    }
     console.log(result);
   };
 
@@ -163,7 +166,7 @@ export const FormRegisterContainer = () => {
       const file = files && files[0];
       if (file) {
         const reader = new FileReader();
-        reader.onload = (e) => setPerfilImage(e.target?.result as string);
+        reader.onload = () => setPerfilImage(reader?.result as string);
         reader.readAsDataURL(file);
       }
     } else {
@@ -171,10 +174,11 @@ export const FormRegisterContainer = () => {
         for (let i = 0; i < files.length; i++) {
           const file = files[i];
           const reader = new FileReader();
+          setDisplayImages([]);
           reader.onload = (e) =>
             setDisplayImages((prev) => {
               const isExist = prev.some((img) => {
-                return img === (e.target?.result as string);
+                return img === (reader?.result as string);
               });
               if (isExist) {
                 return prev;
@@ -213,6 +217,7 @@ export const FormRegisterContainer = () => {
           <input
             className="hidden"
             type="file"
+            defaultValue={"/default-profile.jpg"}
             accept="image/png, image/jpeg, image/webp, image/jpg"
             id="profileImg"
             {...register("profileImg")}
@@ -320,10 +325,10 @@ export const FormRegisterContainer = () => {
         className="hidden p-0 m-0"
         type="file"
         multiple
-        // accept="image/png, image/jpeg, image/webp, image/jpg"
-        success={errors.profileImg ? false : true}
-        error={errors.profileImg ? true : false}
-        helperText={errors.profileImg?.message?.toString()}
+        accept="image/png, image/jpeg, image/webp, image/jpg"
+        success={errors.images ? false : true}
+        error={errors.images ? true : false}
+        helperText={errors.images?.message?.toString()}
         id="images"
         register={register}
       />
@@ -333,11 +338,7 @@ export const FormRegisterContainer = () => {
         type="submit"
         disabled={isSubmitting}
       >
-        {isSubmitSuccessful
-          ? "Perfil criado"
-          : isSubmitting
-          ? "Perfil sendo criado..."
-          : "Criar perfil"}
+        {isSubmitting ? "Perfil sendo criado..." : "Criar perfil"}
       </Button>
     </Form.Root>
   );
