@@ -18,8 +18,11 @@ import { useState } from "react";
 import z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { location } from '../config/location';
+import { XCircleIcon } from 'lucide-react';
 
 const maxFileSize = 1024 * 1024 * 10; // 10MB
+
 const acceptedImageTypes = [
   "image/jpeg",
   "image/jpg",
@@ -32,85 +35,154 @@ export const FormRegisterContainer = () => {
   const [perfilImage, setPerfilImage] = useState<string>(
     "/default-profile.jpg"
   );
-  const [displayImages, setDisplayImages] = useState<string[]>([]);
+
+  const [displayImages, setDisplayImages] = useState<Array<{
+    name: string;
+    base64: string;
+  }>>([]);
+
   const [genderData, setGenderData] = useState<string | null>(null);
 
   const gender = ["mulheres", "casais", "trans"];
-  const location = [
-    "Acre - AC",
-    "Alagoas - AL",
-    "Amapá - AP",
-    "Amazonas - AM",
-    "Bahia - BA",
-    "Ceará - CE",
-    "Espírito Santo - ES",
-    "Goiás - GO",
-    "Maranhão - MA",
-    "Mato Grosso - MT",
-    "Mato Grosso do Sul - MS",
-    "Minas Gerais - MG",
-    "Pará - PA",
-    "Paraíba - PB",
-    "Paraná - PR",
-    "Pernambuco - PE",
-    "Piauí - PI",
-    "Rio de Janeiro - RJ",
-    "Rio Grande do Norte - RN",
-    "Rio Grande do Sul - RS",
-    "Rondônia - RO",
-    "Roraima - RR",
-    "Santa Catarina - SC",
-    "São Paulo - SP",
-    "Sergipe - SE",
-    "Tocantins - TO",
-    "Distrito Federal - DF",
-  ];
+ 
 
   const registerSchema = z.object({
     username: z.string().min(2, "Campo nome deve conter pelo menos 2 dígitos"),
+
     profileImg: z
       .any()
-      // .refine(
-      //   (file: Array<File>) => file[0].name ?? "",
-      //   "A modelo deve ter uma foto de perfil própria"
-      // )
       .refine((files: Array<File>) => {
-        handleFileChange(files, "single");
-        if (files.length === 0) {
-          return false;
+
+        const fileIsExists = files.length > 0
+
+        if(!fileIsExists) {
+          setPerfilImage('/default-profile.jpg')
+
+          return false
+        } 
+
+        return fileIsExists
+      },
+        "A modelo deve ter uma foto de perfil própria"
+      )
+      .refine((files: Array<File>) => {
+
+        const fileIsExists = files.length > 0
+
+        if(!fileIsExists) return false
+
+        const file = files[0]
+
+        return file.size <= maxFileSize // Max file size is 10MB
+
+      }, "Tamanho máximo do arquivo é de 10MB")
+      .refine((files: Array<File>) => {
+
+        const file = files[0]
+        
+        const isCorrectlyType = acceptedImageTypes.includes(file?.type)
+
+        if(!isCorrectlyType) return false
+
+        if (file) {
+
+          const reader = new FileReader();
+
+          reader.onload = () => setPerfilImage(reader?.result as string);
+          
+          reader.readAsDataURL(file);
         }
-        return files[0]?.size <= maxFileSize;
-      }, `Tamanho máximo do arquivo é de 10MB.`)
-      .refine((file: Array<File>) => {
-        if (file.length === 0) {
-          return false;
-        }
-        return acceptedImageTypes.includes(file[0]?.type);
+
+        return true
+
       }, "Somente os formatos .jpg, .jpeg, .png e .webp são suportados"),
+
     images: z
       .any()
       .refine((files: Array<File>) => {
-        handleFileChange(files, "multiple");
-        const filesConverted = Object.keys(files).map((key: any) => {
+        const fileIsExists = files.length > 0
+
+        if(!fileIsExists) {
+          setDisplayImages([])
+
+          return false
+        } 
+
+        return fileIsExists
+      }, "A modelo deve ter pelo menos uma foto de pré visualização")
+      .refine((files: Record<string, File>) => {
+
+
+        const filesArray = Object.keys(files).map((key: any) => {
           return files[key];
         });
-        if (filesConverted.length === 0) {
-          return false;
+
+
+        const filesIsExists = filesArray.length > 0
+
+        if(!filesIsExists) return false
+
+        const isAllFilesLessThanMaxSize = filesArray.every((file: File) => file.size <= maxFileSize)
+
+
+        if(!isAllFilesLessThanMaxSize) return false
+
+        return true
+      }, "Tamanho máximo do arquivo é de 10MB")
+      .refine((files: Record<string, File>) => {
+        const filesArray = Object.keys(files).map((key: any) => {
+          return files[key];
+        });
+
+        const filesIsExists = filesArray.length > 0
+
+        if(!filesIsExists) return false
+
+        const isAllFilesCorrectlyType = filesArray.every((file: File) => acceptedImageTypes.includes(file?.type))
+
+        if(!isAllFilesCorrectlyType) return false
+
+
+        for (let i = 0; i < filesArray.length; i++) {
+          const file = filesArray[i];
+          const reader = new FileReader();
+
+          reader.readAsDataURL(file);
+
+          reader.onload = (e) => {
+            const isExist = displayImages.some((img) => {
+              return img.base64 === (reader?.result as string);
+            })
+
+            if (isExist) {
+              return setDisplayImages((prev) => [...prev]);
+            }
+
+            const imageConvertBase64 = e.target?.result as string
+
+            const nameUnique = `${file.name}-${Date.now()}`
+            
+            setDisplayImages((prev) => [...prev, {
+              name: nameUnique,
+              base64: imageConvertBase64
+            }]);
+
+          }
         }
-        return filesConverted.every((file: File) => file.size <= maxFileSize);
-      }, `Tamanho máximo do arquivo é de 10MB.`)
-      .refine((files: Array<File>) => {
-        if (files.length === 0) {
-          return false;
-        }
-        return acceptedImageTypes.includes(files[0]?.type);
+
+
+
+        return true
       }, "Somente os formatos .jpg, .jpeg, .png e .webp são suportados"),
+
     telegramVip: z
       .string()
       .regex(/https:\/\/t\.me\/\+?\w+/, "Só aceitamos links do telegram"),
+
     telegramFree: z
       .string()
       .regex(/https:\/\/t\.me\/\+?\w+/, "Só aceitamos links do telegram"),
+
     description: z
       .string()
       .min(10, "Descrição deve conter pelo menos 10 caracteres"),
@@ -129,17 +201,25 @@ export const FormRegisterContainer = () => {
     resolver: zodResolver(registerSchema),
   });
 
+  const handleDeleteImage = (name: string) => {
+    setDisplayImages((prev) => prev.filter((img) => img.name !== name));
+  }
+
   const handleCreateModel = async (data: RegisterModelProps) => {
+    const dataZod = registerSchema.parse(data);
+
+
+
     const modelData = {
-      ...data,
+      ...dataZod,
+      profileImg: perfilImage,
+      images: displayImages,
       location: locationData,
       type: genderData,
       likes: 1,
     };
-    modelData.images = Object.values(data.images);
-    console.log(modelData.images);
-    console.log(perfilImage);
-    console.log(displayImages);
+
+
     const res = await fetch(
       "http://ec2-54-161-22-227.compute-1.amazonaws.com:8080/models",
       {
@@ -152,45 +232,15 @@ export const FormRegisterContainer = () => {
     );
 
     const result = await res.json();
+
+    console.log(result);
+
     if (result.status === 200) {
       reset();
     }
-    console.log(result);
   };
 
-  const handleFileChange = (
-    files: Array<File>,
-    type: "single" | "multiple"
-  ) => {
-    if (type === "single") {
-      const file = files && files[0];
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = () => setPerfilImage(reader?.result as string);
-        reader.readAsDataURL(file);
-      }
-    } else {
-      if (files) {
-        for (let i = 0; i < files.length; i++) {
-          const file = files[i];
-          const reader = new FileReader();
-          setDisplayImages([]);
-          reader.onload = (e) =>
-            setDisplayImages((prev) => {
-              const isExist = prev.some((img) => {
-                return img === (reader?.result as string);
-              });
-              if (isExist) {
-                return prev;
-              }
-              return [...prev, e.target?.result as string];
-            });
-          reader.readAsDataURL(file);
-        }
-      }
-    }
-    return files;
-  };
+
 
   return (
     <Form.Root
@@ -232,10 +282,9 @@ export const FormRegisterContainer = () => {
         id="username"
         placeholder="Nome"
         helperText={errors.username?.message?.toString()}
-        success={errors.username ? false : true}
-        error={errors.username ? true : false}
+        success={!errors.username}
+        error={!!errors.username}
         register={register}
-        className="w-full"
       />
 
       <Select onValueChange={setGenderData}>
@@ -273,10 +322,9 @@ export const FormRegisterContainer = () => {
         id="telegramVip"
         placeholder="Link telegram VIP"
         helperText={errors.telegramVip?.message?.toString()}
-        success={errors.telegramVip ? false : true}
-        error={errors.telegramVip ? true : false}
+        success={!errors.telegramVip}
+        error={!!errors.telegramVip}
         register={register}
-        className="w-full"
       />
 
       <Form.Input
@@ -284,16 +332,15 @@ export const FormRegisterContainer = () => {
         id="telegramFree"
         placeholder="Link telegram FREE"
         helperText={errors.telegramFree?.message?.toString()}
-        success={errors.telegramFree ? false : true}
-        error={errors.telegramFree ? true : false}
+        success={!errors.telegramFree}
+        error={!!errors.telegramFree}
         register={register}
-        className="w-full"
       />
 
       <Form.Area
         register={register}
         id="description"
-        error={errors.description ? true : false}
+        error={!!errors.description}
         helperText={
           errors.description && errors.description.message?.toString()
         }
@@ -311,14 +358,20 @@ export const FormRegisterContainer = () => {
       <GridCol col="1" className="md:grid-cols-2 mt-0 mb-0">
         {displayImages?.length > 0 &&
           displayImages?.map((img) => (
-            <Image
-              className="p-2 rounded md:rounded-md w-full object-cover object-center"
-              key={img}
-              src={img}
-              width={400}
-              height={400}
-              alt={img}
-            />
+            <div key={img.name} className='relative p-2 h-full '>
+              <button className='absolute top-1 right-1' onClick={
+                () => handleDeleteImage(img.name) 
+              }>
+                <XCircleIcon />
+              </button>
+              <Image
+                className="p-2 rounded md:rounded-md w-full object-cover object-center"
+                src={img.base64}
+                width={400}
+                height={400}
+                alt={img.name}
+             />
+            </div>
           ))}
       </GridCol>
       <Form.Input
@@ -326,8 +379,8 @@ export const FormRegisterContainer = () => {
         type="file"
         multiple
         accept="image/png, image/jpeg, image/webp, image/jpg"
-        success={errors.images ? false : true}
-        error={errors.images ? true : false}
+        success={!errors.images}
+        error={!!errors.images}
         helperText={errors.images?.message?.toString()}
         id="images"
         register={register}
