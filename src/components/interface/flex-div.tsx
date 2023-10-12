@@ -7,6 +7,9 @@ type FlexDivProps = ComponentProps<"div"> & {
 
 export const FlexDiv = ({className, col = false, ...props}: FlexDivProps) => {
     return (
-      <div data-isCol={col} className={twMerge("flex gap-4 data-[isCol=false]:items-center data-[isCol=true]:flex-col", className)} {...props}/>
+      <div  className={twMerge(
+        "flex gap-4",
+        col ? "flex-col" : "items-center",
+        className)} {...props}/>
     )
   }

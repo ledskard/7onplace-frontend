@@ -2,7 +2,7 @@ import { ComponentProps } from "react";
 import { twMerge } from "tailwind-merge";
 
 type GridCol = ComponentProps<"section"> & {
-  col?: string;
+  col?: "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" | '10';
 };
 
 export const GridCol = ({ className, col, ...props }: GridCol) => {
