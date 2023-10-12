@@ -1,4 +1,3 @@
-import { ModelLoginProps } from "@/types/login/login-model-props";
 import { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 

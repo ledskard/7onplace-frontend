@@ -18,8 +18,8 @@ import { useState } from "react";
 import z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { location } from '../config/location';
-import { XCircleIcon } from 'lucide-react';
+import { location } from "../config/location";
+import { XCircleIcon } from "lucide-react";
 
 const maxFileSize = 1024 * 1024 * 10; // 10MB
 
@@ -30,21 +30,20 @@ const acceptedImageTypes = [
   "image/webp",
 ];
 
+type Base64Img = {
+  name: string;
+  base64: string;
+};
+
 export const FormRegisterContainer = () => {
   const [locationData, setLocationData] = useState<string | null>(null);
-  const [perfilImage, setPerfilImage] = useState<string>(
-    "/default-profile.jpg"
-  );
+  const [perfilImage, setPerfilImage] = useState<Base64Img | null>(null);
 
-  const [displayImages, setDisplayImages] = useState<Array<{
-    name: string;
-    base64: string;
-  }>>([]);
+  const [displayImages, setDisplayImages] = useState<Array<Base64Img>>([]);
 
   const [genderData, setGenderData] = useState<string | null>(null);
 
   const gender = ["mulheres", "casais", "trans"];
- 
 
   const registerSchema = z.object({
     username: z.string().min(2, "Campo nome deve conter pelo menos 2 dígitos"),
@@ -52,96 +51,96 @@ export const FormRegisterContainer = () => {
     profileImg: z
       .any()
       .refine((files: Array<File>) => {
+        const fileIsExists = files.length > 0;
 
-        const fileIsExists = files.length > 0
+        if (!fileIsExists) {
+          setPerfilImage(null);
 
-        if(!fileIsExists) {
-          setPerfilImage('/default-profile.jpg')
+          return false;
+        }
 
-          return false
-        } 
-
-        return fileIsExists
-      },
-        "A modelo deve ter uma foto de perfil própria"
-      )
+        return fileIsExists;
+      }, "A modelo deve ter uma foto de perfil própria")
       .refine((files: Array<File>) => {
+        const fileIsExists = files.length > 0;
 
-        const fileIsExists = files.length > 0
+        if (!fileIsExists) return false;
 
-        if(!fileIsExists) return false
+        const file = files[0];
 
-        const file = files[0]
-
-        return file.size <= maxFileSize // Max file size is 10MB
-
+        return file.size <= maxFileSize; // Max file size is 10MB
       }, "Tamanho máximo do arquivo é de 10MB")
       .refine((files: Array<File>) => {
+        const file = files[0];
 
-        const file = files[0]
-        
-        const isCorrectlyType = acceptedImageTypes.includes(file?.type)
+        const isCorrectlyType = acceptedImageTypes.includes(file?.type);
 
-        if(!isCorrectlyType) return false
+        if (!isCorrectlyType) return false;
 
         if (file) {
-
           const reader = new FileReader();
+          const nameUnique = `${file.name}-${Date.now()}`;
+          reader.onload = (e) => {
+            const imageConvertBase64 = e.target?.result as string;
 
-          reader.onload = () => setPerfilImage(reader?.result as string);
-          
+            const nameUnique = `${file.name}-${Date.now()}`;
+
+            setPerfilImage({
+              name: nameUnique.toString(),
+              base64: imageConvertBase64,
+            });
+          };
+
           reader.readAsDataURL(file);
         }
 
-        return true
-
+        return true;
       }, "Somente os formatos .jpg, .jpeg, .png e .webp são suportados"),
 
     images: z
       .any()
       .refine((files: Array<File>) => {
-        const fileIsExists = files.length > 0
+        const fileIsExists = files.length > 0;
 
-        if(!fileIsExists) {
-          setDisplayImages([])
+        if (!fileIsExists) {
+          setDisplayImages([]);
 
-          return false
-        } 
+          return false;
+        }
 
-        return fileIsExists
+        return fileIsExists;
       }, "A modelo deve ter pelo menos uma foto de pré visualização")
       .refine((files: Record<string, File>) => {
-
-
         const filesArray = Object.keys(files).map((key: any) => {
           return files[key];
         });
 
+        const filesIsExists = filesArray.length > 0;
 
-        const filesIsExists = filesArray.length > 0
+        if (!filesIsExists) return false;
 
-        if(!filesIsExists) return false
+        const isAllFilesLessThanMaxSize = filesArray.every(
+          (file: File) => file.size <= maxFileSize
+        );
 
-        const isAllFilesLessThanMaxSize = filesArray.every((file: File) => file.size <= maxFileSize)
+        if (!isAllFilesLessThanMaxSize) return false;
 
-
-        if(!isAllFilesLessThanMaxSize) return false
-
-        return true
+        return true;
       }, "Tamanho máximo do arquivo é de 10MB")
       .refine((files: Record<string, File>) => {
         const filesArray = Object.keys(files).map((key: any) => {
           return files[key];
         });
 
-        const filesIsExists = filesArray.length > 0
+        const filesIsExists = filesArray.length > 0;
 
-        if(!filesIsExists) return false
+        if (!filesIsExists) return false;
 
-        const isAllFilesCorrectlyType = filesArray.every((file: File) => acceptedImageTypes.includes(file?.type))
+        const isAllFilesCorrectlyType = filesArray.every((file: File) =>
+          acceptedImageTypes.includes(file?.type)
+        );
 
-        if(!isAllFilesCorrectlyType) return false
-
+        if (!isAllFilesCorrectlyType) return false;
 
         for (let i = 0; i < filesArray.length; i++) {
           const file = filesArray[i];
@@ -152,27 +151,27 @@ export const FormRegisterContainer = () => {
           reader.onload = (e) => {
             const isExist = displayImages.some((img) => {
               return img.base64 === (reader?.result as string);
-            })
+            });
 
             if (isExist) {
               return setDisplayImages((prev) => [...prev]);
             }
 
-            const imageConvertBase64 = e.target?.result as string
+            const imageConvertBase64 = e.target?.result as string;
 
-            const nameUnique = `${file.name}-${Date.now()}`
-            
-            setDisplayImages((prev) => [...prev, {
-              name: nameUnique,
-              base64: imageConvertBase64
-            }]);
+            const nameUnique = `${file.name}-${Date.now()}`;
 
-          }
+            setDisplayImages((prev) => [
+              ...prev,
+              {
+                name: nameUnique,
+                base64: imageConvertBase64,
+              },
+            ]);
+          };
         }
 
-
-
-        return true
+        return true;
       }, "Somente os formatos .jpg, .jpeg, .png e .webp são suportados"),
 
     telegramVip: z
@@ -203,12 +202,10 @@ export const FormRegisterContainer = () => {
 
   const handleDeleteImage = (name: string) => {
     setDisplayImages((prev) => prev.filter((img) => img.name !== name));
-  }
+  };
 
   const handleCreateModel = async (data: RegisterModelProps) => {
     const dataZod = registerSchema.parse(data);
-
-
 
     const modelData = {
       ...dataZod,
@@ -218,7 +215,6 @@ export const FormRegisterContainer = () => {
       type: genderData,
       likes: 1,
     };
-
 
     const res = await fetch(
       "http://ec2-54-161-22-227.compute-1.amazonaws.com:8080/models",
@@ -235,28 +231,27 @@ export const FormRegisterContainer = () => {
 
     console.log(result);
 
-    if (result.status === 200) {
+    if (result.success) {
       reset();
+      // toast aq
+      //resetar campos das imagens para null e array vazio
     }
   };
-
-
 
   return (
     <Form.Root
       className="mt-6 sm:mt-4"
       onSubmit={handleSubmit(handleCreateModel)}
     >
-      <FlexDiv className="w-full mb-6">
-        {perfilImage && (
-          <Image
-            src={perfilImage}
-            alt="Perfil Image"
-            width={200}
-            height={200}
-            className="w-10 h-10 rounded-full object-cover object-center"
-          />
-        )}
+      <FlexDiv className="w-full ">
+        <Image
+          src={perfilImage?.base64 ?? "/default-profile.jpg"}
+          alt="Perfil Image"
+          width={200}
+          height={200}
+          className="w-10 h-10 rounded-full object-cover object-center"
+        />
+
         <FlexDiv col className="flex-1">
           <label
             htmlFor="profileImg"
@@ -358,10 +353,11 @@ export const FormRegisterContainer = () => {
       <GridCol col="1" className="md:grid-cols-2 mt-0 mb-0">
         {displayImages?.length > 0 &&
           displayImages?.map((img) => (
-            <div key={img.name} className='relative p-2 h-full '>
-              <button className='absolute top-1 right-1' onClick={
-                () => handleDeleteImage(img.name) 
-              }>
+            <div key={img.name} className="relative p-2 h-full ">
+              <button
+                className="absolute top-1 right-1"
+                onClick={() => handleDeleteImage(img.name)}
+              >
                 <XCircleIcon />
               </button>
               <Image
@@ -370,7 +366,7 @@ export const FormRegisterContainer = () => {
                 width={400}
                 height={400}
                 alt={img.name}
-             />
+              />
             </div>
           ))}
       </GridCol>
