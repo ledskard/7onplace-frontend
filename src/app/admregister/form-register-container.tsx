@@ -32,6 +32,8 @@ export const FormRegisterContainer = () => {
   const [perfilImage, setPerfilImage] = useState<string>(
     "/default-profile.jpg"
   );
+  const [perfilImageName, setPerfilImageName] = useState<string>("");
+  const [displayImagesNames, setDisplayImagesNames] = useState<string[]>([]);
   const [displayImages, setDisplayImages] = useState<string[]>([]);
   const [genderData, setGenderData] = useState<string | null>(null);
 
@@ -75,6 +77,7 @@ export const FormRegisterContainer = () => {
       //   "A modelo deve ter uma foto de perfil própria"
       // )
       .refine((files: Array<File>) => {
+        setPerfilImageName(files[0].name as string);
         handleFileChange(files, "single");
         if (files.length === 0) {
           return false;
@@ -90,6 +93,9 @@ export const FormRegisterContainer = () => {
     images: z
       .any()
       .refine((files: Array<File>) => {
+        for (let file of files) {
+          setDisplayImagesNames((prev) => [...prev, file.name as string]);
+        }
         handleFileChange(files, "multiple");
         const filesConverted = Object.keys(files).map((key: any) => {
           return files[key];
@@ -137,9 +143,25 @@ export const FormRegisterContainer = () => {
       likes: 1,
     };
     modelData.images = Object.values(data.images);
+    modelData.profileImg = {
+      name: perfilImageName,
+      base64: perfilImage,
+    };
+
+    const displayImagesObject = [];
+
+    for (let i = 0; i < displayImagesNames.length; i++) {
+      displayImagesObject.push({
+        name: displayImagesNames[i],
+        base64: displayImages[i],
+      });
+    }
+
+    modelData.images = displayImagesObject;
     console.log(modelData.images);
-    console.log(perfilImage);
-    console.log(displayImages);
+    // modelData.images.forEach(img: any => {       img.name = 'img.name';       img.base64 = displayImages[displayImagesIndex];       displayImagesIndex++;     });
+    // console.log(perfilImage.split(";"));
+    // console.log(displayImages);
     const res = await fetch(
       "http://ec2-54-161-22-227.compute-1.amazonaws.com:8080/models",
       {
@@ -155,7 +177,6 @@ export const FormRegisterContainer = () => {
     if (result.status === 200) {
       reset();
     }
-    console.log(result);
   };
 
   const handleFileChange = (
@@ -164,6 +185,7 @@ export const FormRegisterContainer = () => {
   ) => {
     if (type === "single") {
       const file = files && files[0];
+      // setPerfilImageName(file.name as string);
       if (file) {
         const reader = new FileReader();
         reader.onload = () => setPerfilImage(reader?.result as string);
