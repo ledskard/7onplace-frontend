@@ -28,6 +28,7 @@ export const registerSchema = z.object({
   displayImg: z
     .any()
     .refine((files: Array<File>) => {
+      console.log(files);
       if (files.length === 0) {
         return false;
       }
@@ -42,18 +43,8 @@ export const registerSchema = z.object({
       }
       return acceptedImageTypes.includes(files[0]?.type);
     }, "Somente os formatos .jpg, .jpeg, .png e .webp são suportados"),
-  telegramVip: z
-    .string()
-    .regex(
-      /\bhttps?:\/\/t\.me\/[A-Za-z0-9_]+\b/g,
-      "Só aceitamos links do telegram"
-    ),
-  telegramFree: z
-    .string()
-    .regex(
-      /\bhttps?:\/\/t\.me\/[A-Za-z0-9_]+\b/g,
-      "Só aceitamos links do telegram"
-    ),
+  telegramVip: z.string().min(2, "Só aceitamos links do telegram"),
+  telegramFree: z.string().min(2, "Só aceitamos links do telegram"),
   description: z
     .string()
     .min(10, "Descrição deve conter pelo menos 10 caracteres"),

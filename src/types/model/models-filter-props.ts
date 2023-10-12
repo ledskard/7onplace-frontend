@@ -13,4 +13,5 @@ export type ModelsFilterProps = {
   telegramVip: string;
   telegramFree: string;
   images: ModelImage[];
+  profileImage: ModelImage;
 };

@@ -7,11 +7,13 @@ import { getModelsByFilter } from "@/types/model/get-models-by-filter";
 
 type ModelsListType = ComponentProps<"section"> & {
   modelType: string;
+  query: string;
 };
 
 export async function ModelsList({
   modelType,
   className,
+  query,
   ...props
 }: ModelsListType) {
   const model: ModelsFilterProps[] = await getModelsByFilter(modelType);
@@ -25,22 +27,26 @@ export async function ModelsList({
       {...props}
     >
       {model.length > 0 &&
-        model.map((model) => (
-          <Link href={`model/${model.id}`} key={model.id}>
-            <Card.Root key={model.id}>
-              <Card.Img src={model.images[0].url} alt={model.username} />
-              <Card.ContentDiv>
-                <Card.Img
-                  className="w-[30px] h-[30px] object-cover aspect-square object-center md:w-[45px] top-[-19%] md:h-[45px] rounded-full shadow-md shadow-gray-500 absolute"
-                  src={model.images[0].url}
-                  alt={model.username}
-                />
-                <Card.Name>{model.username}</Card.Name>
-                <Card.Fav favorites={model.likes} />
-              </Card.ContentDiv>
-            </Card.Root>
-          </Link>
-        ))}
+        model
+          .filter((mod) =>
+            query ? mod.username.toLowerCase().includes(query) : mod
+          )
+          .map((model) => (
+            <Link href={`model/${model.id}`} key={model.id}>
+              <Card.Root key={model.id}>
+                <Card.Img src={model.profileImage.url} alt={model.username} />
+                <Card.ContentDiv>
+                  <Card.Img
+                    className="w-[30px] h-[30px] object-cover aspect-square object-center md:w-[45px] top-[-19%] md:h-[45px] rounded-full shadow-md shadow-gray-500 absolute"
+                    src={model.images[0].url}
+                    alt={model.username}
+                  />
+                  <Card.Name>{model.username}</Card.Name>
+                  <Card.Fav favorites={model.likes} />
+                </Card.ContentDiv>
+              </Card.Root>
+            </Link>
+          ))}
     </section>
   );
 }

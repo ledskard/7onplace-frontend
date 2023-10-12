@@ -32,6 +32,8 @@ export const FormRegisterContainer = () => {
   const [perfilImage, setPerfilImage] = useState<string>(
     "/default-profile.jpg"
   );
+  const [perfilImageName, setPerfilImageName] = useState<string>("");
+  const [displayImagesNames, setDisplayImagesNames] = useState<string[]>([]);
   const [displayImages, setDisplayImages] = useState<string[]>([]);
   const [genderData, setGenderData] = useState<string | null>(null);
 
@@ -68,34 +70,42 @@ export const FormRegisterContainer = () => {
 
   const registerSchema = z.object({
     username: z.string().min(2, "Campo nome deve conter pelo menos 2 dígitos"),
-    perfilImg: z
+    profileImg: z
       .any()
+      // .refine(
+      //   (file: Array<File>) => file[0].name ?? "",
+      //   "A modelo deve ter uma foto de perfil própria"
+      // )
       .refine((files: Array<File>) => {
+        setPerfilImageName(files[0].name as string);
         handleFileChange(files, "single");
         if (files.length === 0) {
           return false;
         }
         return files[0]?.size <= maxFileSize;
-      }, `Tamanho máximo do arquivo é de 5MB.`)
+      }, `Tamanho máximo do arquivo é de 10MB.`)
       .refine((file: Array<File>) => {
         if (file.length === 0) {
           return false;
         }
         return acceptedImageTypes.includes(file[0]?.type);
       }, "Somente os formatos .jpg, .jpeg, .png e .webp são suportados"),
-    displayImg: z
+    images: z
       .any()
       .refine((files: Array<File>) => {
+        for (let file of files) {
+          setDisplayImagesNames((prev) => [...prev, file.name as string]);
+        }
         handleFileChange(files, "multiple");
-        if (files.length === 0) {
+        const filesConverted = Object.keys(files).map((key: any) => {
+          return files[key];
+        });
+        if (filesConverted.length === 0) {
           return false;
         }
-        return !files?.find((img) => {
-          return img.size >= maxFileSize;
-        });
-      }, `Tamanho máximo do arquivo é de 5MB.`)
+        return filesConverted.every((file: File) => file.size <= maxFileSize);
+      }, `Tamanho máximo do arquivo é de 10MB.`)
       .refine((files: Array<File>) => {
-        console.log(files);
         if (files.length === 0) {
           return false;
         }
@@ -103,34 +113,71 @@ export const FormRegisterContainer = () => {
       }, "Somente os formatos .jpg, .jpeg, .png e .webp são suportados"),
     telegramVip: z
       .string()
-      .regex(/https:\/\/t\.me\/\+\w+/, "Só aceitamos links do telegram"),
+      .regex(/https:\/\/t\.me\/\+?\w+/, "Só aceitamos links do telegram"),
     telegramFree: z
       .string()
-      .regex(/https:\/\/t\.me\/\+\w+/, "Só aceitamos links do telegram"),
+      .regex(/https:\/\/t\.me\/\+?\w+/, "Só aceitamos links do telegram"),
     description: z
       .string()
       .min(10, "Descrição deve conter pelo menos 10 caracteres"),
   });
 
+  type RegisterModelProps = z.infer<typeof registerSchema>;
+
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitSuccessful, isSubmitting },
+    formState: { errors, isSubmitting },
     reset,
-  } = useForm<any>({
+  } = useForm<RegisterModelProps>({
     mode: "onChange",
     reValidateMode: "onChange",
     resolver: zodResolver(registerSchema),
   });
 
-  const handleCreateModel = (data: any) => {
+  const handleCreateModel = async (data: RegisterModelProps) => {
     const modelData = {
       ...data,
       location: locationData,
-      gender: genderData,
+      type: genderData,
       likes: 1,
     };
-    console.log(modelData);
+    modelData.images = Object.values(data.images);
+    modelData.profileImg = {
+      name: perfilImageName,
+      base64: perfilImage,
+    };
+
+    const displayImagesObject = [];
+
+    for (let i = 0; i < displayImagesNames.length; i++) {
+      displayImagesObject.push({
+        name: displayImagesNames[i],
+        base64: displayImages[i],
+      });
+    }
+
+    modelData.images = displayImagesObject;
+    console.log(modelData.images);
+    // modelData.images.forEach(img: any => {       img.name = 'img.name';       img.base64 = displayImages[displayImagesIndex];       displayImagesIndex++;     });
+    // console.log(perfilImage.split(";"));
+    // console.log(displayImages);
+    const res = await fetch(
+      "http://ec2-54-161-22-227.compute-1.amazonaws.com:8080/models",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(modelData),
+      }
+    );
+
+    const result = await res.json();
+    console.log(result);
+    if (result.status === 200) {
+      reset();
+    }
   };
 
   const handleFileChange = (
@@ -139,9 +186,10 @@ export const FormRegisterContainer = () => {
   ) => {
     if (type === "single") {
       const file = files && files[0];
+      // setPerfilImageName(file.name as string);
       if (file) {
         const reader = new FileReader();
-        reader.onload = (e) => setPerfilImage(e.target?.result as string);
+        reader.onload = () => setPerfilImage(reader?.result as string);
         reader.readAsDataURL(file);
       }
     } else {
@@ -149,8 +197,15 @@ export const FormRegisterContainer = () => {
         for (let i = 0; i < files.length; i++) {
           const file = files[i];
           const reader = new FileReader();
+          setDisplayImages([]);
           reader.onload = (e) =>
             setDisplayImages((prev) => {
+              const isExist = prev.some((img) => {
+                return img === (reader?.result as string);
+              });
+              if (isExist) {
+                return prev;
+              }
               return [...prev, e.target?.result as string];
             });
           reader.readAsDataURL(file);
@@ -177,7 +232,7 @@ export const FormRegisterContainer = () => {
         )}
         <FlexDiv col className="flex-1">
           <label
-            htmlFor="perfilImg"
+            htmlFor="profileImg"
             className="text-center first-letter:capitalize rounded font-medium py-2 px-1 md:rounded-md bg-red-main text-white w-full"
           >
             Adicionar imagem de perfil
@@ -185,12 +240,13 @@ export const FormRegisterContainer = () => {
           <input
             className="hidden"
             type="file"
+            defaultValue={"/default-profile.jpg"}
             accept="image/png, image/jpeg, image/webp, image/jpg"
-            id="perfilImg"
-            {...register("perfilImg")}
+            id="profileImg"
+            {...register("profileImg")}
           />
-          {errors.perfilImg && (
-            <FormError>{errors.perfilImg.message?.toString()}</FormError>
+          {errors.profileImg && (
+            <FormError>{errors.profileImg.message?.toString()}</FormError>
           )}
         </FlexDiv>
       </FlexDiv>
@@ -198,9 +254,9 @@ export const FormRegisterContainer = () => {
         wf
         id="username"
         placeholder="Nome"
-        helperText={errors.name?.message?.toString()}
-        success={errors.name ? false : true}
-        error={errors.name ? true : false}
+        helperText={errors.username?.message?.toString()}
+        success={errors.username ? false : true}
+        error={errors.username ? true : false}
         register={register}
         className="w-full"
       />
@@ -270,7 +326,7 @@ export const FormRegisterContainer = () => {
       />
 
       <label
-        htmlFor="displayImg"
+        htmlFor="images"
         className="text-center first-letter:capitalize rounded font-medium py-2 px-1 md:rounded-md bg-red-main text-white w-full m-0"
       >
         Adicionar imagem de pré visualização
@@ -293,23 +349,19 @@ export const FormRegisterContainer = () => {
         type="file"
         multiple
         accept="image/png, image/jpeg, image/webp, image/jpg"
-        success={errors.perfilImg ? false : true}
-        error={errors.perfilImg ? true : false}
-        helperText={errors.perfilImg?.message?.toString()}
-        id="displayImg"
+        success={errors.images ? false : true}
+        error={errors.images ? true : false}
+        helperText={errors.images?.message?.toString()}
+        id="images"
         register={register}
       />
 
       <Button
-        className="max-w-[70%] first-letter:capitalize lowercase md:max-w-[40%]"
+        className="max-w-[70%] first-letter:capitalize lowercase mb-10 md:max-w-[40%]"
         type="submit"
         disabled={isSubmitting}
       >
-        {isSubmitSuccessful
-          ? "Perfil criado"
-          : isSubmitting
-          ? "Perfil sendo criado..."
-          : "Criar perfil"}
+        {isSubmitting ? "Perfil sendo criado..." : "Criar perfil"}
       </Button>
     </Form.Root>
   );
