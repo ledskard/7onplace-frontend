@@ -17,7 +17,6 @@ export async function ModelsList({
   ...props
 }: ModelsListType) {
   const model: ModelsFilterProps[] = await getModelsByFilter(modelType);
-  console.log(model);
 
   return (
     <section
