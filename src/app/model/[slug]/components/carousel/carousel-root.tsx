@@ -30,11 +30,10 @@ export const CarouselRoot = ({ model }: CarouselContentProps) => {
     swiperRef.current?.slidePrev();
   };
 
-  console.log(model)
-
+  console.log(model);
 
   return (
-    <section className="mx-auto border-black border rounded-md shadow-md shadow-gray-400 mb-6 max-h-">
+    <section className="mx-auto border-black border rounded-md shadow-md shadow-gray-400 mb-6 max-w-xl m-auto">
       <Swiper
         onSwiper={(e) => (swiperRef.current = e)}
         modules={[Navigation, Pagination, Autoplay, EffectFade]}
@@ -45,7 +44,7 @@ export const CarouselRoot = ({ model }: CarouselContentProps) => {
           delay: 3000,
           disableOnInteraction: false,
         }}
-        className="rounded-md relative btn-swiper cursor-grab"
+        className="rounded-md relative btn-swiper cursor-grab sm:max-h-none max-h-[200px]"
       >
         {model &&
           model.images.length > 0 &&
@@ -57,7 +56,7 @@ export const CarouselRoot = ({ model }: CarouselContentProps) => {
                 height={600}
                 width={1280}
                 quality={100}
-                className="max-h-[350px] object-cover object-center"
+                className="sm:max-h-auto max-h-[350px] object-cover object-center"
               />
             </SwiperSlide>
           ))}
@@ -80,7 +79,7 @@ export const CarouselRoot = ({ model }: CarouselContentProps) => {
       <FlexDiv className="px-4 pt-3 pb-8">
         <FlexDiv col className="flex-1 max-w-[70%] sm:max-w-none">
           <FlexDiv>
-            <PerfilImage src={model.images[0].url} alt={model.username} />
+            <PerfilImage src={model.profileImage.url} alt={model.username} />
             <Card.Name>{model.username}</Card.Name>
           </FlexDiv>
           <FlexDiv>

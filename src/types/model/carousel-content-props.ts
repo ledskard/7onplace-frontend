@@ -1,3 +1,5 @@
+import { ModelImage } from "./models-filter-props";
+
 export type CarouselContentProps = {
   model: {
     id: number;
@@ -7,10 +9,7 @@ export type CarouselContentProps = {
     likes: number;
     telegramVip: string;
     telegramFree: string;
-    images: {
-      id: number;
-      url: string;
-      name: string;
-    }[];
+    images: ModelImage[];
+    profileImage: ModelImage;
   };
 };
