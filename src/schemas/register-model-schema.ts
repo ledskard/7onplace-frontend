@@ -13,7 +13,6 @@ export const registerSchema = z.object({
   perfilImg: z
     .any()
     .refine((files: Array<File>) => {
-      console.log(files);
       if (files.length === 0) {
         return false;
       }
@@ -28,7 +27,6 @@ export const registerSchema = z.object({
   displayImg: z
     .any()
     .refine((files: Array<File>) => {
-      console.log(files);
       if (files.length === 0) {
         return false;
       }
@@ -37,7 +35,6 @@ export const registerSchema = z.object({
       });
     }, `Tamanho máximo do arquivo é de 5MB.`)
     .refine((files: Array<File>) => {
-      console.log(files);
       if (files.length === 0) {
         return false;
       }

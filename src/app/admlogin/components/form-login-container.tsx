@@ -4,17 +4,11 @@ import { Form } from "../../../components/interface/form-default/index";
 import { FormLoginProps, UseLogin } from "@/hooks/use-login";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { toast } from "@/components/ui/use-toast";
 
 export const FormLoginContainer = () => {
   const route = useRouter();
-  const {
-    errors,
-    isSubmitting,
-    isSubmitSuccessful,
-    register,
-    reset,
-    handleSubmit,
-  } = UseLogin();
+  const { errors, isSubmitting, register, handleSubmit } = UseLogin();
 
   const handleSubmitLogin = async (data: FormLoginProps) => {
     try {
@@ -24,10 +18,19 @@ export const FormLoginContainer = () => {
       });
 
       if (!res?.error) {
-        route.push("/admregister");
+        toast({
+          title: `✅ Login sucedido`,
+          duration: 3000,
+        });
+        return route.push("/admregister");
       }
+      toast({
+        title: `Erro ao tentar fazer login`,
+      });
     } catch (error) {
-      console.log(error);
+      toast({
+        title: `Erro na API: ${error}`,
+      });
     }
   };
 
@@ -54,9 +57,9 @@ export const FormLoginContainer = () => {
       />
       <Button
         type="submit"
-        className="rounded-md max-w-[30%] md:max-w-[40%] mt-4"
+        className="rounded-md max-w-[40%] md:max-w-[40%] mt-4"
       >
-        {isSubmitting ? "Enviando..." : "Enviar"}
+        {isSubmitting ? "Logando..." : "Fazer Login"}
       </Button>
     </Form.Root>
   );

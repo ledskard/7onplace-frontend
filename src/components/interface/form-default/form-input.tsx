@@ -25,7 +25,7 @@ export const FormInput = ({
   return (
     <div
       className={twMerge(
-        "sm:w-6/12 w-10/12 flex flex-col gap-4 space-y-1 text-center",
+        "sm:w-6/12 w-full flex flex-col gap-4 space-y-1 text-center",
         wf && "sm:w-full"
       )}
     >

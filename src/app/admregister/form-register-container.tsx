@@ -20,6 +20,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { location } from "../config/location";
 import { XCircleIcon } from "lucide-react";
+import { toast } from "@/components/ui/use-toast";
 
 const maxFileSize = 1024 * 1024 * 10; // 10MB
 
@@ -229,13 +230,23 @@ export const FormRegisterContainer = () => {
 
     const result = await res.json();
 
-    console.log(result);
-
     if (result.success) {
       reset();
-      // toast aq
-      //resetar campos das imagens para null e array vazio
+      toast({
+        title: "✅ Modelo cadastrada no sistema da 7OnSexy!",
+        duration: 3000,
+      });
+      setDisplayImages([]);
+      setPerfilImage(null);
+      setLocationData(null);
+      setGenderData(null);
+      return;
     }
+    toast({
+      title: "❌ Modelo não cadastrada no sistema da 7OnSexy!",
+      duration: 3000,
+    });
+    return;
   };
 
   return (
@@ -262,7 +273,6 @@ export const FormRegisterContainer = () => {
           <input
             className="hidden"
             type="file"
-            defaultValue={"/default-profile.jpg"}
             accept="image/png, image/jpeg, image/webp, image/jpg"
             id="profileImg"
             {...register("profileImg")}
@@ -353,7 +363,10 @@ export const FormRegisterContainer = () => {
       <GridCol col="1" className="md:grid-cols-2 mt-0 mb-0">
         {displayImages?.length > 0 &&
           displayImages?.map((img) => (
-            <div key={img.name} className="relative p-2 h-full ">
+            <div
+              key={img.name}
+              className="relative p-2 h-full flex items-center justify-center"
+            >
               <button
                 className="absolute top-1 right-1"
                 onClick={() => handleDeleteImage(img.name)}
@@ -361,7 +374,7 @@ export const FormRegisterContainer = () => {
                 <XCircleIcon />
               </button>
               <Image
-                className="p-2 rounded md:rounded-md w-full object-cover object-center"
+                className="p-4 rounded md:rounded-md w-full sm:max-w-[300px] sm:max-h-[300px] max-w-[200px] text-center max-h-[200px] object-cover object-center"
                 src={img.base64}
                 width={400}
                 height={400}
@@ -371,6 +384,7 @@ export const FormRegisterContainer = () => {
           ))}
       </GridCol>
       <Form.Input
+        wf
         className="hidden p-0 m-0"
         type="file"
         multiple
@@ -383,7 +397,7 @@ export const FormRegisterContainer = () => {
       />
 
       <Button
-        className="max-w-[70%] first-letter:capitalize lowercase mb-10 md:max-w-[40%]"
+        className="max-w-[50%] first-letter:capitalize lowercase mb-10 md:max-w-[40%] relative bottom-12"
         type="submit"
         disabled={isSubmitting}
       >
