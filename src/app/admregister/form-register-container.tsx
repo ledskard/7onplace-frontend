@@ -244,15 +244,14 @@ export const FormRegisterContainer = () => {
       onSubmit={handleSubmit(handleCreateModel)}
     >
       <FlexDiv className="w-full ">
-        {perfilImage && (
-          <Image
-            src={perfilImage.base64 ?? "/default-profile.jpg"}
-            alt="Perfil Image"
-            width={200}
-            height={200}
-            className="w-10 h-10 rounded-full object-cover object-center"
-          />
-        )}
+        <Image
+          src={perfilImage?.base64 ?? "/default-profile.jpg"}
+          alt="Perfil Image"
+          width={200}
+          height={200}
+          className="w-10 h-10 rounded-full object-cover object-center"
+        />
+
         <FlexDiv col className="flex-1">
           <label
             htmlFor="profileImg"
@@ -263,7 +262,6 @@ export const FormRegisterContainer = () => {
           <input
             className="hidden"
             type="file"
-            defaultValue={"/default-profile.jpg"}
             accept="image/png, image/jpeg, image/webp, image/jpg"
             id="profileImg"
             {...register("profileImg")}
