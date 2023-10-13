@@ -262,6 +262,7 @@ export const FormRegisterContainer = () => {
           <input
             className="hidden"
             type="file"
+            defaultValue={"/default-profile.jpg"}
             accept="image/png, image/jpeg, image/webp, image/jpg"
             id="profileImg"
             {...register("profileImg")}
