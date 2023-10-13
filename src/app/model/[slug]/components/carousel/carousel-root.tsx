@@ -22,7 +22,7 @@ import "swiper/css/autoplay";
 
 export const CarouselRoot = ({ model }: CarouselContentProps) => {
   const swiperRef = useRef<any>();
-
+  console.log(model)
   const nextSlide = () => {
     swiperRef.current?.slideNext();
   };
