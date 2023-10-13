@@ -7,6 +7,7 @@ import { Search } from "../search";
 type HeaderProps = ComponentProps<"header">;
 
 export const Header = ({ className, ...props }: HeaderProps) => {
+  console.log(props)
   return (
     <header
       className={twMerge("bg-red-main w-full h-14", className)}
