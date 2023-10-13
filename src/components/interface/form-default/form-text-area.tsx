@@ -22,7 +22,7 @@ export const FormTextArea = ({
   ...props
 }: FormTextAreaProps) => {
   return (
-    <div className="sm:w-full w-10/12 flex flex-col gap-4 space-y-1 text-center">
+    <div className="w-full flex flex-col gap-4 space-y-1 text-center">
       <textarea
         className={twMerge(
           "resize-none w-full shadow rounded md:rounded-md h-36 p-1 outline-none",
