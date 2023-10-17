@@ -1,6 +1,6 @@
 export const getDataById = async (slug: string) => {
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_DATABASE_URL}/models/${slug}`,
+    `https://api.bioup.ai/models/${slug}`,
     { next: { revalidate: 1 } }
   );
   

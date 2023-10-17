@@ -1,7 +1,7 @@
 export const incrementLike = async (slug: string) => {
   try {
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_DATABASE_URL}/models/${slug}`,
+      `https://api.bioup.ai/models/${slug}`,
       {
         method: "POST",
         headers: {

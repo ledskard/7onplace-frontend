@@ -1,7 +1,7 @@
 export const getModelsByFilter = async (modelType: string) => {
   try {
     const modelsByFilter = await fetch(
-      `${process.env.NEXT_PUBLIC_DATABASE_URL}/models/?type=${modelType}`,
+      `https://api.bioup.ai/models/?type=${modelType}`,
       { next: { revalidate: 1 } }
     );
     const modelsjson = await modelsByFilter.json();
