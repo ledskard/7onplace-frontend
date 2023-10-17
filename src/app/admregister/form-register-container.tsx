@@ -216,7 +216,7 @@ export const FormRegisterContainer = () => {
       likes: 1,
     };
 
-    const res = await fetch(`https://api.bioup.ai/models`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_DATABASE_URL}/models`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -14,7 +14,7 @@ export const authOptions: NextAuthOptions = {
         const password = credentials?.password;
 
         const response = await fetch(
-          `https://api.bioup.ai/users/login`,
+          `${process.env.NEXT_PUBLIC_DATABASE_URL}/users/login`,
           {
             method: "POST",
             headers: {
