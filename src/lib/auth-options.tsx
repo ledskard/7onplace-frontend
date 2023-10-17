@@ -14,7 +14,7 @@ export const authOptions: NextAuthOptions = {
         const password = credentials?.password;
 
         const response = await fetch(
-          "http://ec2-54-161-22-227.compute-1.amazonaws.com:8080/users/login",
+          `${process.env.NEXT_PUBLIC_DATABASE_URL}/users/login`,
           {
             method: "POST",
             headers: {
@@ -63,5 +63,5 @@ export const authOptions: NextAuthOptions = {
   jwt: {
     maxAge: 60 * 60 * 24,
   },
-  secret: 'process.env.NEXTAUTH_SECRET',
+  secret: process.env.NEXTAUTH_SECRET,
 };

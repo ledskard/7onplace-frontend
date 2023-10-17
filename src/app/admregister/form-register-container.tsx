@@ -80,7 +80,6 @@ export const FormRegisterContainer = () => {
 
         if (file) {
           const reader = new FileReader();
-          const nameUnique = `${file.name}-${Date.now()}`;
           reader.onload = (e) => {
             const imageConvertBase64 = e.target?.result as string;
 
@@ -217,16 +216,13 @@ export const FormRegisterContainer = () => {
       likes: 1,
     };
 
-    const res = await fetch(
-      "https://alb-7onsexy-2019209235.us-east-1.elb.amazonaws.com/models",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(modelData),
-      }
-    );
+    const res = await fetch(`${process.env.NEXT_PUBLIC_DATABASE_URL}/models`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(modelData),
+    });
 
     const result = await res.json();
 

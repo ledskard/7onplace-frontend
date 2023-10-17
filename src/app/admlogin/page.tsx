@@ -5,5 +5,6 @@ import { redirect } from "next/navigation";
 export default async function AdmLogin() {
   const session = await getServerSession();
   if (session) return redirect("/admregister");
+
   return <FormLoginContainer />;
 }

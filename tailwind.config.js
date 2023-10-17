@@ -18,6 +18,7 @@ module.exports = {
     extend: {
       screens: {
         tablet: "750px",
+        vsm: { max: "374px" },
       },
       gridTemplateColumns: {
         "auto-fit-100": "repeat(auto-fit, minmax(100px, 1fr))",

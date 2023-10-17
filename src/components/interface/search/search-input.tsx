@@ -63,14 +63,14 @@ export const SearchInput = ({ className, ...props }: SearchInputProps) => {
   return (
     <div
       className={twMerge(
-        "sm:flex hidden items-center justify-between border-2 border-red-main rounded md:rounded-md p-1",
+        "sm:flex hidden items-center justify-between border-2 border-red-main rounded md:rounded-md p-1 max-w-[70%]",
         className
       )}
     >
       <input
         ref={searchRef}
         type="text"
-        className="bg-transparent outline-none w-auto"
+        className="bg-transparent outline-none max-w-[80%]"
         placeholder="Buscar modelos"
         onKeyUp={handleSearchModels}
       />
