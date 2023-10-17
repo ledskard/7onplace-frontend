@@ -14,7 +14,7 @@ export const authOptions: NextAuthOptions = {
         const password = credentials?.password;
 
         const response = await fetch(
-          "https://alb7onsexy-1208292946.us-east-1.elb.amazonaws.com/users/login",
+          "http://ec2-54-161-22-227.compute-1.amazonaws.com:8080/users/login",
           {
             method: "POST",
             headers: {
