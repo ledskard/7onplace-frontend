@@ -218,7 +218,7 @@ export const FormRegisterContainer = () => {
     };
 
     const res = await fetch(
-      "https://alb7onsexy-1208292946.us-east-1.elb.amazonaws.com/models",
+      "http://ec2-54-161-22-227.compute-1.amazonaws.com:8080/models",
       {
         method: "POST",
         headers: {
