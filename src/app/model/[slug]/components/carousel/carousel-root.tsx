@@ -31,7 +31,7 @@ export const CarouselRoot = ({ model }: CarouselContentProps) => {
   };
 
   return (
-    <section className="mx-auto border-black border rounded-md shadow-md shadow-gray-400 mb-6 max-w-xl m-auto">
+    <section className="mx-auto rounded-md">
       <Swiper
         onSwiper={(e) => (swiperRef.current = e)}
         modules={[Navigation, Pagination, Autoplay, EffectFade]}
@@ -42,7 +42,7 @@ export const CarouselRoot = ({ model }: CarouselContentProps) => {
           delay: 3000,
           disableOnInteraction: false,
         }}
-        className="rounded-md relative btn-swiper cursor-grab sm:max-h-none max-h-[200px]"
+        className="rounded-md relative cursor-grab"
       >
         {model &&
           model.images.length > 0 &&
@@ -54,7 +54,7 @@ export const CarouselRoot = ({ model }: CarouselContentProps) => {
                 height={600}
                 width={1280}
                 quality={100}
-                className="sm:max-h-auto max-h-[350px] object-cover object-center"
+                className="sm:max-h-auto max-h-[450px] object-center object-contain rounded-md"
               />
             </SwiperSlide>
           ))}

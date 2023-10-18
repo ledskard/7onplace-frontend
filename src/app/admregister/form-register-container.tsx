@@ -44,7 +44,7 @@ export const FormRegisterContainer = () => {
 
   const [genderData, setGenderData] = useState<string | null>(null);
 
-  const gender = ["mulheres", "casais", "trans"];
+  const gender = ["mulheres", "casais", "trans", "homens"];
 
   const registerSchema = z.object({
     username: z.string().min(2, "Campo nome deve conter pelo menos 2 dígitos"),

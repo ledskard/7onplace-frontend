@@ -2,6 +2,7 @@ import { Header } from "@/components/interface/header";
 import "./globals.css";
 import type { Metadata } from "next";
 import { Toaster } from "@/components/ui/toaster";
+import { Providers } from "@/providers/providers";
 
 export const metadata: Metadata = {
   title: "7OnSexy",
@@ -16,9 +17,11 @@ export default function RootLayout({
   return (
     <html lang="pt-BR">
       <body className="bg-[#f3f3f3]">
-        <Header />
-        <Toaster />
-        {children}
+        <Providers>
+          <Header />
+          <Toaster />
+          {children}
+        </Providers>
       </body>
     </html>
   );

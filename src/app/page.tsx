@@ -13,7 +13,7 @@ type SearchProps = {
 export default function Home({ searchParams: { query } }: SearchProps) {
   return (
     <main className="sm:w-10/12 w-10/12 mx-auto pt-5 flex mb-5 gap-4">
-      <Tabs defaultValue="mulheres">
+      <Tabs defaultValue="mulheres" className="w-full">
         <TabsList>
           <FlexDiv className="vsm:flex-wrap gap-0">
             <TabsTrigger value="mulheres">mulheres</TabsTrigger>
