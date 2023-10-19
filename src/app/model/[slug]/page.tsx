@@ -12,7 +12,7 @@ export default async function Model({ params }: { params: { slug: string } }) {
 
   return (
     <main className="w-10/12 max-w-xl mx-auto min-h-[94vh] m-auto flex items-center justify-center sm:py-4">
-      <div>
+      <div className="w-full md:my-4 my-10">
         <CarouselRoot model={dataModel} />
         <FlexDiv col>
           <AboutModel.Heading>sobre:</AboutModel.Heading>

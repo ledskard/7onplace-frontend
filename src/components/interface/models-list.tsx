@@ -21,7 +21,7 @@ export async function ModelsList({
   return (
     <section
       className={twMerge(
-        "grid lg:grid-cols-3 gap-4 grid-cols-2 w-full mx-auto items-center justify-center z-0",
+        "grid gap-4 grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 w-full mx-auto items-center justify-center z-0",
         className
       )}
       {...props}
@@ -46,7 +46,7 @@ export async function ModelsList({
                 />
                 <Card.ContentDiv>
                   <Card.Img
-                    className="w-[30px] h-[30px] object-cover aspect-square object-center md:w-[45px] top-[-19%] md:h-[45px] rounded-full shadow-md shadow-gray-500 absolute"
+                    className="min-w-[30px] max-w-[30px] min-h-[30px] max-h-[30px] object-cover aspect-square object-center md:min-w-[45px] top-[-19%] md:min-h-[45px] rounded-full shadow-md shadow-gray-500 absolute"
                     src={model.profileImage?.url ?? "/default-profile.jpg"}
                     alt={model.username}
                   />
