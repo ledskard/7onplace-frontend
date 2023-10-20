@@ -176,11 +176,9 @@ export const FormRegisterContainer = () => {
     instagram: z.string(),
     telegramVip: z
       .string()
-      .regex(/https:\/\/t\.me\/\+?\w+/, "Só aceitamos links do telegram"),
 
     telegramFree: z
       .string()
-      .regex(/https:\/\/t\.me\/\+?\w+/, "Só aceitamos links do telegram"),
 
     description: z
       .string()
