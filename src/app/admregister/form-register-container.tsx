@@ -173,18 +173,16 @@ export const FormRegisterContainer = () => {
 
         return true;
       }, "Somente os formatos .jpg, .jpeg, .png e .webp são suportados"),
-
+    instagram: z.string(),
     telegramVip: z
-      .string()
-      .regex(/https:\/\/t\.me\/\+?\w+/, "Só aceitamos links do telegram"),
+      .string(),
 
     telegramFree: z
-      .string()
-      .regex(/https:\/\/t\.me\/\+?\w+/, "Só aceitamos links do telegram"),
+      .string(),
 
     description: z
       .string()
-      .min(10, "Descrição deve conter pelo menos 10 caracteres"),
+      .optional(),
   });
 
   type RegisterModelProps = z.infer<typeof registerSchema>;
@@ -211,7 +209,6 @@ export const FormRegisterContainer = () => {
       ...dataZod,
       profileImg: perfilImage,
       images: displayImages,
-      location: locationData,
       type: genderData,
       likes: 1,
     };
@@ -225,7 +222,7 @@ export const FormRegisterContainer = () => {
     });
 
     const result = await res.json();
-
+    console.log(result)
     if (result.success) {
       reset();
       toast({
@@ -302,7 +299,7 @@ export const FormRegisterContainer = () => {
           </ScrollArea>
         </SelectContent>
       </Select>
-
+{/* 
       <Select onValueChange={setLocationData}>
         <SelectTrigger>
           <SelectValue placeholder="Localização" className="text-gray-300" />
@@ -316,7 +313,7 @@ export const FormRegisterContainer = () => {
             ))}
           </ScrollArea>
         </SelectContent>
-      </Select>
+      </Select> */}
 
       <Form.Input
         wf
@@ -335,6 +332,13 @@ export const FormRegisterContainer = () => {
         helperText={errors.telegramFree?.message?.toString()}
         success={!errors.telegramFree}
         error={!!errors.telegramFree}
+        register={register}
+      />
+
+      <Form.Input
+        wf
+        id="instagram"
+        placeholder="Link Instagram"
         register={register}
       />
 

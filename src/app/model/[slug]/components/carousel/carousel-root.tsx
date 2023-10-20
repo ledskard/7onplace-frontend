@@ -81,10 +81,7 @@ export const CarouselRoot = ({ model }: CarouselContentProps) => {
             <Card.Name>{model.username}</Card.Name>
           </FlexDiv>
           <FlexDiv>
-            <span>
-              <MdLocationOn className="text-black md:text-3xl text-2xl" />
-            </span>
-            <ModelDetails.Location>{model.location}</ModelDetails.Location>
+            <ModelDetails.Location>{model.instagram}</ModelDetails.Location>
           </FlexDiv>
         </FlexDiv>
         {/* <Card.Fav
