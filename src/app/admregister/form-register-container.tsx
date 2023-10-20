@@ -173,7 +173,7 @@ export const FormRegisterContainer = () => {
 
         return true;
       }, "Somente os formatos .jpg, .jpeg, .png e .webp são suportados"),
-
+    instagram: z.string(),
     telegramVip: z
       .string()
       .regex(/https:\/\/t\.me\/\+?\w+/, "Só aceitamos links do telegram"),
@@ -215,6 +215,7 @@ export const FormRegisterContainer = () => {
       type: genderData,
       likes: 1,
     };
+    console.log(modelData)
 
     const res = await fetch(`${process.env.NEXT_PUBLIC_DATABASE_URL}/models`, {
       method: "POST",
@@ -302,7 +303,7 @@ export const FormRegisterContainer = () => {
           </ScrollArea>
         </SelectContent>
       </Select>
-
+{/* 
       <Select onValueChange={setLocationData}>
         <SelectTrigger>
           <SelectValue placeholder="Localização" className="text-gray-300" />
@@ -316,7 +317,7 @@ export const FormRegisterContainer = () => {
             ))}
           </ScrollArea>
         </SelectContent>
-      </Select>
+      </Select> */}
 
       <Form.Input
         wf
@@ -335,6 +336,13 @@ export const FormRegisterContainer = () => {
         helperText={errors.telegramFree?.message?.toString()}
         success={!errors.telegramFree}
         error={!!errors.telegramFree}
+        register={register}
+      />
+
+      <Form.Input
+        wf
+        id="instagram"
+        placeholder="Link Instagram"
         register={register}
       />
 
