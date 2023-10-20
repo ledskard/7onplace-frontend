@@ -1,24 +1,28 @@
-'use client'
+"use client";
 
 import { ComponentProps, MouseEvent, useState } from "react";
 import { twMerge } from "tailwind-merge";
 import { AiFillHeart } from "react-icons/ai";
 import { normalizeFavorites } from "@/utils/normalize-favorites";
+import { incrementLike } from "@/utils/increment-like-to-model";
 
 type CardModelFavoriteProps = ComponentProps<"button"> & {
   favorites: number;
+  modelId: string;
 };
 
 export const CardModelFavorite = ({
   favorites,
   className,
+  modelId,
   ...props
 }: CardModelFavoriteProps) => {
   const [isLiked, setIsLiked] = useState(false);
   const [count, setCount] = useState(favorites);
 
-
-  const handleLike = (e: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>) => {
+  const handleLike = async (
+    e: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>
+  ) => {
     e.stopPropagation();
 
     setIsLiked(!isLiked);
@@ -27,19 +31,20 @@ export const CardModelFavorite = ({
       setCount(count - 1);
     } else {
       setCount(count + 1);
+      await incrementLike(modelId);
     }
-  }
+  };
 
   return (
-     <button
+    <button
       className={twMerge(
-        "flex gap-2 text-lg md:text-2xl font-bold items-center md:mt-2 justify-center text-red-main z-30",
+        "flex gap-2 text-lg md:text-xl font-bold items-center md:mt-2 justify-center text-red-main z-30",
         className
       )}
       onClick={handleLike}
       {...props}
     >
-        <AiFillHeart className="md:text-2xl lg:text-3xl" color={ isLiked ? "#9A1F33" : "#000"} />
+      <AiFillHeart className="" color={isLiked ? "#9A1F33" : "#000"} />
       {normalizeFavorites(count)}
     </button>
   );

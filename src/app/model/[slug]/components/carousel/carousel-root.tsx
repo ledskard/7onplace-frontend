@@ -84,7 +84,11 @@ export const CarouselRoot = ({ model }: CarouselContentProps) => {
             <ModelDetails.Location>{model.instagram}</ModelDetails.Location>
           </FlexDiv>
         </FlexDiv>
-        <Card.Fav className="self-start leading-10" favorites={model.likes} />
+        {/* <Card.Fav
+          modelId={model.id}
+          className="self-start leading-10"
+          favorites={model.likes}
+        /> */}
       </FlexDiv>
     </section>
   );

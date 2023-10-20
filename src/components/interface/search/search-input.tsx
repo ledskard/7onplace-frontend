@@ -63,7 +63,7 @@ export const SearchInput = ({ className, ...props }: SearchInputProps) => {
   return (
     <div
       className={twMerge(
-        "sm:flex hidden items-center justify-between border-2 border-red-main rounded md:rounded-md p-1 max-w-[70%]",
+        "sm:flex hidden md:ml-4 items-center justify-between border-2 border-red-main rounded md:rounded-md p-1 max-w-[70%]",
         className
       )}
     >

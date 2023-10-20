@@ -12,10 +12,10 @@ type SearchProps = {
 
 export default function Home({ searchParams: { query } }: SearchProps) {
   return (
-    <main className="sm:w-10/12 w-10/12 mx-auto pt-5 flex mb-5 gap-4">
+    <main className="sm:w-11/12 w-11/12 mx-auto pt-5 flex mb-5 gap-4">
       <Tabs defaultValue="mulheres" className="w-full">
         <TabsList>
-          <FlexDiv className="vsm:flex-wrap gap-0">
+          <FlexDiv className="flex-wrap gap-0">
             <TabsTrigger value="mulheres">mulheres</TabsTrigger>
             <TabsTrigger value="casais">casais</TabsTrigger>
             <TabsTrigger value="trans">trans</TabsTrigger>
@@ -43,7 +43,7 @@ export default function Home({ searchParams: { query } }: SearchProps) {
         href="https://wa.me//5554999090675?text=Tenho%20interesse%20em%20anunciar%20no%7onsexy"
         target="_blank"
       > */}
-      <Adverts.Root>Teste de anuncio</Adverts.Root>
+      <Adverts.Root />
       {/* </Adverts.ExternalLink> */}
     </main>
   );

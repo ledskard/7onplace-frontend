@@ -17,6 +17,12 @@ export const Header = ({ className, ...props }: HeaderProps) => {
     required: false,
   });
 
+  const handleSignOut = () => {
+    signOut({
+      callbackUrl: "/",
+    });
+  };
+
   return (
     <header
       className={twMerge("bg-red-main w-full h-14", className)}
@@ -28,7 +34,7 @@ export const Header = ({ className, ...props }: HeaderProps) => {
           <Search.Input className="sm:hidden flex border-white bg-white" />
         )}
         {session && (
-          <Button className="w-fit text-xl" onClick={() => signOut()}>
+          <Button className="w-fit text-xl" onClick={handleSignOut}>
             <GoSignOut />
           </Button>
         )}

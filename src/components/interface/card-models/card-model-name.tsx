@@ -7,7 +7,7 @@ export const CardModelName = ({ className, ...props }: CardModelName) => {
   return (
     <h2
       className={twMerge(
-        "font-semibold capitalize text-lg px-2 md:text-2xl line-clamp-1",
+        "font-semibold capitalize px-2 sm:text-lg md:text-xl line-clamp-1",
         className
       )}
       {...props}
