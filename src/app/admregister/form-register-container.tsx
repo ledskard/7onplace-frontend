@@ -175,14 +175,14 @@ export const FormRegisterContainer = () => {
       }, "Somente os formatos .jpg, .jpeg, .png e .webp são suportados"),
     instagram: z.string(),
     telegramVip: z
-      .string()
+      .string(),
 
     telegramFree: z
-      .string()
+      .string(),
 
     description: z
       .string()
-      .min(10, "Descrição deve conter pelo menos 10 caracteres"),
+      .optional(),
   });
 
   type RegisterModelProps = z.infer<typeof registerSchema>;
@@ -224,7 +224,7 @@ export const FormRegisterContainer = () => {
     });
 
     const result = await res.json();
-
+    console.log(result)
     if (result.success) {
       reset();
       toast({
