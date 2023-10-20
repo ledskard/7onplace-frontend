@@ -209,7 +209,6 @@ export const FormRegisterContainer = () => {
       ...dataZod,
       profileImg: perfilImage,
       images: displayImages,
-      location: locationData,
       type: genderData,
       likes: 1,
     };
