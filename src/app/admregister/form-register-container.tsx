@@ -212,7 +212,6 @@ export const FormRegisterContainer = () => {
       type: genderData,
       likes: 1,
     };
-    delete modelData.location
 
     const res = await fetch(`${process.env.NEXT_PUBLIC_DATABASE_URL}/models`, {
       method: "POST",
