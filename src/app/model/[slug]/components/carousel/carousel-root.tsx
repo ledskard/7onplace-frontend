@@ -84,7 +84,7 @@ export const CarouselRoot = ({ model }: CarouselContentProps) => {
             <span>
               <MdLocationOn className="text-black md:text-3xl text-2xl" />
             </span>
-            <ModelDetails.Location>{model.location}</ModelDetails.Location>
+            <ModelDetails.Location>{model.instagram}</ModelDetails.Location>
           </FlexDiv>
         </FlexDiv>
         <Card.Fav className="self-start leading-10" favorites={model.likes} />
