@@ -1,4 +1,5 @@
 import { CardModelContentDiv } from "./card-model-content-div";
+import { CardDelete } from "./card-model-delete";
 import { CardModelFavorite } from "./card-model-favorite";
 import { CardModelImage } from "./card-model-img";
 import { CardModelName } from "./card-model-name";
@@ -10,4 +11,5 @@ export const Card = {
   Name: CardModelName,
   Fav: CardModelFavorite,
   ContentDiv: CardModelContentDiv,
+  Delete: CardDelete,
 };

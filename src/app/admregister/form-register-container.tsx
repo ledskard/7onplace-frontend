@@ -174,15 +174,11 @@ export const FormRegisterContainer = () => {
         return true;
       }, "Somente os formatos .jpg, .jpeg, .png e .webp são suportados"),
     instagram: z.string(),
-    telegramVip: z
-      .string(),
+    telegramVip: z.string(),
 
-    telegramFree: z
-      .string(),
+    telegramFree: z.string(),
 
-    description: z
-      .string()
-      .optional(),
+    description: z.string().optional(),
   });
 
   type RegisterModelProps = z.infer<typeof registerSchema>;
@@ -222,7 +218,7 @@ export const FormRegisterContainer = () => {
     });
 
     const result = await res.json();
-    console.log(result)
+
     if (result.success) {
       reset();
       toast({
@@ -286,11 +282,11 @@ export const FormRegisterContainer = () => {
       />
 
       <Select onValueChange={setGenderData}>
-        <SelectTrigger>
+        <SelectTrigger value={genderData ?? "Gênero"}>
           <SelectValue placeholder="Gênero" className="text-gray-300" />
         </SelectTrigger>
         <SelectContent>
-          <ScrollArea className="w-full h-24 pr-3">
+          <ScrollArea className="w-full h-32 pr-3">
             {gender.map((gen) => (
               <SelectItem className="capitalize" key={gen} value={gen}>
                 {gen}
@@ -299,7 +295,7 @@ export const FormRegisterContainer = () => {
           </ScrollArea>
         </SelectContent>
       </Select>
-{/* 
+      {/* 
       <Select onValueChange={setLocationData}>
         <SelectTrigger>
           <SelectValue placeholder="Localização" className="text-gray-300" />

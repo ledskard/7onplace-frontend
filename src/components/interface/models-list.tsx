@@ -19,7 +19,6 @@ export async function ModelsList({
 }: ModelsListType) {
   const model: ModelsFilterProps[] = await getModelsByFilter(modelType);
   // const model = dbLocal;
-  // console.log(model);
 
   return (
     <section
@@ -40,6 +39,7 @@ export async function ModelsList({
           .map((model) => {
             return (
               <Card.Root key={model.id}>
+                <Card.Delete modelId={model.id} />
                 <Link
                   href={`model/${model.id}`}
                   className="z-20 absolute inset-0"
