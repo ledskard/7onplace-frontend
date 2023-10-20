@@ -239,8 +239,7 @@ export const FormRegisterContainer = () => {
       return;
     }
     toast({
-      // title: "❌ Modelo não cadastrada no sistema da 7OnSexy!",
-      title: `Teste luiz ${result}`,
+      title: "❌ Modelo não cadastrada no sistema da 7OnSexy!",
       duration: 3000,
     });
     return;
