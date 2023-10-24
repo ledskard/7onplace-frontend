@@ -173,7 +173,7 @@ export const FormRegisterContainer = () => {
 
         return true;
       }, "Somente os formatos .jpg, .jpeg, .png e .webp são suportados"),
-    instagram: z.string(),
+    instagram: z.string().optional(),
     telegramVip: z.string(),
 
     telegramFree: z.string(),
