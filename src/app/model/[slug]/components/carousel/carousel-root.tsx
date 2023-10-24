@@ -54,7 +54,7 @@ export const CarouselRoot = ({ model }: CarouselContentProps) => {
                 height={600}
                 width={1280}
                 quality={100}
-                className="sm:max-h-auto max-h-[450px] object-cover object-contain rounded-md"
+                className="sm:max-h-auto max-h-[350px] object-cover object-contain rounded-md"
               />
             </SwiperSlide>
           ))}
@@ -79,9 +79,6 @@ export const CarouselRoot = ({ model }: CarouselContentProps) => {
           <FlexDiv>
             <PerfilImage src={model.profileImage.url} alt={model.username} />
             <Card.Name>{model.username}</Card.Name>
-          </FlexDiv>
-          <FlexDiv>
-            <ModelDetails.Location>{model.instagram}</ModelDetails.Location>
           </FlexDiv>
         </FlexDiv>
         {/* <Card.Fav

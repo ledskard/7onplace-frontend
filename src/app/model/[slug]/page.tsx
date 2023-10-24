@@ -11,7 +11,7 @@ export default async function Model({ params }: { params: { slug: string } }) {
   await incrementLike(params.slug);
 
   return (
-    <main className="w-10/12 max-w-xl mx-auto min-h-[94vh] m-auto flex items-center justify-center sm:py-4">
+    <main className="w-10/12 max-w-xl mx-auto m-auto flex items-center justify-center sm:py-4">
       <div className="w-full md:my-4 my-10">
         <CarouselRoot model={dataModel} />
         <FlexDiv col>

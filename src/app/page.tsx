@@ -11,6 +11,8 @@ type SearchProps = {
 };
 
 export default function Home({ searchParams: { query } }: SearchProps) {
+
+  
   return (
     <main className="sm:w-11/12 w-11/12 mx-auto pt-5 flex mb-5 gap-4">
       <Tabs defaultValue="mulheres" className="w-full">
