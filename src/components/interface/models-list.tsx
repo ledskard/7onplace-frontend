@@ -46,10 +46,6 @@ export async function ModelsList({
                   key={model.id}
                 />
                 <Card.Img
-                  style={{
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'center center',
-                  }}
                   src={model.images[0]?.url ?? "/default-profile.jpg"}
                   alt={model.username}
                 />

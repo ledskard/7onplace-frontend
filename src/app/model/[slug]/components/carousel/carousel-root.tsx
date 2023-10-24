@@ -54,7 +54,7 @@ export const CarouselRoot = ({ model }: CarouselContentProps) => {
                 height={600}
                 width={1280}
                 quality={100}
-                className="sm:max-h-auto max-h-[450px] object-center object-contain rounded-md"
+                className="sm:max-h-auto max-h-[450px] object-fill object-contain rounded-md"
               />
             </SwiperSlide>
           ))}
