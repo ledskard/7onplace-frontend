@@ -24,7 +24,7 @@ export const CardDelete = ({
   return (
     <div
       className={twMerge(
-        `flex top-2 right-2 text-red-main bg-white shadow rounded-full w-8 h-8 justify-center items-center p-1 hover:bg-red-main hover:text-white duration-300 z-40 cursor-pointer ${
+        `flex sm:top-[2%] top-[3%] right-2 text-red-main bg-white shadow rounded-full w-8 h-8 justify-center items-center p-1 hover:bg-red-main hover:text-white duration-300 z-40 cursor-pointer ${
           session ? "absolute" : "hidden"
         }`,
         className

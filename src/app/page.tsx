@@ -43,7 +43,7 @@ export default function Home({ searchParams: { query } }: SearchProps) {
         href="https://wa.me//5554999090675?text=Tenho%20interesse%20em%20anunciar%20no%7onsexy"
         target="_blank"
       > */}
-      <Adverts.Root />
+      {/* <Adverts.Root /> */}
       {/* </Adverts.ExternalLink> */}
     </main>
   );

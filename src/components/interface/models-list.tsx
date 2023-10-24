@@ -17,8 +17,8 @@ export async function ModelsList({
   query,
   ...props
 }: ModelsListType) {
-  const model: ModelsFilterProps[] = await getModelsByFilter(modelType);
-  // const model = dbLocal;
+  // const model: ModelsFilterProps[] = await getModelsByFilter(modelType);
+  const model = dbLocal;
 
   return (
     <section
@@ -47,15 +47,15 @@ export async function ModelsList({
                 />
                 <Card.Img
                   style={{
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'center center',
+                    backgroundSize: "cover",
+                    backgroundPosition: "center center",
                   }}
                   src={model.images[0]?.url ?? "/default-profile.jpg"}
                   alt={model.username}
                 />
                 <Card.ContentDiv>
                   <Card.Img
-                    className="min-w-[30px] max-w-[30px] min-h-[30px] max-h-[30px] object-cover aspect-square object-center md:min-w-[45px] top-[-19%] md:min-h-[45px] sm:min-w-[45px] sm:min-h-[45px] rounded-full shadow-md shadow-gray-500 absolute"
+                    className="min-w-[30px] max-w-[30px] min-h-[30px] max-h-[30px] object-cover aspect-square object-center md:min-w-[45px] top-[-28%] md:min-h-[45px] sm:min-w-[45px] sm:min-h-[45px] rounded-full shadow-md shadow-gray-500 absolute"
                     src={model.profileImage?.url ?? "/default-profile.jpg"}
                     alt={model.username}
                   />
