@@ -17,7 +17,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="pt-BR">
-      <body className="bg-[#f3f3f3]">
+      <body className="bg-[#f3f3f3] max-w-[1930px] mx-auto">
         <Providers>
           <Header />
           <Toaster />

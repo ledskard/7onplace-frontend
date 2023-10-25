@@ -8,11 +8,13 @@ import { useSelectedLayoutSegment } from "next/navigation";
 import { signOut, useSession } from "next-auth/react";
 import { Button } from "@/components/ui/button";
 import { GoSignOut } from "react-icons/go";
+import { useWindowScroll } from "@uidotdev/usehooks";
 
 type HeaderProps = ComponentProps<"header">;
 
 export const Header = ({ className, ...props }: HeaderProps) => {
   const pathName = useSelectedLayoutSegment();
+  const [{ y }] = useWindowScroll();
   const { data: session } = useSession({
     required: false,
   });
@@ -25,7 +27,11 @@ export const Header = ({ className, ...props }: HeaderProps) => {
 
   return (
     <header
-      className={twMerge("bg-red-main w-full h-14", className)}
+      className={twMerge(
+        "bg-red-main w-full h-14",
+        y && y > 125 && "fixed -top-1 z-[9999]",
+        className
+      )}
       {...props}
     >
       <Navbar>

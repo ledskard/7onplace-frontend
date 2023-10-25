@@ -5,7 +5,7 @@ import { useRef } from "react";
 import { MdLocationOn } from "react-icons/md";
 import { Card } from "@/components/interface/card-models";
 import Image from "next/image";
-import { BsArrowLeftShort, BsArrowRightShort } from "react-icons/bs";
+import { BsArrowLeftShort, BsArrowRightShort, BsTiktok } from "react-icons/bs";
 import { Carousel } from "./index";
 import { PerfilImage } from "@/components/interface/perfil-image";
 import { FlexDiv } from "@/components/interface/flex-div";
@@ -19,6 +19,7 @@ import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import "swiper/css/effect-fade";
 import "swiper/css/autoplay";
+import { Instagram, Twitter } from "lucide-react";
 
 export const CarouselRoot = ({ model }: CarouselContentProps) => {
   const swiperRef = useRef<any>();
@@ -81,7 +82,21 @@ export const CarouselRoot = ({ model }: CarouselContentProps) => {
             <Card.Name>{model.username}</Card.Name>
           </FlexDiv>
           <FlexDiv>
-            <ModelDetails.Location>{model.instagram}</ModelDetails.Location>
+            {model.instagram && (
+              <ModelDetails.SocialMedia href={model.instagram}>
+                <Instagram />
+              </ModelDetails.SocialMedia>
+            )}
+            {model.twitter && (
+              <ModelDetails.SocialMedia href={model.instagram}>
+                <Twitter />
+              </ModelDetails.SocialMedia>
+            )}
+            {model.tiktok && (
+              <ModelDetails.SocialMedia href={model.tiktok}>
+                <BsTiktok />
+              </ModelDetails.SocialMedia>
+            )}
           </FlexDiv>
         </FlexDiv>
         {/* <Card.Fav
