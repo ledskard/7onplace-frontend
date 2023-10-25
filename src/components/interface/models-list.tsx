@@ -5,6 +5,7 @@ import { twMerge } from "tailwind-merge";
 import { ModelsFilterProps } from "@/types/model/models-filter-props";
 import { getModelsByFilter } from "@/types/model/get-models-by-filter";
 import dbLocal from "../../../dblocal.json";
+import Image from 'next/image';
 
 type ModelsListType = ComponentProps<"section"> & {
   modelType: string;
@@ -17,8 +18,9 @@ export async function ModelsList({
   query,
   ...props
 }: ModelsListType) {
-  // const model: ModelsFilterProps[] = await getModelsByFilter(modelType);
-  const model = dbLocal;
+  const model: ModelsFilterProps[] = await getModelsByFilter(modelType);
+  // const model = dbLocal;
+
 
   return (
     <section
@@ -40,24 +42,24 @@ export async function ModelsList({
             return (
               <Card.Root key={model.id}>
                 <Card.Delete modelId={model.id} />
-                <Link
+                {/* <Link
                   href={`model/${model.id}`}
                   className="z-20 absolute inset-0"
                   key={model.id}
-                />
-                <Card.Img
-                  style={{
-                    backgroundSize: "cover",
-                    backgroundPosition: "center center",
-                  }}
-                  src={model.images[0]?.url ?? "/default-profile.jpg"}
-                  alt={model.username}
-                />
-                <Card.ContentDiv>
+                /> */}
+                <div className='border relative flex-1 overflow-hidden bg-blue-400 max-h-[500px] h-full'>
                   <Card.Img
-                    className="min-w-[30px] max-w-[30px] min-h-[30px] max-h-[30px] object-cover aspect-square object-center md:min-w-[45px] top-[-28%] md:min-h-[45px] sm:min-w-[45px] sm:min-h-[45px] rounded-full shadow-md shadow-gray-500 absolute"
+                    src={model.images[0]?.url ?? "/default-profile.jpg"}
+                    alt={model.username}
+                  />
+                </div>
+                <Card.ContentDiv>
+                  <Image
+                    className="rounded-full w-14 h-14 object-cover object-center absolute top-0 -translate-y-1/2"
                     src={model.profileImage?.url ?? "/default-profile.jpg"}
                     alt={model.username}
+                    width={56}
+                    height={56}
                   />
                   <Card.Name>{model.username}</Card.Name>
                   <Card.Fav modelId={model.id} favorites={model.likes} />
