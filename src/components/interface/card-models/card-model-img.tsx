@@ -10,6 +10,7 @@ export const CardModelImage = ({
 }: CardModelImageProps) => {
   return (
     <Image
+      loading="lazy"
       className={twMerge(
         `rounded-t-lg object-cover sm:max-h-[350px] sm:min-h-[350px] max-h-[150px] min-h-[150px] `,
         className
