@@ -31,14 +31,10 @@
 }
 .swiper-wrapper {
   margin: auto !important;
-  border-color: red;
-  background-color: aqua;
 }
 
 .swiper-slide {
   margin: auto !important;
-  border-color: red;
-  background-color: aqua;
 }
 
 @layer base {
