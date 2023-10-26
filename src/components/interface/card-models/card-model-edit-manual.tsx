@@ -72,7 +72,6 @@ export const CardModelEdit = ({
   const gender = ["mulheres", "casais", "trans", "homens"];
 
   const profileImageRef = useRef();
-  // const
 
   // const editModelSchema = z.object({
   //   username: z.string().min(2, "Campo nome deve conter pelo menos 2 dígitos"),
