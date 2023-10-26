@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { ComponentProps } from "react";
 import { twMerge } from "tailwind-merge";
-import { test } from "./testa";
+import { imgLoading } from "./card-model-base64-img-loading";
 
 type CardModelImageProps = ComponentProps<typeof Image>;
 
@@ -11,13 +11,10 @@ export const CardModelImage = ({
 }: CardModelImageProps) => {
   return (
     <Image
-      className={twMerge(
-        'object-cover object-center', 
-        className
-      )}
+      className={twMerge("object-fill object-center", className)}
       fill
-      blurDataURL={test}
-      placeholder='blur'
+      blurDataURL={imgLoading}
+      placeholder="blur"
       sizes="(max-width: 1280px) 50vw, 33vw"
       {...props}
     />

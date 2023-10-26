@@ -3,7 +3,7 @@ import { ModelsList } from "@/components/interface/models-list";
 import { Search } from "@/components/interface/search";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Adverts } from "./components/advert";
-import { Suspense } from 'react';
+import { Suspense } from "react";
 
 type SearchProps = {
   searchParams: {
@@ -14,7 +14,7 @@ type SearchProps = {
 export default function Home({ searchParams: { query } }: SearchProps) {
   return (
     <main className="w-11/12 mx-auto pt-5 flex mb-5 gap-4">
-      <Tabs defaultValue="mulheres" className="w-full">
+      <Tabs defaultValue="mulheres" className="w-full mx-auto">
         <TabsList>
           <FlexDiv className="flex-wrap gap-0">
             <TabsTrigger value="mulheres">mulheres</TabsTrigger>
