@@ -2,7 +2,6 @@ import { FlexDiv } from "@/components/interface/flex-div";
 import { ModelsList } from "@/components/interface/models-list";
 import { Search } from "@/components/interface/search";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Adverts } from "./components/advert";
 import { Suspense } from "react";
 
 type SearchProps = {

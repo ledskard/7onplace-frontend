@@ -2,7 +2,6 @@
 import { SwiperSlide, Swiper } from "swiper/react";
 import { Autoplay, Navigation, Pagination, EffectFade } from "swiper/modules";
 import { useRef } from "react";
-import { MdLocationOn } from "react-icons/md";
 import { Card } from "@/components/interface/card-models";
 import Image from "next/image";
 import { BsArrowLeftShort, BsArrowRightShort, BsTiktok } from "react-icons/bs";
@@ -11,7 +10,6 @@ import { PerfilImage } from "@/components/interface/perfil-image";
 import { FlexDiv } from "@/components/interface/flex-div";
 import { ModelDetails } from "../model-details";
 import { CarouselContentProps } from "@/types/model/carousel-content-props";
-import { GridCol } from "@/components/interface/grid-col";
 
 import "swiper/css";
 import "swiper/css/navigation";
