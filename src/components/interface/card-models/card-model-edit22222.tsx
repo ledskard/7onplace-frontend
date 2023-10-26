@@ -3,7 +3,7 @@ import { toast } from "@/components/ui/use-toast";
 import { Pencil, XCircleIcon } from "lucide-react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { ComponentProps, useState } from "react";
+import { ComponentProps, useRef, useState } from "react";
 import { BsFillTrash3Fill } from "react-icons/bs";
 import { twMerge } from "tailwind-merge";
 import { EditModalContainer } from "../modal/edit-modal-container";
@@ -67,183 +67,187 @@ export const CardModelEdit = ({
 
   const [genderData, setGenderData] = useState<string | null>(model.gender);
 
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
   const gender = ["mulheres", "casais", "trans", "homens"];
 
-  const editModelSchema = z.object({
-    username: z.string().min(2, "Campo nome deve conter pelo menos 2 dígitos"),
+  const profileImageRef = useRef();
+  // const
 
-    profileImg: z
-      .any()
-      .optional()
-      .refine((files: Array<File>) => {
-        const fileIsExists = files.length > 0;
+  // const editModelSchema = z.object({
+  //   username: z.string().min(2, "Campo nome deve conter pelo menos 2 dígitos"),
 
-        if (!fileIsExists) {
-          setPerfilImage(null);
+  //   profileImg: z
+  //     .any()
+  //     .optional()
+  //     .refine((files: Array<File>) => {
+  //       const fileIsExists = files.length > 0;
 
-          return false;
-        }
+  //       if (!fileIsExists) {
+  //         setPerfilImage(null);
 
-        return fileIsExists;
-      }, "A modelo deve ter uma foto de perfil própria")
-      .optional()
-      .refine((files: Array<File>) => {
-        const fileIsExists = files.length > 0;
+  //         return false;
+  //       }
 
-        if (!fileIsExists) return false;
+  //       return fileIsExists;
+  //     }, "A modelo deve ter uma foto de perfil própria")
+  //     .refine((files: Array<File>) => {
+  //       const fileIsExists = files.length > 0;
 
-        const file = files[0];
+  //       if (!fileIsExists) return false;
 
-        return file.size <= maxFileSize; // Max file size is 10MB
-      }, "Tamanho máximo do arquivo é de 10MB")
-      .optional()
-      .refine((files: Array<File>) => {
-        const file = files[0];
+  //       const file = files[0];
 
-        const isCorrectlyType = acceptedImageTypes.includes(file?.type);
+  //       return file.size <= maxFileSize; // Max file size is 10MB
+  //     }, "Tamanho máximo do arquivo é de 10MB")
+  //     .refine((files: Array<File>) => {
+  //       const file = files[0];
 
-        if (!isCorrectlyType) return false;
+  //       const isCorrectlyType = acceptedImageTypes.includes(file?.type);
 
-        if (file) {
-          const reader = new FileReader();
-          reader.onload = (e) => {
-            const imageConvertBase64 = e.target?.result as string;
+  //       if (!isCorrectlyType) return false;
 
-            const nameUnique = `${file.name}-${Date.now()}`;
+  //       if (file) {
+  //         const reader = new FileReader();
+  //         reader.onload = (e) => {
+  //           const imageConvertBase64 = e.target?.result as string;
 
-            setPerfilImage({
-              name: nameUnique.toString(),
-              base64: imageConvertBase64,
-            });
-          };
+  //           const nameUnique = `${file.name}-${Date.now()}`;
 
-          reader.readAsDataURL(file);
-        }
+  //           setPerfilImage({
+  //             name: nameUnique.toString(),
+  //             base64: imageConvertBase64,
+  //           });
+  //         };
 
-        return true;
-      }, "Somente os formatos .jpg, .jpeg, .png e .webp são suportados"),
+  //         reader.readAsDataURL(file);
+  //       }
 
-    images: z
-      .any()
-      .optional()
-      .refine((files: Array<File>) => {
-        const fileIsExists = files.length > 0;
+  //       return true;
+  //     }, "Somente os formatos .jpg, .jpeg, .png e .webp são suportados"),
 
-        if (!fileIsExists) {
-          setDisplayImages([]);
+  //   images: z
+  //     .any()
+  //     .optional()
+  //     .refine((files: Array<File>) => {
+  //       const fileIsExists = files.length > 0;
 
-          return false;
-        }
+  //       if (!fileIsExists) {
+  //         setDisplayImages([]);
 
-        return fileIsExists;
-      }, "A modelo deve ter pelo menos uma foto de pré visualização")
-      .refine((files: Record<string, File>) => {
-        const filesArray = Object.keys(files).map((key: any) => {
-          return files[key];
-        });
-        console.log(filesArray);
+  //         return false;
+  //       }
 
-        const filesIsExists = filesArray.length > 0;
-        console.log(filesIsExists);
-        if (!filesIsExists) return false;
+  //       return fileIsExists;
+  //     }, "A modelo deve ter pelo menos uma foto de pré visualização")
+  //     .refine((files: Record<string, File>) => {
+  //       const filesArray = Object.keys(files).map((key: any) => {
+  //         return files[key];
+  //       });
 
-        const isAllFilesLessThanMaxSize = filesArray.every(
-          (file: File) => file.size <= maxFileSize
-        );
-        console.log(isAllFilesLessThanMaxSize);
-        if (!isAllFilesLessThanMaxSize) return false;
+  //       const filesIsExists = filesArray.length > 0;
 
-        return true;
-      }, "Tamanho máximo do arquivo é de 10MB")
-      .refine((files: Record<string, File>) => {
-        const filesArray = Object.keys(files).map((key: any) => {
-          return files[key];
-        });
+  //       if (!filesIsExists) return false;
 
-        const filesIsExists = filesArray.length > 0;
+  //       const isAllFilesLessThanMaxSize = filesArray.every(
+  //         (file: File) => file.size <= maxFileSize
+  //       );
 
-        if (!filesIsExists) return false;
+  //       if (!isAllFilesLessThanMaxSize) return false;
 
-        const isAllFilesCorrectlyType = filesArray.every((file: File) =>
-          acceptedImageTypes.includes(file?.type)
-        );
+  //       return true;
+  //     }, "Tamanho máximo do arquivo é de 10MB")
+  //     .refine((files: Record<string, File>) => {
+  //       const filesArray = Object.keys(files).map((key: any) => {
+  //         return files[key];
+  //       });
 
-        if (!isAllFilesCorrectlyType) return false;
+  //       const filesIsExists = filesArray.length > 0;
 
-        for (let i = 0; i < filesArray.length; i++) {
-          const file = filesArray[i];
-          const reader = new FileReader();
+  //       if (!filesIsExists) return false;
 
-          reader.readAsDataURL(file);
+  //       const isAllFilesCorrectlyType = filesArray.every((file: File) =>
+  //         acceptedImageTypes.includes(file?.type)
+  //       );
 
-          reader.onload = (e) => {
-            const isExist = displayImages.some((img) => {
-              return img.base64 === (reader?.result as string);
-            });
+  //       if (!isAllFilesCorrectlyType) return false;
 
-            if (isExist) {
-              return setDisplayImages((prev) => [...prev]);
-            }
+  //       for (let i = 0; i < filesArray.length; i++) {
+  //         const file = filesArray[i];
+  //         const reader = new FileReader();
 
-            const imageConvertBase64 = e.target?.result as string;
+  //         reader.readAsDataURL(file);
 
-            const nameUnique = `${file.name}-${Date.now()}`;
+  //         reader.onload = (e) => {
+  //           const isExist = displayImages.some((img) => {
+  //             return img.base64 === (reader?.result as string);
+  //           });
 
-            setDisplayImages((prev) => [
-              ...prev,
-              {
-                name: nameUnique,
-                base64: imageConvertBase64,
-              },
-            ]);
-          };
-        }
+  //           if (isExist) {
+  //             return setDisplayImages((prev) => [...prev]);
+  //           }
 
-        return true;
-      }, "Somente os formatos .jpg, .jpeg, .png e .webp são suportados"),
-    instagram: z.string().optional(),
-    telegramVip: z.string().optional(),
+  //           const imageConvertBase64 = e.target?.result as string;
 
-    telegramFree: z.string().optional(),
+  //           const nameUnique = `${file.name}-${Date.now()}`;
 
-    description: z.string().optional(),
-  });
+  //           setDisplayImages((prev) => [
+  //             ...prev,
+  //             {
+  //               name: nameUnique,
+  //               base64: imageConvertBase64,
+  //             },
+  //           ]);
+  //         };
+  //       }
 
-  type EditModelProps = z.infer<typeof editModelSchema>;
+  //       return true;
+  //     }, "Somente os formatos .jpg, .jpeg, .png e .webp são suportados"),
+  //   instagram: z.string(),
+  //   telegramVip: z.string(),
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors, isSubmitting },
-    reset,
-  } = useForm<EditModelProps>({
-    mode: "onChange",
-    reValidateMode: "onChange",
-    defaultValues: {
-      description: model.description,
-      images: model.images,
-      instagram: model.instagram,
-      profileImg: model.profileImage.url,
-      telegramFree: model.telegramFree,
-      telegramVip: model.telegramVip,
-      username: model.username,
-    },
-    resolver: zodResolver(editModelSchema),
-  });
+  //   telegramFree: z.string(),
 
-  const handleUpdateInfoModel = async (data: EditModelProps) => {
-    const dataZod = editModelSchema.parse(data);
-    console.log(dataZod);
+  //   description: z.string().optional(),
+  // });
 
-    const modelData = {
-      ...dataZod,
-      profileImg: perfilImage,
-      images: displayImages,
-      type: genderData,
-    };
-    console.log(modelData);
+  // type EditModelProps = z.infer<typeof editModelSchema>;
 
+  // const {
+  //   register,
+  //   handleSubmit,
+  //   formState: { errors, isSubmitting },
+  //   reset,
+  // } = useForm<any>({
+  //   mode: "onChange",
+  //   reValidateMode: "onChange",
+  //   defaultValues: {
+  //     description: model.description,
+  //     images: model.images,
+  //     instagram: model.instagram,
+  //     profileImg: model.profileImage.url,
+  //     telegramFree: model.telegramFree,
+  //     telegramVip: model.telegramVip,
+  //     username: model.username,
+  //   },
+  //   resolver: zodResolver(editModelSchema),
+  // });
+
+  const handleUpdateInfoModel = async () => {
+    //   const dataZod = editModelSchema.parse(data);
+    //   console.log(dataZod);
+
+    //   const modelData = {
+    //     ...dataZod,
+    //     profileImg: perfilImage,
+    //     images: displayImages,
+    //     type: genderData,
+    //   };
+    //   console.log(modelData);
+    setIsLoading(true);
+    console.log(genderData);
     if (genderData === null) {
+      setIsLoading(false);
       return toast({
         title:
           "❌ Não foi possível atualizar a modelo! <br /> Campo gênero inválido...",
@@ -274,7 +278,7 @@ export const CardModelEdit = ({
           <DialogHeader>
             <DialogTitle>Editar Modelo</DialogTitle>
           </DialogHeader>
-          <Form.Root onSubmit={handleSubmit(handleUpdateInfoModel)}>
+          <Form.Root onSubmit={handleUpdateInfoModel}>
             <ScrollArea className="w-full max-h-[80vh] pr-3">
               <FlexDiv col>
                 <FlexDiv className="w-full">
@@ -298,23 +302,15 @@ export const CardModelEdit = ({
                       type="file"
                       accept="image/png, image/jpeg, image/webp, image/jpg"
                       id="profileImg"
-                      {...register("profileImg")}
+                      ref={profileImageRef.current}
                     />
-                    {errors.profileImg && (
-                      <FormError>
-                        {errors.profileImg.message?.toString()}
-                      </FormError>
-                    )}
                   </FlexDiv>
                 </FlexDiv>
-                <Form.Input
-                  wf
-                  id="username"
-                  placeholder="Nome"
-                  helperText={errors.username?.message?.toString()}
-                  success={!errors.username}
-                  error={!!errors.username}
-                  register={register}
+                <input
+                  type="text"
+                  placeholder="Nome da modelo"
+                  defaultValue={model.username}
+                  className="outline-none border-b-2 px-2 py-1 md:p-3 drop-shadow-md disabled:bg-inherit border-slate-200 rounded md:rounded-lg placeholder:text-slate-400"
                 />
 
                 <Select onValueChange={setGenderData}>
@@ -354,40 +350,23 @@ export const CardModelEdit = ({
         </SelectContent>
       </Select> */}
 
-                <Form.Input
-                  wf
-                  id="telegramVip"
-                  placeholder="Link telegram VIP"
-                  helperText={errors.telegramVip?.message?.toString()}
-                  success={!errors.telegramVip}
-                  error={!!errors.telegramVip}
-                  register={register}
+                <input
+                  type="text"
+                  placeholder="Link Telegram Vip"
+                  className="outline-none border-b-2 px-2 py-1 md:p-3 drop-shadow-md disabled:bg-inherit border-slate-200 rounded md:rounded-lg placeholder:text-slate-400"
                 />
-
-                <Form.Input
-                  wf
-                  id="telegramFree"
-                  placeholder="Link telegram FREE"
-                  helperText={errors.telegramFree?.message?.toString()}
-                  success={!errors.telegramFree}
-                  error={!!errors.telegramFree}
-                  register={register}
+                <input
+                  type="text"
+                  placeholder="Link Telegram Free"
+                  className="outline-none border-b-2 px-2 py-1 md:p-3 drop-shadow-md disabled:bg-inherit border-slate-200 rounded md:rounded-lg placeholder:text-slate-400"
                 />
-
-                <Form.Input
-                  wf
-                  id="instagram"
+                <input
+                  type="text"
                   placeholder="Link Instagram"
-                  register={register}
+                  className="outline-none border-b-2 px-2 py-1 md:p-3 drop-shadow-md disabled:bg-inherit border-slate-200 rounded md:rounded-lg placeholder:text-slate-400"
                 />
 
-                <Form.Area
-                  register={register}
-                  id="description"
-                  error={!!errors.description}
-                  helperText={
-                    errors.description && errors.description.message?.toString()
-                  }
+                <textarea
                   placeholder="Descrição da modelo"
                   defaultValue={model.description}
                   rows={6}
@@ -423,17 +402,10 @@ export const CardModelEdit = ({
                       </div>
                     ))}
                 </GridCol>
-                <Form.Input
-                  wf
-                  className="hidden p-0 m-0"
-                  type="file"
-                  multiple
-                  accept="image/png, image/jpeg, image/webp, image/jpg"
-                  success={!errors.images}
-                  error={!!errors.images}
-                  helperText={errors.images?.message?.toString()}
+                <input
+                  type="text"
                   id="images"
-                  register={register}
+                  className="hidden p-0 m-0 outline-none border-b-2 px-2 py-1 md:p-3 drop-shadow-md disabled:bg-inherit border-slate-200 rounded md:rounded-lg placeholder:text-slate-400"
                 />
               </FlexDiv>
             </ScrollArea>
@@ -443,7 +415,7 @@ export const CardModelEdit = ({
                 className="max-w-fit px-4 py-3 items-center flex justify-center"
                 type="submit"
               >
-                {isSubmitting ? "Salvando..." : "Salvar alterações"}
+                {isLoading ? "Salvando..." : "Salvar alterações"}
               </Button>
             </DialogFooter>
           </Form.Root>
