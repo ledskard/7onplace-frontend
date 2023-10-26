@@ -3,6 +3,7 @@ import { ModelsList } from "@/components/interface/models-list";
 import { Search } from "@/components/interface/search";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Adverts } from "./components/advert";
+import { Suspense } from 'react';
 
 type SearchProps = {
   searchParams: {
@@ -25,18 +26,26 @@ export default function Home({ searchParams: { query } }: SearchProps) {
         </TabsList>
 
         <TabsContent value="mulheres">
-          <ModelsList modelType="mulheres" query={query} />
+          <Suspense fallback={<p>Carregando....</p>}>
+            <ModelsList modelType="mulheres" query={query} />
+          </Suspense>
         </TabsContent>
 
         <TabsContent value="casais">
-          <ModelsList modelType="casais" query={query} />
+          <Suspense fallback={<p>Carregando....</p>}>
+            <ModelsList modelType="casais" query={query} />
+          </Suspense>
         </TabsContent>
 
         <TabsContent value="trans">
-          <ModelsList modelType="trans" query={query} />
+          <Suspense fallback={<p>Carregando....</p>}>
+            <ModelsList modelType="trans" query={query} />
+          </Suspense>
         </TabsContent>
         <TabsContent value="homens">
-          <ModelsList modelType="homens" query={query} />
+          <Suspense fallback={<p>Carregando....</p>}>
+            <ModelsList modelType="homens" query={query} />
+          </Suspense>
         </TabsContent>
       </Tabs>
     </main>

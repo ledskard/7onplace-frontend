@@ -12,11 +12,10 @@ export const CardModelImage = ({
   return (
     <Image
       className={twMerge(
+        'object-cover object-center', 
         className
       )}
       fill
-      objectFit='cover'
-      objectPosition='center'
       blurDataURL={test}
       placeholder='blur'
       sizes="(max-width: 1280px) 50vw, 33vw"
