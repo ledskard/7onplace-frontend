@@ -17,11 +17,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang="pt-BR">
-      <body className="bg-[#f3f3f3] max-w-[1930px] mx-auto">
+      <body className="bg-[#f3f3f3]">
         <Providers>
           <Header />
           <Toaster />
-          {children}
+          <main className='max-w-[1930px] mx-auto'>
+            {children}
+          </main>
           {/* <Analytics /> */}
         </Providers>
       </body>

@@ -42,7 +42,7 @@ export const CardModelDelete = ({
         "flex text-red-main bg-white shadow rounded-full w-8 h-8 justify-center items-center p-1 hover:bg-red-main hover:text-white duration-300 cursor-pointer",
         className
       )}
-      onClick={handleDeleteModel}
+      // onClick={handleDeleteModel}
       {...props}
     >
       <BsFillTrash3Fill />
