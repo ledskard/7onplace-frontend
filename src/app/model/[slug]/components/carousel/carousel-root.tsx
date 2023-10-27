@@ -53,7 +53,7 @@ export const CarouselRoot = ({ model }: CarouselContentProps) => {
                 height={600}
                 width={1280}
                 quality={100}
-                className="sm:max-h-auto max-h-[350px] object-cover object-contain rounded-md"
+                className="sm:max-h-auto max-h-[450px] object-center object-contain rounded-md"
               />
             </SwiperSlide>
           ))}
@@ -81,19 +81,19 @@ export const CarouselRoot = ({ model }: CarouselContentProps) => {
           </FlexDiv>
           <FlexDiv>
             {/* {model.instagram && ( */}
-              <ModelDetails.SocialMedia href={model.instagram}>
-                <Instagram />
-              </ModelDetails.SocialMedia>
+            <ModelDetails.SocialMedia href={model.instagram}>
+              <Instagram />
+            </ModelDetails.SocialMedia>
             {/* )} */}
             {/* {model.twitter && ( */}
-              <ModelDetails.SocialMedia href={model.instagram}>
-                <Twitter />
-              </ModelDetails.SocialMedia>
+            <ModelDetails.SocialMedia href={model.instagram}>
+              <Twitter />
+            </ModelDetails.SocialMedia>
             {/* )} */}
             {/* {model.tiktok && ( */}
-              <ModelDetails.SocialMedia href={model.instagram}>
-                <BsTiktok />
-              </ModelDetails.SocialMedia>
+            <ModelDetails.SocialMedia href={model.instagram}>
+              <BsTiktok />
+            </ModelDetails.SocialMedia>
             {/* )} */}
           </FlexDiv>
         </FlexDiv>
