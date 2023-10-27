@@ -16,9 +16,9 @@ export default async function Model({ params }: { params: { slug: string } }) {
       <div className="w-full md:my-4 my-10">
         <CarouselRoot model={dataModel} />
         <FlexDiv col>
-          <AboutModel.Heading>sobre:</AboutModel.Heading>
+          <AboutModel.Heading></AboutModel.Heading>
           <AboutModel.Description>
-            {dataModel.description}
+            {/* {dataModel.description} */}
           </AboutModel.Description>
           <a href={dataModel.telegramVip} target="_blank">
             <Button>telegram vip</Button>

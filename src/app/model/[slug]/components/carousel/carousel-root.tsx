@@ -80,21 +80,21 @@ export const CarouselRoot = ({ model }: CarouselContentProps) => {
             <Card.Name>{model.username}</Card.Name>
           </FlexDiv>
           <FlexDiv>
-            {model.instagram && (
+            {/* {model.instagram && ( */}
               <ModelDetails.SocialMedia href={model.instagram}>
                 <Instagram />
               </ModelDetails.SocialMedia>
-            )}
-            {model.twitter && (
+            {/* )} */}
+            {/* {model.twitter && ( */}
               <ModelDetails.SocialMedia href={model.instagram}>
                 <Twitter />
               </ModelDetails.SocialMedia>
-            )}
-            {model.tiktok && (
-              <ModelDetails.SocialMedia href={model.tiktok}>
+            {/* )} */}
+            {/* {model.tiktok && ( */}
+              <ModelDetails.SocialMedia href={model.instagram}>
                 <BsTiktok />
               </ModelDetails.SocialMedia>
-            )}
+            {/* )} */}
           </FlexDiv>
         </FlexDiv>
         {/* <Card.Fav
