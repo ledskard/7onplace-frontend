@@ -21,7 +21,6 @@ export const ViewrsContainer = ({ className, ...props }: ViewrsContainer) => {
   function generateRandomValue() {
     const sla = Math.floor(Math.random() * 8000) + 12000;
 
-    console.log(sla);
     return sla;
   }
 

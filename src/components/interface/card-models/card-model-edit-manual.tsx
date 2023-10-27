@@ -51,200 +51,75 @@ const acceptedImageTypes = [
   "image/webp",
 ];
 
-type Base64Img = {
-  name: string;
-  base64: string;
-};
+// type Base64Img = {
+//   name: string;
+//   base64: string;
+// };
 
 export const CardModelEdit = ({
   className,
   model,
   ...props
 }: CardModelsRootProps) => {
-  const [perfilImage, setPerfilImage] = useState<Base64Img | null>(null);
+  const [perfilImage, setPerfilImage] = useState<any>({
+    name: model.profileImage.name || 'default-profile.jpg',
+    url: model.profileImage.url || '/default-profile.jpg'
+  });
 
-  const [displayImages, setDisplayImages] = useState<Array<Base64Img>>([]);
+  const [displayImages, setDisplayImages] = useState<any>(model.images || []);
 
   const [genderData, setGenderData] = useState<string | null>(model.gender);
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [name, setName] = useState<string>(model.username || "");
+
+  const [telegramVipLink, setTelegramVipLink] = useState<string>(model.telegramVip || "");
+
+  const [telegramFreeLink, setTelegramFreeLink] = useState<string>(model.telegramFree || "");
+
+  const [instagramLink, setInstagramLink] = useState<string>(model.instagram || "");
+
+  const [description, setDescription] = useState<string>(
+    model.description || ""
+  );
 
   const gender = ["mulheres", "casais", "trans", "homens"];
 
-  const profileImageRef = useRef();
 
-  // const editModelSchema = z.object({
-  //   username: z.string().min(2, "Campo nome deve conter pelo menos 2 dígitos"),
+  const handleSelectProfileImage = (e: any) => {
+    const file = e.target.files[0];
 
-  //   profileImg: z
-  //     .any()
-  //     .optional()
-  //     .refine((files: Array<File>) => {
-  //       const fileIsExists = files.length > 0;
+    if (file) {
+      const reader = new FileReader();
 
-  //       if (!fileIsExists) {
-  //         setPerfilImage(null);
+      reader.onload = (e) => {
+        const base64Image = e?.target?.result;
+        setPerfilImage({
+          name: file.name,
+          base64: base64Image,
+        });
+      }
 
-  //         return false;
-  //       }
-
-  //       return fileIsExists;
-  //     }, "A modelo deve ter uma foto de perfil própria")
-  //     .refine((files: Array<File>) => {
-  //       const fileIsExists = files.length > 0;
-
-  //       if (!fileIsExists) return false;
-
-  //       const file = files[0];
-
-  //       return file.size <= maxFileSize; // Max file size is 10MB
-  //     }, "Tamanho máximo do arquivo é de 10MB")
-  //     .refine((files: Array<File>) => {
-  //       const file = files[0];
-
-  //       const isCorrectlyType = acceptedImageTypes.includes(file?.type);
-
-  //       if (!isCorrectlyType) return false;
-
-  //       if (file) {
-  //         const reader = new FileReader();
-  //         reader.onload = (e) => {
-  //           const imageConvertBase64 = e.target?.result as string;
-
-  //           const nameUnique = `${file.name}-${Date.now()}`;
-
-  //           setPerfilImage({
-  //             name: nameUnique.toString(),
-  //             base64: imageConvertBase64,
-  //           });
-  //         };
-
-  //         reader.readAsDataURL(file);
-  //       }
-
-  //       return true;
-  //     }, "Somente os formatos .jpg, .jpeg, .png e .webp são suportados"),
-
-  //   images: z
-  //     .any()
-  //     .optional()
-  //     .refine((files: Array<File>) => {
-  //       const fileIsExists = files.length > 0;
-
-  //       if (!fileIsExists) {
-  //         setDisplayImages([]);
-
-  //         return false;
-  //       }
-
-  //       return fileIsExists;
-  //     }, "A modelo deve ter pelo menos uma foto de pré visualização")
-  //     .refine((files: Record<string, File>) => {
-  //       const filesArray = Object.keys(files).map((key: any) => {
-  //         return files[key];
-  //       });
-
-  //       const filesIsExists = filesArray.length > 0;
-
-  //       if (!filesIsExists) return false;
-
-  //       const isAllFilesLessThanMaxSize = filesArray.every(
-  //         (file: File) => file.size <= maxFileSize
-  //       );
-
-  //       if (!isAllFilesLessThanMaxSize) return false;
-
-  //       return true;
-  //     }, "Tamanho máximo do arquivo é de 10MB")
-  //     .refine((files: Record<string, File>) => {
-  //       const filesArray = Object.keys(files).map((key: any) => {
-  //         return files[key];
-  //       });
-
-  //       const filesIsExists = filesArray.length > 0;
-
-  //       if (!filesIsExists) return false;
-
-  //       const isAllFilesCorrectlyType = filesArray.every((file: File) =>
-  //         acceptedImageTypes.includes(file?.type)
-  //       );
-
-  //       if (!isAllFilesCorrectlyType) return false;
-
-  //       for (let i = 0; i < filesArray.length; i++) {
-  //         const file = filesArray[i];
-  //         const reader = new FileReader();
-
-  //         reader.readAsDataURL(file);
-
-  //         reader.onload = (e) => {
-  //           const isExist = displayImages.some((img) => {
-  //             return img.base64 === (reader?.result as string);
-  //           });
-
-  //           if (isExist) {
-  //             return setDisplayImages((prev) => [...prev]);
-  //           }
-
-  //           const imageConvertBase64 = e.target?.result as string;
-
-  //           const nameUnique = `${file.name}-${Date.now()}`;
-
-  //           setDisplayImages((prev) => [
-  //             ...prev,
-  //             {
-  //               name: nameUnique,
-  //               base64: imageConvertBase64,
-  //             },
-  //           ]);
-  //         };
-  //       }
-
-  //       return true;
-  //     }, "Somente os formatos .jpg, .jpeg, .png e .webp são suportados"),
-  //   instagram: z.string(),
-  //   telegramVip: z.string(),
-
-  //   telegramFree: z.string(),
-
-  //   description: z.string().optional(),
-  // });
-
-  // type EditModelProps = z.infer<typeof editModelSchema>;
-
-  // const {
-  //   register,
-  //   handleSubmit,
-  //   formState: { errors, isSubmitting },
-  //   reset,
-  // } = useForm<any>({
-  //   mode: "onChange",
-  //   reValidateMode: "onChange",
-  //   defaultValues: {
-  //     description: model.description,
-  //     images: model.images,
-  //     instagram: model.instagram,
-  //     profileImg: model.profileImage.url,
-  //     telegramFree: model.telegramFree,
-  //     telegramVip: model.telegramVip,
-  //     username: model.username,
-  //   },
-  //   resolver: zodResolver(editModelSchema),
-  // });
+      reader.readAsDataURL(file);
+    }
+  };
 
   const handleUpdateInfoModel = async () => {
-    //   const dataZod = editModelSchema.parse(data);
-    //   console.log(dataZod);
-
-    //   const modelData = {
-    //     ...dataZod,
-    //     profileImg: perfilImage,
-    //     images: displayImages,
-    //     type: genderData,
-    //   };
-    //   console.log(modelData);
+    // profileImg: verifica se o campo url dentro do profileImage começa com base64 (se começar é pq foi alterada a foto)
+    // caso a foto tenha sido alterada ele passa o base64 no campo base64 pro backend, caso não, so passa o perfilimage nomarlmente
+    const modelUpdated = {
+      username: name,
+      profileImg: perfilImage,
+      description: description,
+      telegramVip: telegramVipLink,
+      telegramFree: telegramFreeLink,
+      instagram: instagramLink,
+      type: gender,
+      images: displayImages
+    }
+    console.log(modelUpdated)
+    //sendToBackend
     setIsLoading(true);
-    console.log(genderData);
     if (genderData === null) {
       setIsLoading(false);
       return toast({
@@ -256,9 +131,37 @@ export const CardModelEdit = ({
   };
 
   const handleDeleteImage = (name: string) => {
-    setDisplayImages((prev) => prev.filter((img) => img.name !== name));
+    setDisplayImages((prev: any[]) => prev.filter((img) => img.name !== name));
   };
+  // const handleAddPreviewImages = () => {
+    // const input = document.getElementById("previewImages");
+    // if (input) {
+      // input.click();
+    // }
+  // };
 
+  const handleSelectPreviewImages = (e: any) => {
+    const files = e.target.files;
+  
+    if (files) {
+      const newImages = Array.from(files);
+      newImages.forEach((file: any) => {
+        const reader = new FileReader();
+        reader.onload = (e: any) => {
+          const base64Image = e.target.result;
+          setDisplayImages((prevImages: any) => [
+            ...prevImages,
+            {
+              name: file.name,
+              base64: base64Image,
+            },
+          ]);
+        };
+        reader.readAsDataURL(file);
+      });
+    }
+  };
+  
   return (
     <>
       <Dialog>
@@ -282,13 +185,19 @@ export const CardModelEdit = ({
               <FlexDiv col>
                 <FlexDiv className="w-full">
                   <Image
-                    src={perfilImage?.base64 ?? "/default-profile.jpg"}
+                    src={perfilImage?.url ?? "/default-profile.jpg"}
                     alt="Perfil Image"
                     width={200}
                     height={200}
                     className="w-10 h-10 rounded-full object-cover object-center"
                   />
-
+                  <input
+                    className="hidden"
+                    type="file"
+                    accept="image/png, image/jpeg, image/webp, image/jpg"
+                    id="profileImg"
+                    onChange={handleSelectProfileImage}
+                  />
                   <FlexDiv col className="flex-1">
                     <label
                       htmlFor="profileImg"
@@ -301,14 +210,14 @@ export const CardModelEdit = ({
                       type="file"
                       accept="image/png, image/jpeg, image/webp, image/jpg"
                       id="profileImg"
-                      ref={profileImageRef.current}
                     />
                   </FlexDiv>
                 </FlexDiv>
                 <input
                   type="text"
                   placeholder="Nome da modelo"
-                  defaultValue={model.username}
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
                   className="outline-none border-b-2 px-2 py-1 md:p-3 drop-shadow-md disabled:bg-inherit border-slate-200 rounded md:rounded-lg placeholder:text-slate-400"
                 />
 
@@ -333,36 +242,28 @@ export const CardModelEdit = ({
                     </ScrollArea>
                   </SelectContent>
                 </Select>
-                {/* 
-      <Select onValueChange={setLocationData}>
-        <SelectTrigger>
-          <SelectValue placeholder="Localização" className="text-gray-300" />
-        </SelectTrigger>
-        <SelectContent>
-          <ScrollArea className="w-full h-36 pr-3">
-            {location.map((loc) => (
-              <SelectItem className="capitalize" key={loc} value={loc}>
-                {loc}
-              </SelectItem>
-            ))}
-          </ScrollArea>
-        </SelectContent>
-      </Select> */}
+
 
                 <input
                   type="text"
                   placeholder="Link Telegram Vip"
                   className="outline-none border-b-2 px-2 py-1 md:p-3 drop-shadow-md disabled:bg-inherit border-slate-200 rounded md:rounded-lg placeholder:text-slate-400"
+                  value={telegramVipLink}
+                  onChange={(e) => setTelegramVipLink(e.target.value)}
                 />
                 <input
                   type="text"
                   placeholder="Link Telegram Free"
                   className="outline-none border-b-2 px-2 py-1 md:p-3 drop-shadow-md disabled:bg-inherit border-slate-200 rounded md:rounded-lg placeholder:text-slate-400"
+                  value={telegramFreeLink}
+                  onChange={(e) => setTelegramFreeLink(e.target.value)}
                 />
                 <input
                   type="text"
                   placeholder="Link Instagram"
                   className="outline-none border-b-2 px-2 py-1 md:p-3 drop-shadow-md disabled:bg-inherit border-slate-200 rounded md:rounded-lg placeholder:text-slate-400"
+                  value={instagramLink}
+                  onChange={(e) => setInstagramLink(e.target.value)}
                 />
 
                 <textarea
@@ -370,17 +271,27 @@ export const CardModelEdit = ({
                   defaultValue={model.description}
                   rows={6}
                   cols={50}
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
                 />
 
+                <input
+                  className="hidden"
+                  type="file"
+                  id="previewImages"
+                  accept="image/png, image/jpeg, image/webp, image/jpg"
+                  multiple
+                  onChange={handleSelectPreviewImages}
+                />
                 <label
-                  htmlFor="images"
-                  className="text-center first-letter:capitalize rounded font-medium py-2 px-1 md:rounded-md bg-red-main text-white w-full m-0"
+                  htmlFor="previewImages"  
+                  className="text-center first-letter:capitalize rounded font-medium py-2 px-1 md:rounded-md bg-red-main text-white w-full m-0 cursor-pointer" // Adicionei "cursor-pointer"
                 >
                   Adicionar imagem de pré visualização
                 </label>
                 <GridCol col="1" className="md:grid-cols-2 mt-0 mb-0">
                   {displayImages?.length > 0 &&
-                    displayImages?.map((img) => (
+                    displayImages?.map((img: any) => (
                       <div
                         key={img.name}
                         className="relative p-2 h-full flex items-center justify-center"
@@ -392,14 +303,15 @@ export const CardModelEdit = ({
                           <XCircleIcon />
                         </button>
                         <Image
-                          className="p-4 rounded md:rounded-md w-full sm:max-w-[300px] sm:max-h-[300px] max-w-[200px] text-center max-h-[200px] object-cover object-center"
-                          src={img.base64}
+                          className="p-4 rounded md:rounded-md max-w-[300px] max-h-[300px] object-cover object-center"
+                          src={img.url}
                           width={400}
                           height={400}
                           alt={img.name}
                         />
                       </div>
-                    ))}
+                    ))
+                  }
                 </GridCol>
                 <input
                   type="text"
