@@ -10,7 +10,7 @@ export type ModelsFilterProps = {
   location: string;
   description: string;
   likes: number;
-  gender: string;
+  type: string;
   instagram: string;
   telegramVip: string;
   telegramFree: string;

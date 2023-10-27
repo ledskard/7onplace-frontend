@@ -61,30 +61,38 @@ export const CardModelEdit = ({
   model,
   ...props
 }: CardModelsRootProps) => {
+  const route = useRouter();
+
   const [perfilImage, setPerfilImage] = useState<any>({
-    name: model.profileImage.name || 'default-profile.jpg',
-    url: model.profileImage.url || '/default-profile.jpg'
+    name: model.profileImage.name || "default-profile.jpg",
+    url: model.profileImage.url || "/default-profile.jpg",
   });
 
   const [displayImages, setDisplayImages] = useState<any>(model.images || []);
-
-  const [genderData, setGenderData] = useState<string | null>(model.gender);
+  console.log(displayImages);
+  console.log(perfilImage);
+  const [genderData, setGenderData] = useState<string | null>(model.type);
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [name, setName] = useState<string>(model.username || "");
 
-  const [telegramVipLink, setTelegramVipLink] = useState<string>(model.telegramVip || "");
+  const [telegramVipLink, setTelegramVipLink] = useState<string>(
+    model.telegramVip || ""
+  );
 
-  const [telegramFreeLink, setTelegramFreeLink] = useState<string>(model.telegramFree || "");
+  const [telegramFreeLink, setTelegramFreeLink] = useState<string>(
+    model.telegramFree || ""
+  );
 
-  const [instagramLink, setInstagramLink] = useState<string>(model.instagram || "");
+  const [instagramLink, setInstagramLink] = useState<string>(
+    model.instagram || ""
+  );
 
   const [description, setDescription] = useState<string>(
     model.description || ""
   );
 
   const gender = ["mulheres", "casais", "trans", "homens"];
-
 
   const handleSelectProfileImage = (e: any) => {
     const file = e.target.files[0];
@@ -98,15 +106,15 @@ export const CardModelEdit = ({
           name: file.name,
           base64: base64Image,
         });
-      }
+      };
 
       reader.readAsDataURL(file);
     }
   };
 
-  const handleUpdateInfoModel = async () => {
-    // profileImg: verifica se o campo url dentro do profileImage começa com base64 (se começar é pq foi alterada a foto)
-    // caso a foto tenha sido alterada ele passa o base64 no campo base64 pro backend, caso não, so passa o perfilimage nomarlmente
+  const handleUpdateInfoModel = async (e: any) => {
+    e.preventDefault();
+    setIsLoading(true);
     const modelUpdated = {
       username: name,
       profileImg: perfilImage,
@@ -114,35 +122,105 @@ export const CardModelEdit = ({
       telegramVip: telegramVipLink,
       telegramFree: telegramFreeLink,
       instagram: instagramLink,
-      type: gender,
-      images: displayImages
-    }
-    console.log(modelUpdated)
-    //sendToBackend
-    setIsLoading(true);
-    if (genderData === null) {
+      type: genderData,
+      images: displayImages,
+    };
+
+    if (modelUpdated.profileImg.length === 0) {
       setIsLoading(false);
       return toast({
         title:
-          "❌ Não foi possível atualizar a modelo! <br /> Campo gênero inválido...",
+          "❌ Não foi possível atualizar a modelo! Campo imagem de perfil está sem uma imagem...",
         duration: 3000,
       });
+    }
+
+    if (modelUpdated.type === null) {
+      setIsLoading(false);
+      return toast({
+        title:
+          "❌ Não foi possível atualizar a modelo! Campo gênero inválido...",
+        duration: 3000,
+      });
+    }
+    if (
+      modelUpdated.telegramVip === "" ||
+      modelUpdated.telegramVip.length === 0
+    ) {
+      setIsLoading(false);
+      return toast({
+        title:
+          "❌ Não foi possível atualizar a modelo! Campo telegram vip inválido...",
+        duration: 3000,
+      });
+    }
+    if (
+      modelUpdated.telegramFree === "" ||
+      modelUpdated.telegramFree.length === 0
+    ) {
+      setIsLoading(false);
+      return toast({
+        title:
+          "❌ Não foi possível atualizar a modelo! Campo telegram free inválido...",
+        duration: 3000,
+      });
+    }
+    if (modelUpdated.instagram === "" || modelUpdated.instagram.length === 0) {
+      setIsLoading(false);
+      return toast({
+        title:
+          "❌ Não foi possível atualizar a modelo! Campo instagram inválido...",
+        duration: 3000,
+      });
+    }
+    if (
+      modelUpdated.description === "" ||
+      modelUpdated.description.length === 0
+    ) {
+      setIsLoading(false);
+      return toast({
+        title:
+          "❌ Não foi possível atualizar a modelo! Campo descrição inválido...",
+        duration: 3000,
+      });
+    }
+
+    if (displayImages.length === 0) {
+      setIsLoading(false);
+      return toast({
+        title:
+          "❌ Não foi possível atualizar a modelo! Campo imagens de pré visualizações está sem imagens...",
+        duration: 3000,
+      });
+    }
+
+    const res = await fetch(`https://api.bioup.ai/models/${model.id}`, {
+      body: JSON.stringify(modelUpdated),
+      headers: {
+        "Content-Type": "application/json",
+      },
+      method: "PUT",
+    });
+    const result = await res.json();
+    if (result.id) {
+      setIsLoading(false);
+      toast({
+        title: "✅ Modelo alterada(o) com sucesso!",
+        duration: 3000,
+      });
+      setTimeout(() => {
+        route.push("/");
+      }, 3000);
     }
   };
 
   const handleDeleteImage = (name: string) => {
     setDisplayImages((prev: any[]) => prev.filter((img) => img.name !== name));
   };
-  // const handleAddPreviewImages = () => {
-    // const input = document.getElementById("previewImages");
-    // if (input) {
-      // input.click();
-    // }
-  // };
 
   const handleSelectPreviewImages = (e: any) => {
     const files = e.target.files;
-  
+
     if (files) {
       const newImages = Array.from(files);
       newImages.forEach((file: any) => {
@@ -161,7 +239,7 @@ export const CardModelEdit = ({
       });
     }
   };
-  
+
   return (
     <>
       <Dialog>
@@ -181,11 +259,15 @@ export const CardModelEdit = ({
             <DialogTitle>Editar Modelo</DialogTitle>
           </DialogHeader>
           <Form.Root onSubmit={handleUpdateInfoModel}>
-            <ScrollArea className="w-full max-h-[80vh] pr-3">
-              <FlexDiv col>
+            <ScrollArea className="w-full max-h-[80vh] pr-3 overflow-y-auto">
+              <FlexDiv col className="px-4">
                 <FlexDiv className="w-full">
                   <Image
-                    src={perfilImage?.url ?? "/default-profile.jpg"}
+                    src={
+                      perfilImage?.url ??
+                      perfilImage.base64 ??
+                      "/default-profile.jpg"
+                    }
                     alt="Perfil Image"
                     width={200}
                     height={200}
@@ -222,7 +304,7 @@ export const CardModelEdit = ({
                 />
 
                 <Select onValueChange={setGenderData}>
-                  <SelectTrigger value={model.gender ?? "Gênero"}>
+                  <SelectTrigger value={model.type ?? "Gênero"}>
                     <SelectValue
                       placeholder="Gênero"
                       className="text-gray-300"
@@ -242,7 +324,6 @@ export const CardModelEdit = ({
                     </ScrollArea>
                   </SelectContent>
                 </Select>
-
 
                 <input
                   type="text"
@@ -284,7 +365,7 @@ export const CardModelEdit = ({
                   onChange={handleSelectPreviewImages}
                 />
                 <label
-                  htmlFor="previewImages"  
+                  htmlFor="previewImages"
                   className="text-center first-letter:capitalize rounded font-medium py-2 px-1 md:rounded-md bg-red-main text-white w-full m-0 cursor-pointer" // Adicionei "cursor-pointer"
                 >
                   Adicionar imagem de pré visualização
@@ -293,31 +374,25 @@ export const CardModelEdit = ({
                   {displayImages?.length > 0 &&
                     displayImages?.map((img: any) => (
                       <div
-                        key={img.name}
-                        className="relative p-2 h-full flex items-center justify-center"
+                        key={img.name ?? img.base64}
+                        className="relative p-2 h-full flex items-center justify-center m-2"
                       >
                         <button
-                          className="absolute top-1 right-1"
+                          className="absolute top-0 right-0"
                           onClick={() => handleDeleteImage(img.name)}
                         >
                           <XCircleIcon />
                         </button>
                         <Image
-                          className="p-4 rounded md:rounded-md max-w-[300px] max-h-[300px] object-cover object-center"
-                          src={img.url}
+                          className="p-4 rounded md:rounded-md max-w-full max-h-full object-cover object-center"
+                          src={img.url ?? img.base64}
                           width={400}
                           height={400}
                           alt={img.name}
                         />
                       </div>
-                    ))
-                  }
+                    ))}
                 </GridCol>
-                <input
-                  type="text"
-                  id="images"
-                  className="hidden p-0 m-0 outline-none border-b-2 px-2 py-1 md:p-3 drop-shadow-md disabled:bg-inherit border-slate-200 rounded md:rounded-lg placeholder:text-slate-400"
-                />
               </FlexDiv>
             </ScrollArea>
             <DialogFooter className="gap-3">
