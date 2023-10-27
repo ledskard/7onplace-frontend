@@ -2,7 +2,8 @@ import { FlexDiv } from "@/components/interface/flex-div";
 import { ModelsList } from "@/components/interface/models-list";
 import { Search } from "@/components/interface/search";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Adverts } from "./components/advert";
+import { Suspense } from "react";
+import { Viewrs } from "./components/viewrs/index";
 
 type SearchProps = {
   searchParams: {
@@ -14,8 +15,9 @@ export default function Home({ searchParams: { query } }: SearchProps) {
 
   
   return (
-    <main className="sm:w-11/12 w-11/12 mx-auto pt-5 flex mb-5 gap-4">
-      <Tabs defaultValue="mulheres" className="w-full">
+    <main className="w-11/12 mx-auto lg:pt-5 flex mb-5 gap-4">
+      <Tabs defaultValue="mulheres" className="w-full mx-auto">
+        <Viewrs.Container className="lg:hidden flex mx-auto my-4" />
         <TabsList>
           <FlexDiv className="flex-wrap gap-0">
             <TabsTrigger value="mulheres">mulheres</TabsTrigger>
@@ -23,29 +25,33 @@ export default function Home({ searchParams: { query } }: SearchProps) {
             <TabsTrigger value="trans">trans</TabsTrigger>
             <TabsTrigger value="homens">homens</TabsTrigger>
           </FlexDiv>
+          <Viewrs.Container className="lg:flex hidden" />
           <Search.Input className="sm:sticky hidden" />
         </TabsList>
 
         <TabsContent value="mulheres">
-          <ModelsList modelType="mulheres" query={query} />
+          <Suspense fallback={<p>Carregando....</p>}>
+            <ModelsList modelType="mulheres" query={query} />
+          </Suspense>
         </TabsContent>
 
         <TabsContent value="casais">
-          <ModelsList modelType="casais" query={query} />
+          <Suspense fallback={<p>Carregando....</p>}>
+            <ModelsList modelType="casais" query={query} />
+          </Suspense>
         </TabsContent>
 
         <TabsContent value="trans">
-          <ModelsList modelType="trans" query={query} />
+          <Suspense fallback={<p>Carregando....</p>}>
+            <ModelsList modelType="trans" query={query} />
+          </Suspense>
         </TabsContent>
         <TabsContent value="homens">
-          <ModelsList modelType="homens" query={query} />
+          <Suspense fallback={<p>Carregando....</p>}>
+            <ModelsList modelType="homens" query={query} />
+          </Suspense>
         </TabsContent>
       </Tabs>
-      {/* <Adverts.ExternalLink
-        href="https://wa.me//5554999090675?text=Tenho%20interesse%20em%20anunciar%20no%7onsexy"
-        target="_blank"
-      > */}
-      {/* </Adverts.ExternalLink> */}
     </main>
   );
 }

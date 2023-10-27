@@ -5,6 +5,8 @@ export type CarouselContentProps = {
     id: string;
     username: string;
     instagram: string;
+    twitter: string;
+    tiktok: string;
     description: string;
     likes: number;
     telegramVip: string;

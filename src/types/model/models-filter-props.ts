@@ -1,6 +1,6 @@
 export type ModelImage = {
-  url: string;
   id: string;
+  url: string;
   name: string;
 };
 
@@ -10,6 +10,8 @@ export type ModelsFilterProps = {
   location: string;
   description: string;
   likes: number;
+  gender: string;
+  instagram: string;
   telegramVip: string;
   telegramFree: string;
   images: ModelImage[];

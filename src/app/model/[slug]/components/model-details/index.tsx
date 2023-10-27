@@ -1,6 +1,7 @@
-
 import { ModelDetailsLocation } from "./model-details-location";
+import { ModelDetailsSocialMedia } from "./models-details-social-media";
 
 export const ModelDetails = {
-  Location: ModelDetailsLocation
-}
+  Location: ModelDetailsLocation,
+  SocialMedia: ModelDetailsSocialMedia,
+};
