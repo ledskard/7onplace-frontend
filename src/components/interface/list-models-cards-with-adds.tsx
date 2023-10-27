@@ -18,9 +18,9 @@ export const ListModelsCardsWithAdds = ({
   models,
   ...props
 }: ListModelsCardsWithAddsProps) => {
-  const addsImg = models.filter((mod) => {
-    return mod;
-  });
+  // const addsImg = models.filter((mod) => {
+  //   return mod;
+  // });
 
   return (
     <section
@@ -38,14 +38,12 @@ export const ListModelsCardsWithAdds = ({
               index !== models.length - 1 && (
                 <div
                   key={`ad-${index}`}
-                  className="text-center text-white min-h-[100px] md:min-h-[200px] p-4 col-span-2 xl:col-span-3 relative rounded overflow-hidden"
+                  className="text-center text-white min-h-[100px] sm:min-h-[300px] p-4 col-span-2 xl:col-span-3 relative rounded overflow-hidden"
                 >
                   <Image
-                    className="object-cover object-center"
+                    className="aspect-[12/9] object-fill object-center"
                     fill
-                    src={
-                      addsImg[index].profileImage?.url ?? "/default-profile.jpg"
-                    }
+                    src={"/default-ads.png"}
                     alt={model.username}
                   />
                   <div className="text-lg font-bold">ANUNCIE AQUI</div>
@@ -64,7 +62,7 @@ const CardModel = ({ model }: { model: ModelsFilterProps }) => {
       <Card.Root>
         <Card.Actions>
           <Card.Delete modelId={model.id} />
-          <Card.Edit model={model}  />
+          <Card.Edit model={model} />
         </Card.Actions>
         <Link
           href={`model/${model.id}`}
