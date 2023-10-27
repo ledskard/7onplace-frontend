@@ -1,5 +1,7 @@
 "use client";
+import { toast } from "@/components/ui/use-toast";
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 import { ComponentProps } from "react";
 import { BsFillTrash3Fill } from "react-icons/bs";
 import { twMerge } from "tailwind-merge";
@@ -8,28 +10,39 @@ type CardModelsRootProps = ComponentProps<"div"> & {
   modelId: string;
 };
 
-export const CardDelete = ({
+export const CardModelDelete = ({
   className,
   modelId,
   ...props
 }: CardModelsRootProps) => {
-  const { data: session } = useSession();
+  const route = useRouter();
   const handleDeleteModel = async () => {
-    const res = await fetch(`https://api.bioup.ai/models/${modelId}`, {
-      method: "DELETE",
-    });
-    const result = await res.json();
+    try {
+      const res = await fetch(`https://api.bioup.ai/models/${modelId}`, {
+        method: "DELETE",
+      });
+      if (res) {
+        toast({
+          title: `✅ Modelo deletada`,
+          duration: 3000,
+        });
+      }
+      route.refresh();
+    } catch (error) {
+      toast({
+        title: "❌ Não foi possível deletar a modelo",
+        duration: 3000,
+      });
+    }
   };
 
   return (
     <div
       className={twMerge(
-        `flex top-2 right-2 text-red-main bg-white shadow rounded-full w-8 h-8 justify-center items-center p-1 hover:bg-red-main hover:text-white duration-300 z-40 cursor-pointer ${
-          session ? "absolute" : "hidden"
-        }`,
+        "flex text-red-main bg-white shadow rounded-full w-8 h-8 justify-center items-center p-1 hover:bg-red-main hover:text-white duration-300 cursor-pointer",
         className
       )}
-      onClick={handleDeleteModel}
+      // onClick={handleDeleteModel}
       {...props}
     >
       <BsFillTrash3Fill />

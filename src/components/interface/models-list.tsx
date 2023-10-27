@@ -1,11 +1,11 @@
-import Link from "next/link";
-import { Card } from "./card-models";
-import { ComponentProps } from "react";
-import { twMerge } from "tailwind-merge";
+import React, { ComponentProps } from "react";
+
+import { ListModelsCardsWithAdds } from "./list-models-cards-with-adds";
 import { ModelsFilterProps } from "@/types/model/models-filter-props";
 import { getModelsByFilter } from "@/types/model/get-models-by-filter";
 import dbLocal from "../../../dblocal.json";
-import { Adverts } from "@/app/components/advert";
+import { Card } from "./card-models";
+import Link from "next/link";
 
 type ModelsListType = ComponentProps<"section"> & {
   modelType: string;
@@ -19,7 +19,17 @@ export async function ModelsList({
   ...props
 }: ModelsListType) {
   const model: ModelsFilterProps[] = await getModelsByFilter(modelType);
-  // const model = dbLocal;
+  // const model = dbLocal
+
+  const filterModels = model.filter((mod) => {
+    return query
+      ? mod.username.toLowerCase().includes(query?.toLowerCase())
+      : mod;
+  });
+
+  const orderModelsLikes = filterModels.sort((a, b) => {
+    return b.likes - a.likes;
+  });
 
   const modelsWithAds: React.ReactNode[] = [];
   model
@@ -56,14 +66,18 @@ export async function ModelsList({
     });
 
   return (
-    <section
-      className={twMerge(
-        "grid gap-4 grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 w-full mx-auto items-center justify-center z-0",
-        className
-      )}
-      {...props}
-    >
-      {modelsWithAds}
-    </section>
+    <>
+      <ListModelsCardsWithAdds
+        models={orderModelsLikes}
+        query={query}
+        className="hidden xl:grid"
+      />
+      <ListModelsCardsWithAdds
+        models={orderModelsLikes}
+        query={query}
+        cardsPerAdd={4}
+        className="grid xl:hidden"
+      />
+    </>
   );
 }

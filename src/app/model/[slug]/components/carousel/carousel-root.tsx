@@ -2,16 +2,14 @@
 import { SwiperSlide, Swiper } from "swiper/react";
 import { Autoplay, Navigation, Pagination, EffectFade } from "swiper/modules";
 import { useRef } from "react";
-import { MdLocationOn } from "react-icons/md";
 import { Card } from "@/components/interface/card-models";
 import Image from "next/image";
-import { BsArrowLeftShort, BsArrowRightShort } from "react-icons/bs";
+import { BsArrowLeftShort, BsArrowRightShort, BsTiktok } from "react-icons/bs";
 import { Carousel } from "./index";
 import { PerfilImage } from "@/components/interface/perfil-image";
 import { FlexDiv } from "@/components/interface/flex-div";
 import { ModelDetails } from "../model-details";
 import { CarouselContentProps } from "@/types/model/carousel-content-props";
-import { GridCol } from "@/components/interface/grid-col";
 
 import "swiper/css";
 import "swiper/css/navigation";
@@ -19,6 +17,7 @@ import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import "swiper/css/effect-fade";
 import "swiper/css/autoplay";
+import { Instagram, Twitter } from "lucide-react";
 
 export const CarouselRoot = ({ model }: CarouselContentProps) => {
   const swiperRef = useRef<any>();
@@ -54,7 +53,7 @@ export const CarouselRoot = ({ model }: CarouselContentProps) => {
                 height={600}
                 width={1280}
                 quality={100}
-                className="sm:max-h-auto max-h-[350px] object-cover object-contain rounded-md"
+                className="sm:max-h-auto max-h-[450px] object-center object-contain rounded-md"
               />
             </SwiperSlide>
           ))}
@@ -79,6 +78,23 @@ export const CarouselRoot = ({ model }: CarouselContentProps) => {
           <FlexDiv>
             <PerfilImage src={model.profileImage.url} alt={model.username} />
             <Card.Name>{model.username}</Card.Name>
+          </FlexDiv>
+          <FlexDiv>
+            {/* {model.instagram && ( */}
+            <ModelDetails.SocialMedia href={model.instagram}>
+              <Instagram />
+            </ModelDetails.SocialMedia>
+            {/* )} */}
+            {/* {model.twitter && ( */}
+            <ModelDetails.SocialMedia href={model.instagram}>
+              <Twitter />
+            </ModelDetails.SocialMedia>
+            {/* )} */}
+            {/* {model.tiktok && ( */}
+            <ModelDetails.SocialMedia href={model.instagram}>
+              <BsTiktok />
+            </ModelDetails.SocialMedia>
+            {/* )} */}
           </FlexDiv>
         </FlexDiv>
         {/* <Card.Fav
