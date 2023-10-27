@@ -28,7 +28,7 @@ export const Header = ({ className, ...props }: HeaderProps) => {
   return (
     <header
       className={twMerge(
-        "bg-red-main w-full h-14",
+        "bg-red-main w-full h-14 p-1",
         y && y > 125 && "fixed -top-1 z-[9999]",
         className
       )}

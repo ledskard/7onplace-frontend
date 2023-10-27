@@ -69,8 +69,7 @@ export const CardModelEdit = ({
   });
 
   const [displayImages, setDisplayImages] = useState<any>(model.images || []);
-  console.log(displayImages);
-  console.log(perfilImage);
+
   const [genderData, setGenderData] = useState<string | null>(model.type);
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -258,10 +257,10 @@ export const CardModelEdit = ({
           <DialogHeader>
             <DialogTitle>Editar Modelo</DialogTitle>
           </DialogHeader>
-          <Form.Root onSubmit={handleUpdateInfoModel}>
+          <Form.Root onSubmit={handleUpdateInfoModel} className="mx-auto">
             <ScrollArea className="w-full max-h-[80vh] pr-3 overflow-y-auto">
-              <FlexDiv col className="px-4">
-                <FlexDiv className="w-full">
+              <FlexDiv col className="max-w-[90%] mx-auto px-2">
+                <FlexDiv className="w-full md:flex-row flex-col">
                   <Image
                     src={
                       perfilImage?.url ??
@@ -351,7 +350,6 @@ export const CardModelEdit = ({
                   placeholder="Descrição da modelo"
                   defaultValue={model.description}
                   rows={6}
-                  cols={50}
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
                 />
