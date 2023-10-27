@@ -239,9 +239,8 @@ export const FormRegisterContainer = () => {
   };
 
   return (
-    <main className="flex bg-emerald-500">
       <Form.Root
-        className="bg-orange-400 m-auto"
+        className="m-auto"
         onSubmit={handleSubmit(handleCreateModel)}
       >
         <FlexDiv className="w-full ">
@@ -357,31 +356,33 @@ export const FormRegisterContainer = () => {
         >
           Adicionar imagem de pré visualização
         </label>
-        <GridCol col="1" className="md:grid-cols-2 mt-0 mb-0">
           {displayImages?.length > 0 &&
-            displayImages?.map((img) => (
-              <div
-                key={img.name}
-                className="relative p-2 h-full flex items-center justify-center"
-              >
-                <button
-                  className="absolute top-1 right-1"
-                  onClick={() => handleDeleteImage(img.name)}
-                >
-                  <XCircleIcon />
-                </button>
-                <Image
-                  className="p-4 rounded md:rounded-md w-full sm:max-w-[300px] sm:max-h-[300px] max-w-[200px] text-center max-h-[200px] object-cover object-center"
-                  src={img.base64}
-                  width={400}
-                  height={400}
-                  alt={img.name}
-                />
-              </div>
-            ))}
-        </GridCol>
+            <GridCol col="1" className="md:grid-cols-2 mt-0 mb-0">
+                {displayImages?.map((img) => (
+                  <div
+                    key={img.name}
+                    className="relative p-2 h-full flex items-center justify-center"
+                  >
+                    <button
+                      className="absolute top-1 right-1"
+                      onClick={() => handleDeleteImage(img.name)}
+                    >
+                      <XCircleIcon />
+                    </button>
+                    <Image
+                      className="p-4 rounded md:rounded-md w-full sm:max-w-[300px] sm:max-h-[300px] max-w-[200px] text-center max-h-[200px] object-cover object-center"
+                      src={img.base64}
+                      width={400}
+                      height={400}
+                      alt={img.name}
+                    />
+                  </div>
+                ))}
+            </GridCol>
+            }
         <Form.Input
           wf
+          invisible
           className="hidden p-0 m-0"
           type="file"
           multiple
@@ -394,13 +395,12 @@ export const FormRegisterContainer = () => {
         />
 
         <Button
-          className="max-w-[50%] first-letter:capitalize lowercase mb-10 md:max-w-[40%] relative bottom-12"
+          className="max-w-[50%] first-letter:capitalize lowercase md:max-w-[40%] "
           type="submit"
           disabled={isSubmitting}
         >
           {isSubmitting ? "Perfil sendo criado..." : "Criar perfil"}
         </Button>
       </Form.Root>
-    </main>
   );
 };

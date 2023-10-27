@@ -10,10 +10,12 @@ type InputProps = React.InputHTMLAttributes<HTMLInputElement> & {
   success?: boolean;
   helperText?: string;
   wf?: boolean;
+  invisible?: boolean;
 };
 
 export const FormInput = ({
   className,
+  invisible = false,
   register,
   helperText,
   error,
@@ -26,7 +28,8 @@ export const FormInput = ({
     <div
       className={twMerge(
         "sm:w-6/12 w-full flex flex-col gap-4 space-y-1 text-center",
-        wf && "sm:w-full"
+        wf && "sm:w-full",
+        invisible && "invisible hidden"
       )}
     >
       <input
