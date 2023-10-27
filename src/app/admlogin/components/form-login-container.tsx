@@ -35,7 +35,10 @@ export const FormLoginContainer = () => {
   };
 
   return (
-    <Form.Root onSubmit={handleSubmit(handleSubmitLogin)}>
+    <Form.Root
+      onSubmit={handleSubmit(handleSubmitLogin)}
+      className="min-h-[86vh]"
+    >
       <Form.Logo />
       <Form.Input
         type="text"
