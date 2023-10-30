@@ -19,17 +19,17 @@ export const ViewrsContainer = ({ className, ...props }: ViewrsContainer) => {
   }
 
   function generateRandomValue() {
-    const sla = Math.floor(Math.random() * 8000) + 12000;
+    const randomValue = Math.floor(Math.random() * (20000 - 19000) + 1) + 19000;
 
-    return sla;
+    return randomValue;
   }
 
-  const [value, setValue] = useState(18754);
+  const [value, setValue] = useState(19454);
 
   useEffect(() => {
     const interval = setInterval(() => {
       setValue(generateRandomValue());
-    }, 20000);
+    }, 5000);
 
     return () => {
       clearInterval(interval);
