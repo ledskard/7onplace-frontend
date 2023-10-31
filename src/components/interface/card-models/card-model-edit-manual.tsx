@@ -51,16 +51,13 @@ const acceptedImageTypes = [
   "image/webp",
 ];
 
-// type Base64Img = {
-//   name: string;
-//   base64: string;
-// };
-
 export const CardModelEdit = ({
   className,
   model,
   ...props
 }: CardModelsRootProps) => {
+  const { data: session } = useSession();
+
   const route = useRouter();
 
   const [perfilImage, setPerfilImage] = useState<any>({
@@ -78,6 +75,10 @@ export const CardModelEdit = ({
   const [telegramVipLink, setTelegramVipLink] = useState<string>(
     model.telegramVip || ""
   );
+
+  const [tiktokLink, setTiktokLink] = useState<string>(model.tiktok || "");
+
+  const [twitterLink, setTwitterLink] = useState<string>(model.twitter || "");
 
   const [telegramFreeLink, setTelegramFreeLink] = useState<string>(
     model.telegramFree || ""
@@ -120,6 +121,8 @@ export const CardModelEdit = ({
       description: description,
       telegramVip: telegramVipLink,
       telegramFree: telegramFreeLink,
+      tiktok: tiktokLink,
+      twitter: twitterLink,
       instagram: instagramLink,
       type: genderData,
       images: displayImages,
@@ -164,25 +167,41 @@ export const CardModelEdit = ({
         duration: 3000,
       });
     }
-    if (modelUpdated.instagram === "" || modelUpdated.instagram.length === 0) {
-      setIsLoading(false);
-      return toast({
-        title:
-          "❌ Não foi possível atualizar a modelo! Campo instagram inválido...",
-        duration: 3000,
-      });
-    }
-    if (
-      modelUpdated.description === "" ||
-      modelUpdated.description.length === 0
-    ) {
-      setIsLoading(false);
-      return toast({
-        title:
-          "❌ Não foi possível atualizar a modelo! Campo descrição inválido...",
-        duration: 3000,
-      });
-    }
+    // if (modelUpdated.instagram === "" || modelUpdated.instagram.length === 0) {
+    //   setIsLoading(false);
+    //   return toast({
+    //     title:
+    //       "❌ Não foi possível atualizar a modelo! Campo instagram inválido...",
+    //     duration: 3000,
+    //   });
+    // }
+    // if (modelUpdated.tiktok === "" || modelUpdated.tiktok.length === 0) {
+    //   setIsLoading(false);
+    //   return toast({
+    //     title:
+    //       "❌ Não foi possível atualizar a modelo! Campo tiktok inválido...",
+    //     duration: 3000,
+    //   });
+    // }
+    // if (modelUpdated.twitter === "" || modelUpdated.twitter.length === 0) {
+    //   setIsLoading(false);
+    //   return toast({
+    //     title:
+    //       "❌ Não foi possível atualizar a modelo! Campo twitter inválido...",
+    //     duration: 3000,
+    //   });
+    // // }
+    // if (
+    //   modelUpdated.description === "" ||
+    //   modelUpdated.description.length === 0
+    // ) {
+    //   setIsLoading(false);
+    //   return toast({
+    //     title:
+    //       "❌ Não foi possível atualizar a modelo! Campo descrição inválido...",
+    //     duration: 3000,
+    //   });
+    // }
 
     if (displayImages.length === 0) {
       setIsLoading(false);
@@ -197,20 +216,28 @@ export const CardModelEdit = ({
       body: JSON.stringify(modelUpdated),
       headers: {
         "Content-Type": "application/json",
+        Authorizathion: `Bearer ${session?.user.token}`,
       },
       method: "PUT",
     });
+
     const result = await res.json();
+
     if (result.id) {
       setIsLoading(false);
       toast({
         title: "✅ Modelo alterada(o) com sucesso!",
         duration: 3000,
       });
-      setTimeout(() => {
+      return setTimeout(() => {
         route.push("/");
       }, 3000);
     }
+
+    return toast({
+      title: "❌ Não foi possível editar a modelo!",
+      duration: 3000,
+    });
   };
 
   const handleDeleteImage = (name: string) => {
@@ -344,6 +371,22 @@ export const CardModelEdit = ({
                   className="outline-none border-b-2 px-2 py-1 md:p-3 drop-shadow-md disabled:bg-inherit border-slate-200 rounded md:rounded-lg placeholder:text-slate-400"
                   value={instagramLink}
                   onChange={(e) => setInstagramLink(e.target.value)}
+                />
+
+                <input
+                  type="text"
+                  placeholder="Link Twitter"
+                  className="outline-none border-b-2 px-2 py-1 md:p-3 drop-shadow-md disabled:bg-inherit border-slate-200 rounded md:rounded-lg placeholder:text-slate-400"
+                  value={twitterLink}
+                  onChange={(e) => setTwitterLink(e.target.value)}
+                />
+
+                <input
+                  type="text"
+                  placeholder="Link Tiktok"
+                  className="outline-none border-b-2 px-2 py-1 md:p-3 drop-shadow-md disabled:bg-inherit border-slate-200 rounded md:rounded-lg placeholder:text-slate-400"
+                  value={tiktokLink}
+                  onChange={(e) => setTiktokLink(e.target.value)}
                 />
 
                 <textarea

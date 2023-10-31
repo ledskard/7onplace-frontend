@@ -6,6 +6,7 @@ import { CardModelImage } from "./card-model-img";
 import { CardModelName } from "./card-model-name";
 import { CardModelRoot } from "./card-model-root";
 import { CardModelEdit } from "./card-model-edit-manual";
+import { CardModelLoading } from "./card-model-loading";
 
 export const Card = {
   Root: CardModelRoot,
@@ -16,4 +17,5 @@ export const Card = {
   Delete: CardModelDelete,
   Edit: CardModelEdit,
   Actions: CardModelActions,
+  Loading: CardModelLoading,
 };

@@ -21,6 +21,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { location } from "../config/location";
 import { XCircleIcon } from "lucide-react";
 import { toast } from "@/components/ui/use-toast";
+import { useSession } from "next-auth/react";
 
 const maxFileSize = 1024 * 1024 * 10; // 10MB
 
@@ -37,6 +38,8 @@ type Base64Img = {
 };
 
 export const FormRegisterContainer = () => {
+  const { data: session } = useSession();
+
   const [locationData, setLocationData] = useState<string | null>(null);
   const [perfilImage, setPerfilImage] = useState<Base64Img | null>(null);
 
@@ -204,7 +207,6 @@ export const FormRegisterContainer = () => {
     setDisplayImages((prev) => prev.filter((img) => img.name !== name));
   };
 
-  console.log(errors.images?.message);
   const handleCreateModel = async (data: RegisterModelProps) => {
     const dataZod = registerSchema.parse(data);
 
@@ -220,6 +222,7 @@ export const FormRegisterContainer = () => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Authorizathion: `Bearer ${session?.user.token}`,
       },
       body: JSON.stringify(modelData),
     });
@@ -417,7 +420,7 @@ export const FormRegisterContainer = () => {
       )}
 
       <Button
-        className="max-w-[50%] first-letter:capitalize lowercase md:max-w-[40%] "
+        className="max-w-[50%] first-letter:capitalize lowercase md:max-w-[40%]"
         type="submit"
         disabled={isSubmitting}
       >
