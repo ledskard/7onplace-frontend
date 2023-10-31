@@ -29,7 +29,6 @@ export const CarouselRoot = ({ model }: CarouselContentProps) => {
   const prevSlide = () => {
     swiperRef.current?.slidePrev();
   };
-  console.log(model.tiktok);
 
   return (
     <section className="mx-auto rounded-md">
@@ -85,12 +84,14 @@ export const CarouselRoot = ({ model }: CarouselContentProps) => {
             <ModelDetails.SocialMedia
               target="_blank"
               href={
-                model.instagram === null || model.instagram.length <= 6
+                model.instagram === null ||
+                (model.twitter && model.instagram.length <= 6)
                   ? "#"
                   : model.instagram
               }
               className={cn(
-                (model.instagram === null || model.instagram.length <= 6) &&
+                (model.instagram === null ||
+                  (model.twitter && model.instagram.length <= 6)) &&
                   "text-gray-600 cursor-default"
               )}
             >
@@ -99,12 +100,14 @@ export const CarouselRoot = ({ model }: CarouselContentProps) => {
             <ModelDetails.SocialMedia
               target="_blank"
               href={
-                model.twitter === null || model.twitter.length <= 6
+                model.twitter === null ||
+                (model.twitter && model.twitter.length <= 6)
                   ? "#"
                   : model.twitter
               }
               className={cn(
-                (model.twitter === null || model.twitter.length <= 6) &&
+                (model.twitter === null ||
+                  (model.twitter && model.twitter.length <= 6)) &&
                   "text-gray-600 cursor-default"
               )}
             >
@@ -113,12 +116,14 @@ export const CarouselRoot = ({ model }: CarouselContentProps) => {
             <ModelDetails.SocialMedia
               target="_blank"
               href={
-                model.tiktok === null || model.tiktok.length <= 6
+                model.tiktok === null ||
+                (model.twitter && model.tiktok.length <= 6)
                   ? "#"
                   : model.tiktok
               }
               className={cn(
-                (model.tiktok === null || model.tiktok.length <= 6) &&
+                (model.tiktok === null ||
+                  (model.twitter && model.tiktok.length <= 6)) &&
                   "text-gray-600 cursor-default"
               )}
             >
