@@ -16,15 +16,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="pt-BR" className='h-full'>
+    <html lang="pt-BR" className="h-full">
       <body className="bg-[#f3f3f3] h-full">
         <Providers>
-          <div className='h-full flex flex-col '>
-          <Header />
-          <Toaster />
-          <main className='max-w-[1930px] w-full mx-auto flex-1 flex flex-col'>
-            {children}
-          </main>
+          <div className="h-full flex flex-col ">
+            <Header />
+            <Toaster />
+            <main className="max-w-[1930px] w-full mx-auto flex-1 flex flex-col my-4">
+              {children}
+            </main>
           </div>
           {/* <Analytics /> */}
         </Providers>
