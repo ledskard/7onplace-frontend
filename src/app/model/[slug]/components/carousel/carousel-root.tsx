@@ -21,6 +21,9 @@ import { Instagram, Twitter } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export const CarouselRoot = ({ model }: CarouselContentProps) => {
+  console.log(model.instagram);
+  console.log(model.twitter);
+  console.log(model.tiktok);
   const swiperRef = useRef<any>();
 
   const nextSlide = () => {
@@ -82,7 +85,7 @@ export const CarouselRoot = ({ model }: CarouselContentProps) => {
           </FlexDiv>
           <FlexDiv>
             <ModelDetails.SocialMedia
-              target="_blank"
+              target={model.instagram && "_blank"}
               href={
                 model.instagram === null ||
                 (model.twitter && model.instagram.length <= 6)
@@ -98,33 +101,40 @@ export const CarouselRoot = ({ model }: CarouselContentProps) => {
               <Instagram />
             </ModelDetails.SocialMedia>
             <ModelDetails.SocialMedia
-              target="_blank"
+              target={model.twitter && "_blank"}
               href={
                 model.twitter === null ||
                 (model.twitter && model.twitter.length <= 6)
-                  ? "#"
+                  ? ""
                   : model.twitter
               }
               className={cn(
+                "text-gray-600",
                 (model.twitter === null ||
                   (model.twitter && model.twitter.length <= 6)) &&
-                  "text-gray-600 cursor-default"
+                  "cursor-default"
               )}
+              // className={cn(
+              //   (model.twitter === null ||
+              //     (model.twitter && model.twitter.length <= 6)) &&
+              //     "text-gray-600 cursor-default"
+              // )}
             >
               <Twitter />
             </ModelDetails.SocialMedia>
             <ModelDetails.SocialMedia
-              target="_blank"
+              target={model.tiktok && "_blank"}
               href={
                 model.tiktok === null ||
                 (model.twitter && model.tiktok.length <= 6)
-                  ? "#"
+                  ? ""
                   : model.tiktok
               }
               className={cn(
+                "text-gray-600",
                 (model.tiktok === null ||
                   (model.twitter && model.tiktok.length <= 6)) &&
-                  "text-gray-600 cursor-default"
+                  "cursor-default"
               )}
             >
               <BsTiktok />

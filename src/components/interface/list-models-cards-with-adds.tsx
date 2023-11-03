@@ -38,7 +38,7 @@ export const ListModelsCardsWithAdds = ({
               index !== models.length - 1 && (
                 <div
                   key={`ad-${index}`}
-                  className="text-center text-white min-h-[100px] sm:min-h-[300px] p-4 col-span-2 xl:col-span-3 relative rounded overflow-hidden"
+                  className="text-center cursor-pointer text-white min-h-[100px] sm:min-h-[300px] p-4 col-span-2 xl:col-span-3 relative rounded overflow-hidden"
                 >
                   <Image
                     className="aspect-[12/9] object-fill object-center"
@@ -46,7 +46,6 @@ export const ListModelsCardsWithAdds = ({
                     src={"/default-ads.png"}
                     alt={model.username}
                   />
-                  <div className="text-lg font-bold">ANUNCIE AQUI</div>
                 </div>
               )}
           </React.Fragment>
