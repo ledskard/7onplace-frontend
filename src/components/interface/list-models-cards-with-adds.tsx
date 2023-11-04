@@ -38,12 +38,14 @@ export const ListModelsCardsWithAdds = ({
               index !== models.length - 1 && (
                 <div
                   key={`ad-${index}`}
-                  className="text-center cursor-pointer text-white min-h-[100px] sm:min-h-[300px] p-4 col-span-2 xl:col-span-3 relative rounded overflow-hidden"
+                  className="text-center cursor-pointer text-white p-4 col-span-2 xl:col-span-3 relative rounded overflow-hidden"
                 >
                   <Image
-                    className="aspect-[12/9] object-fill object-center"
-                    fill
+                    className="w-full h-64 object-cover object-center"
+                    width={1769}
+                    height={256}
                     src={"/default-ads.png"}
+                    sizes='100vw'
                     alt={model.username}
                   />
                 </div>
@@ -67,6 +69,7 @@ const CardModel = ({ model }: { model: ModelsFilterProps }) => {
           href={`model/${model.id}`}
           className="z-20 absolute inset-0"
           key={model.id}
+          aria-label={model.username}
         />
         <div className="relative flex-1 overflow-hidden max-h-[500px] h-full">
           <Card.Img
