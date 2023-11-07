@@ -38,14 +38,12 @@ export const ListModelsCardsWithAdds = ({
               index !== models.length - 1 && (
                 <div
                   key={`ad-${index}`}
-                  className="text-center cursor-pointer text-white p-4 col-span-2 xl:col-span-3 relative rounded overflow-hidden"
+                  className="text-center text-white min-h-[100px] sm:min-h-[300px] p-4 col-span-2 xl:col-span-3 relative rounded overflow-hidden"
                 >
                   <Image
-                    className="w-full h-64 object-cover object-center"
-                    width={1769}
-                    height={256}
+                    className="aspect-[12/9] object-fill object-center"
+                    fill
                     src={"/default-ads.png"}
-                    sizes='100vw'
                     alt={model.username}
                   />
                 </div>
