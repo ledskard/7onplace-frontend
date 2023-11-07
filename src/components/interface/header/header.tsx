@@ -29,7 +29,7 @@ export const Header = ({ className, ...props }: HeaderProps) => {
     <header
       className={twMerge(
         "bg-red-main w-full h-14 p-1",
-        y && y > 200 && "fixed -top-1 z-[9999]",
+        y && y > 300 && "fixed -top-1 z-[9999]",
         className
       )}
       {...props}

@@ -13,7 +13,6 @@ export const ModelDetailsSocialMedia = ({
   social,
   ...props
 }: ModelSocialMediaProps) => {
-  console.log(href);
   const Icon = icon;
   if (href === "#" || href === null || !href) {
     return (

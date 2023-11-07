@@ -6,12 +6,12 @@ import { incrementLike } from "@/utils/increment-like-to-model";
 import { getDataById } from "@/utils/get-model-by-id";
 import { ReturnToHomeButton } from "./components/return-to-home-button";
 import { CarouselContentProps } from "@/types/model/carousel-content-props";
+import { getServerSession } from "next-auth";
+import { ModelDetails } from "./components/model-details";
 
 export default async function Model({ params }: { params: { slug: string } }) {
-  const [dataModel] = await Promise.all([
-    getDataById(params.slug),
-    incrementLike(params.slug),
-  ]);
+  const dataModel = await getDataById(params.slug);
+  const session = await getServerSession();
 
   return (
     <main className="w-10/12 max-w-xl mx-auto m-auto flex flex-col items-center justify-center sm:py-4">
@@ -25,6 +25,8 @@ export default async function Model({ params }: { params: { slug: string } }) {
           <AboutModel.Description>
             {/* {dataModel.description} */}
           </AboutModel.Description>
+
+          {session && <ModelDetails.AddNewButton />}
           <a href={dataModel.telegramVip} target="_blank">
             <Button>telegram vip</Button>
           </a>
