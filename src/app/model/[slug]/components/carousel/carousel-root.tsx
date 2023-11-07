@@ -10,6 +10,7 @@ import { PerfilImage } from "@/components/interface/perfil-image";
 import { FlexDiv } from "@/components/interface/flex-div";
 import { ModelDetails } from "../model-details";
 import { CarouselContentProps } from "@/types/model/carousel-content-props";
+import { Instagram, Twitter } from "lucide-react";
 
 import "swiper/css";
 import "swiper/css/navigation";
@@ -17,13 +18,9 @@ import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import "swiper/css/effect-fade";
 import "swiper/css/autoplay";
-import { Instagram, Twitter } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { AiFillStar } from "react-icons/ai";
 
 export const CarouselRoot = ({ model }: CarouselContentProps) => {
-  console.log(model.instagram);
-  console.log(model.twitter);
-  console.log(model.tiktok);
   const swiperRef = useRef<any>();
 
   const nextSlide = () => {
@@ -106,6 +103,8 @@ export const CarouselRoot = ({ model }: CarouselContentProps) => {
           className="self-start leading-10"
           favorites={model.likes}
         /> */}
+        {/* {model.isPremium && <AiFillStar className="w-7 h-7 text-yellow-500" />} */}
+        <AiFillStar className="w-7 h-7 text-yellow-500 self-start" />
       </FlexDiv>
     </section>
   );

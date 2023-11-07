@@ -13,7 +13,7 @@ export const ModelDetailsSocialMedia = ({
   social,
   ...props
 }: ModelSocialMediaProps) => {
-  console.log(social);
+  console.log(href);
   const Icon = icon;
   if (href === "#" || href === null || !href) {
     return (
@@ -28,7 +28,7 @@ export const ModelDetailsSocialMedia = ({
   }
   return (
     <div>
-      <a {...props}>
+      <a {...props} href={href} target="_blank">
         <Icon
           className={twMerge(
             "text-red-main/80 w-7 h-7 cursor-pointer",

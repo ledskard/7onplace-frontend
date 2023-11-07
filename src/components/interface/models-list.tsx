@@ -3,8 +3,6 @@ import { ListModelsCardsWithAdds } from "./list-models-cards-with-adds";
 import { ModelsFilterProps } from "@/types/model/models-filter-props";
 import { getModelsByFilter } from "@/types/model/get-models-by-filter";
 import dbLocal from "../../../dblocal.json";
-import { Card } from "./card-models";
-import Link from "next/link";
 
 type ModelsListType = ComponentProps<"section"> & {
   modelType: string;

@@ -4,6 +4,8 @@ import { AboutModel } from "./components/about-model";
 import { FlexDiv } from "@/components/interface/flex-div";
 import { incrementLike } from "@/utils/increment-like-to-model";
 import { getDataById } from "@/utils/get-model-by-id";
+import { ReturnToHomeButton } from "./components/return-to-home-button";
+import { CarouselContentProps } from "@/types/model/carousel-content-props";
 
 export default async function Model({ params }: { params: { slug: string } }) {
   const [dataModel] = await Promise.all([
@@ -12,11 +14,14 @@ export default async function Model({ params }: { params: { slug: string } }) {
   ]);
 
   return (
-    <main className="w-10/12 max-w-xl mx-auto m-auto flex items-center justify-center sm:py-4">
+    <main className="w-10/12 max-w-xl mx-auto m-auto flex flex-col items-center justify-center sm:py-4">
+      <ReturnToHomeButton />
       <div className="w-full md:my-4 my-10">
         <CarouselRoot model={dataModel} />
         <FlexDiv col>
-          <AboutModel.Heading></AboutModel.Heading>
+          {/* {dataModel.model.isPremium && (
+            <Button>+</Button>
+          )} */}
           <AboutModel.Description>
             {/* {dataModel.description} */}
           </AboutModel.Description>
