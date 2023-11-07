@@ -11,7 +11,7 @@ import { Plus } from "lucide-react";
 export const ModelDetailsAddNewButton = () => {
   return (
     <Dialog>
-      <DialogTrigger className="self-end">
+      <DialogTrigger className="self-end bg-emerald-500">
         <button className="rounded-full w-fit border bg-red-main text-white p-1">
           <Plus />
         </button>

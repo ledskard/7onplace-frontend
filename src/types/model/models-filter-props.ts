@@ -4,6 +4,13 @@ export type ModelImage = {
   name: string;
 };
 
+export type Flags = {
+  id: string;
+  name: string;
+  description: string;
+  created_at: Date;
+};
+
 export type ModelsFilterProps = {
   username: string;
   id: string;
@@ -18,4 +25,10 @@ export type ModelsFilterProps = {
   telegramFree: string;
   images: ModelImage[];
   profileImage: ModelImage;
+  buttons: Array<{
+    id: string;
+    url: string;
+    title: string;
+  }>;
+  featureFlags: Array<Flags>;
 };

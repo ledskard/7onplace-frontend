@@ -3,6 +3,7 @@ import { twMerge } from "tailwind-merge";
 
 type ModelSocialMediaProps = ComponentProps<"a"> & {
   icon: ElementType;
+  // flags: string[];
   social?: "tiktok" | "instagram" | "twitter";
 };
 
@@ -10,11 +11,13 @@ export const ModelDetailsSocialMedia = ({
   className,
   icon,
   href,
+  // flags,
   social,
   ...props
 }: ModelSocialMediaProps) => {
   const Icon = icon;
   if (href === "#" || href === null || !href) {
+    // || !flags.map((flag) => flag.includes("enable_social_media"))
     return (
       <div>
         <Icon

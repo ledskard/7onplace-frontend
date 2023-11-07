@@ -1,4 +1,4 @@
-import { ModelImage } from "./models-filter-props";
+import { Flags, ModelImage } from "./models-filter-props";
 
 export type CarouselContentProps = {
   model: {
@@ -13,5 +13,11 @@ export type CarouselContentProps = {
     telegramFree: string;
     images: ModelImage[];
     profileImage: ModelImage;
+    buttons: Array<{
+      id: string;
+      url: string;
+      title: string;
+    }>;
+    featureFlags: Array<Flags>;
   };
 };

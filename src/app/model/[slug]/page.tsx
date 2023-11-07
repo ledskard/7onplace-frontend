@@ -8,9 +8,11 @@ import { ReturnToHomeButton } from "./components/return-to-home-button";
 import { CarouselContentProps } from "@/types/model/carousel-content-props";
 import { getServerSession } from "next-auth";
 import { ModelDetails } from "./components/model-details";
+import { Flags } from "@/types/model/models-filter-props";
 
 export default async function Model({ params }: { params: { slug: string } }) {
   const dataModel = await getDataById(params.slug);
+  console.log(dataModel);
   const session = await getServerSession();
 
   return (
@@ -18,7 +20,7 @@ export default async function Model({ params }: { params: { slug: string } }) {
       <ReturnToHomeButton />
       <div className="w-full md:my-4 my-10">
         <CarouselRoot model={dataModel} />
-        <FlexDiv col>
+        <FlexDiv col className="">
           {/* {dataModel.model.isPremium && (
             <Button>+</Button>
           )} */}
@@ -26,9 +28,13 @@ export default async function Model({ params }: { params: { slug: string } }) {
             {/* {dataModel.description} */}
           </AboutModel.Description>
 
-          {session && <ModelDetails.AddNewButton />}
+          {session &&
+            dataModel.featureFlags.map((flag: Flags) => {
+              if (flag.name === "enable_create_button")
+                return <ModelDetails.AddNewButton />;
+            })}
           <a href={dataModel.telegramVip} target="_blank">
-            <Button>telegram vip</Button>
+            <Button className="">telegram vip</Button>
           </a>
           <a href={dataModel.telegramFree} target="_blank">
             <Button>canal free</Button>

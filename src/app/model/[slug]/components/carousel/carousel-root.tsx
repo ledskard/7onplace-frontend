@@ -18,7 +18,6 @@ import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import "swiper/css/effect-fade";
 import "swiper/css/autoplay";
-import { AiFillStar } from "react-icons/ai";
 
 export const CarouselRoot = ({ model }: CarouselContentProps) => {
   const swiperRef = useRef<any>();
@@ -74,7 +73,7 @@ export const CarouselRoot = ({ model }: CarouselContentProps) => {
         </Carousel.CenterButtonDiv>
       </Swiper>
 
-      <FlexDiv className="px-4 pt-3 pb-8">
+      <FlexDiv className="px-4">
         <FlexDiv col className="flex-1">
           <FlexDiv>
             <PerfilImage src={model.profileImage.url} alt={model.username} />
@@ -98,13 +97,6 @@ export const CarouselRoot = ({ model }: CarouselContentProps) => {
             />
           </FlexDiv>
         </FlexDiv>
-        {/* <Card.Fav
-          modelId={model.id}
-          className="self-start leading-10"
-          favorites={model.likes}
-        /> */}
-        {/* {model.isPremium && <AiFillStar className="w-7 h-7 text-yellow-500" />} */}
-        <AiFillStar className="w-7 h-7 text-yellow-500 self-start" />
       </FlexDiv>
     </section>
   );
