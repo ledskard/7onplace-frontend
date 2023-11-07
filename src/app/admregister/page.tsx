@@ -4,7 +4,7 @@ import { redirect } from "next/navigation";
 
 export default async function AdmRegister() {
   const session = await getServerSession();
-  if (!session) redirect("/admlogin");
+  // if (!session) redirect("/admlogin");
 
   return  <FormRegisterContainer /> 
 }

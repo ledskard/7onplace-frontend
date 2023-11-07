@@ -22,6 +22,7 @@ import { location } from "../config/location";
 import { XCircleIcon } from "lucide-react";
 import { toast } from "@/components/ui/use-toast";
 import { useSession } from "next-auth/react";
+import sharp from "sharp";
 
 const maxFileSize = 1024 * 1024 * 10; // 10MB
 
@@ -49,6 +50,26 @@ export const FormRegisterContainer = () => {
 
   const gender = ["mulheres", "casais", "trans", "homens"];
 
+  
+  // const handleProfileImgChange = async (event:any) => {
+  //   const file = event.target.files[0];
+  
+  //   if (file) {
+  //     if (file.type.startsWith("image/")) {
+  //       const buffer = await sharp(file.path)
+  //         .resize(800, 600) // Defina as dimensões desejadas aqui
+  //         .toBuffer();
+  
+  //       const resizedFile = new File([buffer], file.name, { type: file.type });
+        
+  //       setPerfilImage({
+  //         name: resizedFile.name,
+  //         base64: URL.createObjectURL(resizedFile),
+  //       });
+  //     }
+  //   }
+  // };
+  
   const registerSchema = z.object({
     username: z.string().min(2, "Campo nome deve conter pelo menos 2 dígitos"),
 
@@ -272,7 +293,7 @@ export const FormRegisterContainer = () => {
           <input
             className="hidden"
             type="file"
-            accept="image/png, image/jpeg, image/webp, image/jpg"
+            accept="image/png, image/jpeg, image/webp, image/jpg, video/mp4"
             id="profileImg"
             {...register("profileImg")}
           />
