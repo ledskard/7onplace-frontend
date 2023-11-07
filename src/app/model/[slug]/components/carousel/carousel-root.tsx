@@ -18,6 +18,7 @@ import "swiper/css/scrollbar";
 import "swiper/css/effect-fade";
 import "swiper/css/autoplay";
 import { Instagram, Twitter } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 export const CarouselRoot = ({ model }: CarouselContentProps) => {
   const swiperRef = useRef<any>();
@@ -74,27 +75,60 @@ export const CarouselRoot = ({ model }: CarouselContentProps) => {
       </Swiper>
 
       <FlexDiv className="px-4 pt-3 pb-8">
-        <FlexDiv col className="flex-1 max-w-[70%] sm:max-w-none">
+        <FlexDiv col className="flex-1">
           <FlexDiv>
             <PerfilImage src={model.profileImage.url} alt={model.username} />
             <Card.Name>{model.username}</Card.Name>
           </FlexDiv>
           <FlexDiv>
-            {/* {model.instagram && ( */}
-            <ModelDetails.SocialMedia href={model.instagram}>
+            <ModelDetails.SocialMedia
+              target="_blank"
+              href={
+                model.instagram === null ||
+                (model.twitter && model.instagram.length <= 6)
+                  ? "#"
+                  : model.instagram
+              }
+              className={cn(
+                (model.instagram === null ||
+                  (model.twitter && model.instagram.length <= 6)) &&
+                  "text-gray-600 cursor-default"
+              )}
+            >
               <Instagram />
             </ModelDetails.SocialMedia>
-            {/* )} */}
-            {/* {model.twitter && ( */}
-            <ModelDetails.SocialMedia href={model.instagram}>
+            <ModelDetails.SocialMedia
+              target="_blank"
+              href={
+                model.twitter === null ||
+                (model.twitter && model.twitter.length <= 6)
+                  ? "#"
+                  : model.twitter
+              }
+              className={cn(
+                (model.twitter === null ||
+                  (model.twitter && model.twitter.length <= 6)) &&
+                  "text-gray-600 cursor-default"
+              )}
+            >
               <Twitter />
             </ModelDetails.SocialMedia>
-            {/* )} */}
-            {/* {model.tiktok && ( */}
-            <ModelDetails.SocialMedia href={model.instagram}>
+            <ModelDetails.SocialMedia
+              target="_blank"
+              href={
+                model.tiktok === null ||
+                (model.twitter && model.tiktok.length <= 6)
+                  ? "#"
+                  : model.tiktok
+              }
+              className={cn(
+                (model.tiktok === null ||
+                  (model.twitter && model.tiktok.length <= 6)) &&
+                  "text-gray-600 cursor-default"
+              )}
+            >
               <BsTiktok />
             </ModelDetails.SocialMedia>
-            {/* )} */}
           </FlexDiv>
         </FlexDiv>
         {/* <Card.Fav

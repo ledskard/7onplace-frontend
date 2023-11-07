@@ -2,23 +2,20 @@ import Link from "next/link";
 import { ComponentProps } from "react";
 import { twMerge } from "tailwind-merge";
 
-type ModelSocialMediaProps = ComponentProps<typeof Link>;
+type ModelSocialMediaProps = ComponentProps<"a">;
 
 export const ModelDetailsSocialMedia = ({
   className,
   ...props
 }: ModelSocialMediaProps) => {
-  const isDisabled = true;
   return (
     <div>
-      <Link
+      <a
         {...props}
-        className={twMerge("text-red-main w-7 h-7", className)}
-        style={{
-          pointerEvents: isDisabled ? "none" : "auto",
-          opacity: isDisabled ? 0.5 : 1,
-          // color: iSsabled ? "#CCCCCC" : "red"
-        }}
+        className={twMerge(
+          "text-red-main/80 w-7 h-7 cursor-pointer",
+          className
+        )}
       />
     </div>
   );

@@ -12,6 +12,8 @@ export type ModelsFilterProps = {
   likes: number;
   type: string;
   instagram: string;
+  tiktok: string;
+  twitter: string;
   telegramVip: string;
   telegramFree: string;
   images: ModelImage[];

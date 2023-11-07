@@ -21,6 +21,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { location } from "../config/location";
 import { XCircleIcon } from "lucide-react";
 import { toast } from "@/components/ui/use-toast";
+import { useSession } from "next-auth/react";
 
 const maxFileSize = 1024 * 1024 * 10; // 10MB
 
@@ -37,6 +38,8 @@ type Base64Img = {
 };
 
 export const FormRegisterContainer = () => {
+  const { data: session } = useSession();
+
   const [locationData, setLocationData] = useState<string | null>(null);
   const [perfilImage, setPerfilImage] = useState<Base64Img | null>(null);
 
@@ -173,10 +176,16 @@ export const FormRegisterContainer = () => {
 
         return true;
       }, "Somente os formatos .jpg, .jpeg, .png e .webp são suportados"),
-    instagram: z.string().optional(),
-    telegramVip: z.string(),
 
-    telegramFree: z.string(),
+    instagram: z.string().optional(),
+
+    telegramVip: z.string().min(1, "Campo Telegram VIP não pode estar vazio"),
+
+    telegramFree: z.string().min(1, "Campo Telegram FREE não pode estar vazio"),
+
+    twitter: z.string().optional(),
+
+    tiktok: z.string().optional(),
 
     description: z.string().optional(),
   });
@@ -213,12 +222,13 @@ export const FormRegisterContainer = () => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Authorizathion: `Bearer ${session?.user.token}`,
       },
       body: JSON.stringify(modelData),
     });
 
     const result = await res.json();
-
+    console.log(result);
     if (result.success) {
       reset();
       toast({
@@ -239,63 +249,63 @@ export const FormRegisterContainer = () => {
   };
 
   return (
-      <Form.Root
-        className="m-auto"
-        onSubmit={handleSubmit(handleCreateModel)}
-      >
-        <FlexDiv className="w-full ">
-          <Image
-            src={perfilImage?.base64 ?? "/default-profile.jpg"}
-            alt="Perfil Image"
-            width={200}
-            height={200}
-            className="w-10 h-10 rounded-full object-cover object-center"
-          />
-
-          <FlexDiv col className="flex-1">
-            <label
-              htmlFor="profileImg"
-              className="text-center first-letter:capitalize rounded font-medium py-2 px-1 md:rounded-md bg-red-main text-white w-full"
-            >
-              Adicionar imagem de perfil
-            </label>
-            <input
-              className="hidden"
-              type="file"
-              accept="image/png, image/jpeg, image/webp, image/jpg"
-              id="profileImg"
-              {...register("profileImg")}
-            />
-            {errors.profileImg && (
-              <FormError>{errors.profileImg.message?.toString()}</FormError>
-            )}
-          </FlexDiv>
-        </FlexDiv>
-        <Form.Input
-          wf
-          id="username"
-          placeholder="Nome"
-          helperText={errors.username?.message?.toString()}
-          success={!errors.username}
-          error={!!errors.username}
-          register={register}
+    <Form.Root
+      className="m-auto py-8"
+      onSubmit={handleSubmit(handleCreateModel)}
+    >
+      <FlexDiv className="w-full ">
+        <Image
+          src={perfilImage?.base64 ?? "/default-profile.jpg"}
+          alt="Perfil Image"
+          width={200}
+          height={200}
+          className="w-10 h-10 rounded-full object-cover object-center"
         />
 
-        <Select onValueChange={setGenderData}>
-          <SelectTrigger value={genderData ?? "Gênero"}>
-            <SelectValue placeholder="Gênero" className="text-gray-300" />
-          </SelectTrigger>
-          <SelectContent>
-            <ScrollArea className="w-full h-32 pr-3">
-              {gender.map((gen) => (
-                <SelectItem className="capitalize" key={gen} value={gen}>
-                  {gen}
-                </SelectItem>
-              ))}
-            </ScrollArea>
-          </SelectContent>
-        </Select>
-        {/* 
+        <FlexDiv col className="flex-1">
+          <label
+            htmlFor="profileImg"
+            className="text-center first-letter:capitalize rounded font-medium py-2 px-1 md:rounded-md bg-red-main text-white w-full"
+          >
+            Adicionar imagem de perfil
+          </label>
+          <input
+            className="hidden"
+            type="file"
+            accept="image/png, image/jpeg, image/webp, image/jpg"
+            id="profileImg"
+            {...register("profileImg")}
+          />
+          {errors.profileImg && (
+            <FormError>{errors.profileImg.message?.toString()}</FormError>
+          )}
+        </FlexDiv>
+      </FlexDiv>
+      <Form.Input
+        wf
+        id="username"
+        placeholder="Nome"
+        helperText={errors.username?.message?.toString()}
+        success={!errors.username}
+        error={!!errors.username}
+        register={register}
+      />
+
+      <Select onValueChange={setGenderData}>
+        <SelectTrigger value={genderData ?? "Gênero"}>
+          <SelectValue placeholder="Gênero" className="text-gray-300" />
+        </SelectTrigger>
+        <SelectContent>
+          <ScrollArea className="w-full h-32 pr-3">
+            {gender.map((gen) => (
+              <SelectItem className="capitalize" key={gen} value={gen}>
+                {gen}
+              </SelectItem>
+            ))}
+          </ScrollArea>
+        </SelectContent>
+      </Select>
+      {/* 
       <Select onValueChange={setLocationData}>
         <SelectTrigger>
           <SelectValue placeholder="Localização" className="text-gray-300" />
@@ -311,96 +321,111 @@ export const FormRegisterContainer = () => {
         </SelectContent>
       </Select> */}
 
-        <Form.Input
-          wf
-          id="telegramVip"
-          placeholder="Link telegram VIP"
-          helperText={errors.telegramVip?.message?.toString()}
-          success={!errors.telegramVip}
-          error={!!errors.telegramVip}
-          register={register}
-        />
+      <Form.Input
+        wf
+        id="telegramVip"
+        placeholder="Link telegram VIP"
+        helperText={errors.telegramVip?.message?.toString()}
+        success={!errors.telegramVip}
+        error={!!errors.telegramVip}
+        register={register}
+      />
 
-        <Form.Input
-          wf
-          id="telegramFree"
-          placeholder="Link telegram FREE"
-          helperText={errors.telegramFree?.message?.toString()}
-          success={!errors.telegramFree}
-          error={!!errors.telegramFree}
-          register={register}
-        />
+      <Form.Input
+        wf
+        id="telegramFree"
+        placeholder="Link telegram FREE"
+        helperText={errors.telegramFree?.message?.toString()}
+        success={!errors.telegramFree}
+        error={!!errors.telegramFree}
+        register={register}
+      />
 
-        <Form.Input
-          wf
-          id="instagram"
-          placeholder="Link Instagram"
-          register={register}
-        />
+      <Form.Input
+        wf
+        id="instagram"
+        placeholder="Link Instagram"
+        register={register}
+      />
+      <Form.Input
+        wf
+        id="twitter"
+        placeholder="Link Twitter"
+        register={register}
+      />
+      <Form.Input
+        wf
+        id="tiktok"
+        placeholder="Link TikTok"
+        register={register}
+      />
 
-        <Form.Area
-          register={register}
-          id="description"
-          error={!!errors.description}
-          helperText={
-            errors.description && errors.description.message?.toString()
-          }
-          placeholder="Descrição da modelo"
-          rows={6}
-          cols={50}
-        />
+      <Form.Area
+        register={register}
+        id="description"
+        error={!!errors.description}
+        helperText={
+          errors.description && errors.description.message?.toString()
+        }
+        placeholder="Descrição da modelo"
+        rows={6}
+        cols={50}
+      />
 
-        <label
-          htmlFor="images"
-          className="text-center first-letter:capitalize rounded font-medium py-2 px-1 md:rounded-md bg-red-main text-white w-full m-0"
-        >
-          Adicionar imagem de pré visualização
-        </label>
-          {displayImages?.length > 0 &&
-            <GridCol col="1" className="md:grid-cols-2 mt-0 mb-0">
-                {displayImages?.map((img) => (
-                  <div
-                    key={img.name}
-                    className="relative p-2 h-full flex items-center justify-center"
-                  >
-                    <button
-                      className="absolute top-1 right-1"
-                      onClick={() => handleDeleteImage(img.name)}
-                    >
-                      <XCircleIcon />
-                    </button>
-                    <Image
-                      className="p-4 rounded md:rounded-md w-full sm:max-w-[300px] sm:max-h-[300px] max-w-[200px] text-center max-h-[200px] object-cover object-center"
-                      src={img.base64}
-                      width={400}
-                      height={400}
-                      alt={img.name}
-                    />
-                  </div>
-                ))}
-            </GridCol>
-            }
-        <Form.Input
-          wf
-          invisible
-          className="hidden p-0 m-0"
-          type="file"
-          multiple
-          accept="image/png, image/jpeg, image/webp, image/jpg"
-          success={!errors.images}
-          error={!!errors.images}
-          helperText={errors.images?.message?.toString()}
-          id="images"
-          register={register}
-        />
+      <label
+        htmlFor="images"
+        className="text-center first-letter:capitalize rounded font-medium py-2 px-1 md:rounded-md bg-red-main text-white w-full m-0"
+      >
+        Adicionar imagem de pré visualização
+      </label>
+      {displayImages?.length > 0 && (
+        <GridCol col="1" className="md:grid-cols-2 mt-0 mb-0">
+          {displayImages?.map((img) => (
+            <div
+              key={img.name}
+              className="relative p-2 h-full flex items-center justify-center"
+            >
+              <button
+                className="absolute top-1 right-1"
+                onClick={() => handleDeleteImage(img.name)}
+              >
+                <XCircleIcon />
+              </button>
+              <Image
+                className="p-4 rounded md:rounded-md w-full sm:max-w-[300px] sm:max-h-[300px] max-w-[200px] text-center max-h-[200px] object-cover object-center"
+                src={img.base64}
+                width={400}
+                height={400}
+                alt={img.name}
+              />
+            </div>
+          ))}
+        </GridCol>
+      )}
+      <Form.Input
+        wf
+        invisible
+        className="hidden p-0 m-0"
+        type="file"
+        multiple
+        accept="image/png, image/jpeg, image/webp, image/jpg"
+        success={!errors.images}
+        error={!!errors.images}
+        helperText={errors.images?.message?.toString()}
+        id="images"
+        register={register}
+      />
+      {errors.images && (
+        <FormError>{errors.images?.message?.toString()}</FormError>
+      )}
 
-        <Button
-          className="max-w-[50%] first-letter:capitalize lowercase md:max-w-[40%] "
-          type="submit"
-          disabled={isSubmitting}
-        >
-          {isSubmitting ? "Perfil sendo criado..." : "Criar perfil"}
-        </Button>
-      </Form.Root>
+      <Button
+        className="max-w-[50%] first-letter:capitalize lowercase md:max-w-[40%]"
+        type="submit"
+        disabled={isSubmitting}
+      >
+        {isSubmitting ? "Perfil sendo criado..." : "Criar perfil"}
+      </Button>
+    </Form.Root>
   );
 };
