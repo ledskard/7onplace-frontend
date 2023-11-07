@@ -85,60 +85,20 @@ export const CarouselRoot = ({ model }: CarouselContentProps) => {
           </FlexDiv>
           <FlexDiv>
             <ModelDetails.SocialMedia
-              target={model.instagram && "_blank"}
-              href={
-                model.instagram === null ||
-                (model.twitter && model.instagram.length <= 6)
-                  ? "#"
-                  : model.instagram
-              }
-              className={cn(
-                (model.instagram === null ||
-                  (model.twitter && model.instagram.length <= 6)) &&
-                  "text-gray-600 cursor-default"
-              )}
-            >
-              <Instagram />
-            </ModelDetails.SocialMedia>
+              href={model.instagram ?? "#"}
+              icon={Instagram}
+            />
+
             <ModelDetails.SocialMedia
-              target={model.twitter && "_blank"}
-              href={
-                model.twitter === null ||
-                (model.twitter && model.twitter.length <= 6)
-                  ? ""
-                  : model.twitter
-              }
-              className={cn(
-                "text-gray-600",
-                (model.twitter === null ||
-                  (model.twitter && model.twitter.length <= 6)) &&
-                  "cursor-default"
-              )}
-              // className={cn(
-              //   (model.twitter === null ||
-              //     (model.twitter && model.twitter.length <= 6)) &&
-              //     "text-gray-600 cursor-default"
-              // )}
-            >
-              <Twitter />
-            </ModelDetails.SocialMedia>
+              href={model.twitter ?? "#"}
+              icon={Twitter}
+            />
+
             <ModelDetails.SocialMedia
-              target={model.tiktok && "_blank"}
-              href={
-                model.tiktok === null ||
-                (model.twitter && model.tiktok.length <= 6)
-                  ? ""
-                  : model.tiktok
-              }
-              className={cn(
-                "text-gray-600",
-                (model.tiktok === null ||
-                  (model.twitter && model.tiktok.length <= 6)) &&
-                  "cursor-default"
-              )}
-            >
-              <BsTiktok />
-            </ModelDetails.SocialMedia>
+              href={model.tiktok ?? "#"}
+              icon={BsTiktok}
+              social={"tiktok"}
+            />
           </FlexDiv>
         </FlexDiv>
         {/* <Card.Fav
