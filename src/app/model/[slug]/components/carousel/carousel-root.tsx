@@ -21,7 +21,9 @@ import "swiper/css/autoplay";
 
 export const CarouselRoot = ({ model }: CarouselContentProps) => {
   const swiperRef = useRef<any>();
-
+  console.log(model.featureFlags)
+  const flags = model && model.featureFlags && model.featureFlags.length > 0 && model.featureFlags.map(flag => flag.name);
+  console.log(flags)
   const nextSlide = () => {
     swiperRef.current?.slideNext();
   };
@@ -83,17 +85,20 @@ export const CarouselRoot = ({ model }: CarouselContentProps) => {
             <ModelDetails.SocialMedia
               href={model.instagram ?? "#"}
               icon={Instagram}
+              flags={flags}
             />
 
             <ModelDetails.SocialMedia
               href={model.twitter ?? "#"}
               icon={Twitter}
+              flags={flags}
             />
 
             <ModelDetails.SocialMedia
               href={model.tiktok ?? "#"}
               icon={BsTiktok}
               social={"tiktok"}
+              flags={flags}
             />
           </FlexDiv>
         </FlexDiv>

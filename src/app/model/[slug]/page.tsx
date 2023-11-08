@@ -12,7 +12,6 @@ import { Flags } from "@/types/model/models-filter-props";
 
 export default async function Model({ params }: { params: { slug: string } }) {
   const dataModel = await getDataById(params.slug);
-  console.log(dataModel);
   const session = await getServerSession();
 
   return (
@@ -28,7 +27,7 @@ export default async function Model({ params }: { params: { slug: string } }) {
             {/* {dataModel.description} */}
           </AboutModel.Description>
 
-          {(session && dataModel.featureFlags.length > 0) &&
+          {(session && dataModel.featureFlags && dataModel.featureFlags.length > 0) &&
             dataModel.featureFlags.map((flag: Flags) => {
               if (flag.name === "enable_create_button")
                 return <ModelDetails.AddNewButton />;

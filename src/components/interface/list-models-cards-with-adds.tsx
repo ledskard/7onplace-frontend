@@ -19,10 +19,6 @@ export const ListModelsCardsWithAdds = ({
   models,
   ...props
 }: ListModelsCardsWithAddsProps) => {
-  console.log(models);
-  // const addsImg = models.filter((mod) => {
-  //   return mod;
-  // });
 
   return (
     <section
@@ -66,7 +62,7 @@ const CardModel = ({ model }: { model: ModelsFilterProps }) => {
   return (
     <div key={model.id}>
       <Card.Root>
-        {(model && model.featureFlags.length > 0 )&& model.featureFlags.map((flag) => {
+        {(model && model.featureFlags && model.featureFlags.length > 0 )&& model.featureFlags.map((flag) => {
           if (flag.name === "enable_star")
             return (
               <AiFillStar className="md:w-10 md:h-10 h-8 w-8 text-yellow-500 self-start absolute top-3 left-3 z-[10000]" />
