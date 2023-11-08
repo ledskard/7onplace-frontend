@@ -74,7 +74,7 @@ export const SearchInput = ({ className, ...props }: SearchInputProps) => {
         placeholder="Buscar modelos"
         onKeyUp={handleSearchModels}
       />
-      <button onClick={handleSearchModels}>
+      <button onClick={handleSearchModels} aria-label='Buscar modelos'>
         <Search className="w-10/12" />
       </button>
     </div>

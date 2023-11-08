@@ -4,6 +4,7 @@ import React, { ComponentProps } from "react";
 import { twMerge } from "tailwind-merge";
 import { Card } from "./card-models";
 import Link from "next/link";
+import { AiFillStar } from "react-icons/ai";
 
 type ListModelsCardsWithAddsProps = ComponentProps<"section"> & {
   models: Array<ModelsFilterProps>;
@@ -18,6 +19,7 @@ export const ListModelsCardsWithAdds = ({
   models,
   ...props
 }: ListModelsCardsWithAddsProps) => {
+  console.log(models);
   // const addsImg = models.filter((mod) => {
   //   return mod;
   // });
@@ -40,13 +42,17 @@ export const ListModelsCardsWithAdds = ({
                   key={`ad-${index}`}
                   className="text-center text-white min-h-[100px] sm:min-h-[300px] p-4 col-span-2 xl:col-span-3 relative rounded overflow-hidden"
                 >
-                  <Image
-                    className="aspect-[12/9] object-fill object-center"
-                    fill
-                    src={"/default-ads.png"}
-                    alt={model.username}
-                  />
-                  <div className="text-lg font-bold">ANUNCIE AQUI</div>
+                  <a
+                    href="https://wa.me//48991013165?text=Gostaria%20de%20anunciar%20no%20marketplace%20da%207%20On%20Sexy"
+                    target="_blank"
+                  >
+                    <Image
+                      className="aspect-[12/9] object-fill object-center"
+                      fill
+                      src={"/default-ads.png"}
+                      alt={model.username}
+                    />
+                  </a>
                 </div>
               )}
           </React.Fragment>
@@ -60,6 +66,12 @@ const CardModel = ({ model }: { model: ModelsFilterProps }) => {
   return (
     <div key={model.id}>
       <Card.Root>
+        {model.featureFlags.map((flag) => {
+          if (flag.name === "enable_watermark")
+            return (
+              <AiFillStar className="md:w-10 md:h-10 h-8 w-8 text-yellow-500 self-start absolute top-3 left-3 z-[10000]" />
+            );
+        })}
         <Card.Actions>
           <Card.Delete modelId={model.id} />
           <Card.Edit model={model} />
@@ -68,6 +80,7 @@ const CardModel = ({ model }: { model: ModelsFilterProps }) => {
           href={`model/${model.id}`}
           className="z-20 absolute inset-0"
           key={model.id}
+          aria-label={model.username}
         />
         <div className="relative flex-1 overflow-hidden max-h-[500px] h-full">
           <Card.Img

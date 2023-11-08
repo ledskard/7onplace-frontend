@@ -7,6 +7,7 @@ import { CardModelName } from "./card-model-name";
 import { CardModelRoot } from "./card-model-root";
 import { CardModelEdit } from "./card-model-edit-manual";
 import { CardModelLoading } from "./card-model-loading";
+import { CardModelPremium } from "./card-model-premium";
 
 export const Card = {
   Root: CardModelRoot,
@@ -18,4 +19,5 @@ export const Card = {
   Edit: CardModelEdit,
   Actions: CardModelActions,
   Loading: CardModelLoading,
+  Premium: CardModelPremium,
 };
