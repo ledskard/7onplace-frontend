@@ -30,6 +30,7 @@ const acceptedImageTypes = [
   "image/jpg",
   "image/png",
   "image/webp",
+  "image/gif"
 ];
 
 type Base64Img = {

@@ -16,8 +16,6 @@ export async function ModelsList({
   ...props
 }: ModelsListType) {
   const model: ModelsFilterProps[] = await getModelsByFilter(modelType);
-  // const model = dbLocal
-  console.log(model);
   const filterModels = model.filter((mod) => {
     return query
       ? mod.username.toLowerCase().startsWith(query?.toLowerCase())

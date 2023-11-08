@@ -6,6 +6,7 @@ const acceptedImageTypes = [
   "image/jpg",
   "image/png",
   "image/webp",
+  "image/gif"
 ];
 
 export const registerSchema = z.object({

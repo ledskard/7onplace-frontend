@@ -65,7 +65,7 @@ const CardModel = ({ model }: { model: ModelsFilterProps }) => {
         {(model && model.featureFlags && model.featureFlags.length > 0 )&& model.featureFlags.map((flag) => {
           if (flag.name === "enable_star")
             return (
-              <AiFillStar className="md:w-8 md:h-8 h-8 w-8 text-yellow-500 self-start absolute top-3 left-3 z-[10000]" />
+              <AiFillStar className="md:w-8 md:h- h-8 w-8 text-yellow-500 self-start absolute top-3 left-3 z-[10000]" />
             );
         })}
         <Card.Actions>
