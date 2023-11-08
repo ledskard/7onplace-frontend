@@ -91,7 +91,33 @@ export const CardModelEdit = ({
   const [description, setDescription] = useState<string>(
     model.description || ""
   );
+  const hasFeatureFlags = model.featureFlags && model.featureFlags.length > 0;
 
+  const [isPro, setIsPro] = useState(hasFeatureFlags);
+  // setIsPro(hasFeatureFlags);
+
+  const handleIsPro = async (e: any) => {
+    const isChecked = e.target.checked;
+  
+    setIsPro(isChecked);
+  
+    if (!isChecked) {
+      const featureFlags = {
+        featureFlags: [],
+      };
+  
+      const res = await fetch(`https://api.bioup.ai/models/${model.id}`, {
+        body: JSON.stringify(featureFlags),
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${session?.user.token}`,
+        },
+        method: "PUT",
+      });
+  
+    }
+  };
+  
   const gender = ["mulheres", "casais", "trans", "homens"];
 
   const handleSelectProfileImage = (e: any) => {
@@ -320,6 +346,15 @@ export const CardModelEdit = ({
                       id="profileImg"
                     />
                   </FlexDiv>
+                  <div className="flex items-center mb-4">
+                    <input
+                      type="checkbox"
+                      checked={isPro}
+                      onChange={handleIsPro}
+                      className="mr-2 border-slate-200 rounded"
+                    />
+                    <label className="text-slate-950">Modelo PRO</label>
+                  </div>
                 </FlexDiv>
                 <input
                   type="text"

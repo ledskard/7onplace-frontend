@@ -20,6 +20,7 @@ export const ViewrsContainer = ({ className, ...props }: ViewrsContainer) => {
 
   
   const [value, setValue] = useState(15000);
+  
   function generateRandomValue(currentValue: any) {
     const min = Math.max(currentValue - 1000, 12000);
     const max = Math.min(currentValue + 1000, 20000);
