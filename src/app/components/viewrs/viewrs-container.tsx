@@ -18,24 +18,28 @@ export const ViewrsContainer = ({ className, ...props }: ViewrsContainer) => {
     }
   }
 
-  function generateRandomValue() {
-    const randomValue = Math.floor(Math.random() * (20000 - 19000) + 1) + 19000;
-
+  
+  const [value, setValue] = useState(15000);
+  function generateRandomValue(currentValue: any) {
+    const min = Math.max(currentValue - 1000, 12000);
+    const max = Math.min(currentValue + 1000, 20000);
+    const randomValue = Math.floor(Math.random() * (max - min + 1)) + min;
     return randomValue;
   }
-
-  const [value, setValue] = useState(19454);
-
+  
   useEffect(() => {
     const interval = setInterval(() => {
-      setValue(generateRandomValue());
+      setValue(prevValue => {
+        const newValue = generateRandomValue(prevValue);
+        return newValue;
+      });
     }, 5000);
-
+  
     return () => {
       clearInterval(interval);
     };
   }, []);
-
+  
   return (
     <div
       className={twMerge(
