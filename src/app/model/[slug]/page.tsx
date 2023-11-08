@@ -28,7 +28,7 @@ export default async function Model({ params }: { params: { slug: string } }) {
             {/* {dataModel.description} */}
           </AboutModel.Description>
 
-          {session &&
+          {(session && dataModel.featureFlags.length > 0) &&
             dataModel.featureFlags.map((flag: Flags) => {
               if (flag.name === "enable_create_button")
                 return <ModelDetails.AddNewButton />;
