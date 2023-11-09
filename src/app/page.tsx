@@ -5,6 +5,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Suspense } from "react";
 import { Viewrs } from "./components/viewrs/index";
 import { Card } from "@/components/interface/card-models";
+import { DialogProButton } from "./components/be-pro/be-pro";
 
 type SearchProps = {
   searchParams: {
@@ -25,6 +26,7 @@ export default function Home({ searchParams: { query } }: SearchProps) {
             <TabsTrigger value="homens">homens</TabsTrigger>
           </FlexDiv>
           <Viewrs.Container className="lg:flex hidden" />
+          <DialogProButton />
           <Search.Input className="sm:sticky hidden" />
         </TabsList>
 

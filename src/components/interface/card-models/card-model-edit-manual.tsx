@@ -115,6 +115,7 @@ export const CardModelEdit = ({
         },
         method: "PUT",
       });
+      console.log(res);
     }
   };
 
