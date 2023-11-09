@@ -15,7 +15,7 @@ type SearchProps = {
 export default function Home({ searchParams: { query } }: SearchProps) {
   return (
     <main className="w-11/12 mx-auto lg:pt-5 flex mb-5 gap-4">
-      <Tabs defaultValue="mulheres" className="w-full mx-auto">
+      <Tabs defaultValue="mulheres" className="w-full mx-auto p-0">
         <Viewrs.Container className="lg:hidden flex mx-auto my-4" />
         <TabsList>
           <FlexDiv className="flex-wrap gap-0">

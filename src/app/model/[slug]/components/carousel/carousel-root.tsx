@@ -21,9 +21,13 @@ import "swiper/css/autoplay";
 
 export const CarouselRoot = ({ model }: CarouselContentProps) => {
   const swiperRef = useRef<any>();
-  console.log(model.featureFlags)
-  const flags = model && model.featureFlags && model.featureFlags.length > 0 && model.featureFlags.map(flag => flag.name);
-  console.log(flags)
+
+  const flags =
+    model &&
+    model.featureFlags &&
+    model.featureFlags.length > 0 &&
+    model.featureFlags.map((flag) => flag.name);
+
   const nextSlide = () => {
     swiperRef.current?.slideNext();
   };

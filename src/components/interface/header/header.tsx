@@ -9,6 +9,7 @@ import { signOut, useSession } from "next-auth/react";
 import { Button } from "@/components/ui/button";
 import { GoSignOut } from "react-icons/go";
 import { useWindowScroll } from "@uidotdev/usehooks";
+import { ReturnToHomeButton } from "@/app/model/[slug]/components/return-to-home-button";
 
 type HeaderProps = ComponentProps<"header">;
 
@@ -35,7 +36,12 @@ export const Header = ({ className, ...props }: HeaderProps) => {
       {...props}
     >
       <Navbar>
-        <Logo />
+        {pathName === null ? (
+          <Logo href={"/"} />
+        ) : (
+          <ReturnToHomeButton className="sm:hidden block" />
+        )}
+        {pathName !== null && <Logo href={"/"} className="sm:block hidden" />}
         {pathName === null && (
           <Search.Input className="sm:hidden flex border-white bg-white" />
         )}

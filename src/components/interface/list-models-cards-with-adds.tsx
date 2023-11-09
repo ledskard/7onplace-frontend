@@ -1,10 +1,10 @@
 import { ModelsFilterProps } from "@/types/model/models-filter-props";
-import Image from "next/image";
 import React, { ComponentProps } from "react";
 import { twMerge } from "tailwind-merge";
 import { Card } from "./card-models";
-import Link from "next/link";
 import { AiFillStar } from "react-icons/ai";
+import Image from "next/image";
+import Link from "next/link";
 
 type ListModelsCardsWithAddsProps = ComponentProps<"section"> & {
   models: Array<ModelsFilterProps>;
@@ -19,7 +19,6 @@ export const ListModelsCardsWithAdds = ({
   models,
   ...props
 }: ListModelsCardsWithAddsProps) => {
-
   return (
     <section
       className={twMerge(
@@ -62,12 +61,19 @@ const CardModel = ({ model }: { model: ModelsFilterProps }) => {
   return (
     <div key={model.id}>
       <Card.Root>
-        {(model && model.featureFlags && model.featureFlags.length > 0 )&& model.featureFlags.map((flag) => {
-          if (flag.name === "enable_star")
-            return (
-              <AiFillStar className="md:w-8 md:h- h-8 w-8 text-yellow-500 self-start absolute top-3 left-3 z-[10000]" />
-            );
-        })}
+        {model &&
+          model.featureFlags &&
+          model.featureFlags.length > 0 &&
+          model.featureFlags.map((flag) => {
+            if (flag.name === "enable_star") {
+              return (
+                <AiFillStar
+                  key={flag.id}
+                  className="md:w-8 md:h- h-8 w-8 text-yellow-500 self-start absolute top-3 left-3 z-[10]"
+                />
+              );
+            }
+          })}
         <Card.Actions>
           <Card.Delete modelId={model.id} />
           <Card.Edit model={model} />
@@ -76,6 +82,7 @@ const CardModel = ({ model }: { model: ModelsFilterProps }) => {
           href={`model/${model.id}`}
           className="z-20 absolute inset-0"
           key={model.id}
+          prefetch={false}
           aria-label={model.username}
         />
         <div className="relative flex-1 overflow-hidden max-h-[500px] h-full">

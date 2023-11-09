@@ -16,7 +16,7 @@ export default async function Model({ params }: { params: { slug: string } }) {
 
   return (
     <main className="w-10/12 max-w-xl mx-auto m-auto flex flex-col items-center justify-center sm:py-4">
-      <ReturnToHomeButton />
+      <ReturnToHomeButton className="sm:flex hidden absolute text-red-main top-16 left-7 xl:left-20 sm:left-10 items-center border-red-main mb-4" />
       <div className="w-full md:my-4 my-10">
         <CarouselRoot model={dataModel} />
         <FlexDiv col className="">
@@ -27,7 +27,9 @@ export default async function Model({ params }: { params: { slug: string } }) {
             {/* {dataModel.description} */}
           </AboutModel.Description>
 
-          {(session && dataModel.featureFlags && dataModel.featureFlags.length > 0) &&
+          {session &&
+            dataModel.featureFlags &&
+            dataModel.featureFlags.length > 0 &&
             dataModel.featureFlags.map((flag: Flags) => {
               if (flag.name === "enable_create_button")
                 return <ModelDetails.AddNewButton />;
