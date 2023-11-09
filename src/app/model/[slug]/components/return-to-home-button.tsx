@@ -14,16 +14,15 @@ export const ReturnToHomeButton = ({
   return (
     <button
       className={twMerge(
-        "sm:p-1 flex gap-4 text-white items-center my-auto",
+        "sm:p-1 flex gap-4 text-white items-center my-auto md:h-auto h-full",
         className
       )}
       onClick={() => route.back()}
       {...props}
     >
-      <span className="sm:border-2 sm:border-red-main rounded-full p-1">
-        <ChevronLeft className="w-9 h-9 sm:hidden block pt-2" />
-        <ArrowLeft className="w-7 h-7 sm:block hidden" />
-      </span>
+      <ArrowLeft className="w-9 h-9 sm:block hidden sm:border-2 sm:border-red-main rounded-full p-1" />
+
+      <ChevronLeft className="w-9 h-9 sm:hidden block" />
       <p className="sm:block hidden">Voltar a tela inical</p>
     </button>
   );
