@@ -19,9 +19,13 @@ export default function Home({ searchParams: { query } }: SearchProps) {
     <main className="w-11/12 mx-auto lg:pt-5 flex mb-5 gap-4">
       <Tabs defaultValue="mulheres" className="w-full mx-auto">
         <Viewrs.Container className="xl:hidden flex mx-auto mb-4" />
-        <Button className="max-w-fit px-10 xl:hidden block mx-auto mb-6">
-          Seja Pro
-        </Button>
+        <a
+          href="https://buy.stripe.com/6oEbJc9RC2Ti54Q6oo"
+          target="_blank"
+          className="xl:hidden block text-center"
+        >
+          <Button className="max-w-fit px-10 mx-auto mb-6">Seja Pro</Button>
+        </a>
         <TabsList>
           <FlexDiv className="flex-wrap gap-0">
             <TabsTrigger value="mulheres">mulheres</TabsTrigger>
