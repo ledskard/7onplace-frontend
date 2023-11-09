@@ -7,11 +7,17 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Plus } from "lucide-react";
+import { FormModalRoot } from "../form-modal-root";
+import { ModelsFilterProps } from "@/types/model/models-filter-props";
 
-export const ModelDetailsAddNewButton = () => {
+type ModelDetailsAddNewButtonModalProps = {
+  model: ModelsFilterProps;
+}
+
+export const ModelDetailsAddNewButtonModal = ({  model }: ModelDetailsAddNewButtonModalProps) => {
   return (
     <Dialog>
-      <DialogTrigger className="self-end bg-emerald-500">
+      <DialogTrigger asChild className="self-end">
         <button className="rounded-full w-fit border bg-red-main text-white p-1">
           <Plus />
         </button>
@@ -23,6 +29,7 @@ export const ModelDetailsAddNewButton = () => {
             Informe o nome do botão e o link a ser adicionado
           </DialogDescription>
         </DialogHeader>
+        <FormModalRoot model={model} />
       </DialogContent>
     </Dialog>
   );

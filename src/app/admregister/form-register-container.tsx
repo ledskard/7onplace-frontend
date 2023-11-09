@@ -30,7 +30,7 @@ const acceptedImageTypes = [
   "image/jpg",
   "image/png",
   "image/webp",
-  "image/gif"
+  "image/gif",
 ];
 
 type Base64Img = {
@@ -229,7 +229,7 @@ export const FormRegisterContainer = () => {
     });
 
     const result = await res.json();
-    console.log(result);
+
     if (result.success) {
       reset();
       toast({
@@ -409,7 +409,7 @@ export const FormRegisterContainer = () => {
         className="hidden p-0 m-0"
         type="file"
         multiple
-        accept="image/png, image/jpeg, image/webp, image/jpg"
+        accept="image/png, image/jpeg, image/webp, image/jpg image/gif"
         success={!errors.images}
         error={!!errors.images}
         helperText={errors.images?.message?.toString()}

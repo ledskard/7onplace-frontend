@@ -16,20 +16,21 @@ export const ModelDetailsSocialMedia = ({
   ...props
 }: ModelSocialMediaProps) => {
   const Icon = icon;
-  // const flagsMock = [ "enable_social_media", "", "" ]
-  const isPro = flags && flags.map((flag:any) => flag.includes("enable_social_media"))
+
+  const isPro =
+    flags && flags.map((flag: any) => flag.includes("enable_social_media"));
   if (href === "#" || href === null || !href || !isPro) {
-    
     return (
       <div>
         <Icon
           className={`w-7 h-7 text-gray-600 ${
-            social === "tiktok" && "h-6 w-6"
+            social === "tiktok" && "h-5 w-5"
           }`}
         />
       </div>
     );
   }
+
   return (
     <div>
       <a {...props} href={href} target="_blank">

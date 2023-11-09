@@ -10,34 +10,55 @@ import { getServerSession } from "next-auth";
 import { ModelDetails } from "./components/model-details";
 import { Flags } from "@/types/model/models-filter-props";
 
-export default async function Model({ params }: { params: { slug: string } }) {
-  const dataModel = await getDataById(params.slug);
-  const session = await getServerSession();
+export type ModelsButtons = {
+  url: string;
+  title: string;
+};
 
+export default async function Model({ params }: { params: { slug: string } }) {
+  const findDataModel =  getDataById(params.slug);
+  const findSession =  getServerSession();
+  const [dataModel, session] =  await Promise.all([findDataModel, findSession]);
+  
   return (
     <main className="w-10/12 max-w-xl mx-auto m-auto flex flex-col items-center justify-center sm:py-4">
-      <ReturnToHomeButton />
+      <ReturnToHomeButton className="sm:flex hidden absolute text-red-main top-16 left-7 xl:left-20 sm:left-10 items-center border-red-main mb-4" />
       <div className="w-full md:my-4 my-10">
         <CarouselRoot model={dataModel} />
-        <FlexDiv col className="">
-          {/* {dataModel.model.isPremium && (
-            <Button>+</Button>
-          )} */}
-          <AboutModel.Description>
-            {/* {dataModel.description} */}
-          </AboutModel.Description>
-
-          {(session && dataModel.featureFlags && dataModel.featureFlags.length > 0) &&
+        <FlexDiv col>
+          {session &&
+            dataModel.featureFlags &&
+            dataModel.featureFlags.length > 0 &&
             dataModel.featureFlags.map((flag: Flags) => {
               if (flag.name === "enable_create_button")
-                return <ModelDetails.AddNewButton />;
+                return (
+                  <ModelDetails.AddNewButtonModal
+                    key={flag.name}
+                    model={dataModel}
+                  />
+                );
             })}
           <a href={dataModel.telegramVip} target="_blank">
-            <Button className="">telegram vip</Button>
+            <Button>telegram vip</Button>
           </a>
           <a href={dataModel.telegramFree} target="_blank">
             <Button>canal free</Button>
           </a>
+          {dataModel.buttons &&
+            dataModel.buttons.length > 0 &&
+            dataModel.buttons.map((but: ModelsButtons) => {
+              if (
+                but.url !== null &&
+                but.title !== null &&
+                but.title !== "" &&
+                but.url !== ""
+              )
+                return (
+                  <a key={but.title} href={but.url} target="_blank">
+                    <Button>{but.title}</Button>
+                  </a>
+                );
+            })}
         </FlexDiv>
       </div>
     </main>

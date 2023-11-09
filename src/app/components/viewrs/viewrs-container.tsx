@@ -18,22 +18,21 @@ export const ViewrsContainer = ({ className, ...props }: ViewrsContainer) => {
     }
   }
 
-  
-  const [value, setValue] = useState(generateRandomValue(15000));
-  
+  const [value, setValue] = useState(15505);
+
   function generateRandomValue(currentValue: any) {
     const min = Math.max(currentValue - 1000, 12000);
     const max = Math.min(currentValue + 1000, 20000);
     const randomValue = Math.floor(Math.random() * (max - min + 1)) + min;
     return randomValue;
   }
-  
+
   useEffect(() => {
     const initialValue = generateRandomValue(15000);
     setValue(initialValue);
 
     const interval = setInterval(() => {
-      setValue(prevValue => {
+      setValue((prevValue) => {
         const newValue = generateRandomValue(prevValue);
         return newValue;
       });
@@ -43,11 +42,11 @@ export const ViewrsContainer = ({ className, ...props }: ViewrsContainer) => {
       clearInterval(interval);
     };
   }, []);
-  
+
   return (
     <div
       className={twMerge(
-        "max-w-fit flex gap-2 items-center justify-center ml-2",
+        "max-w-fit flex gap-2 items-center justify-center",
         className
       )}
       {...props}

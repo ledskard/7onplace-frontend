@@ -49,7 +49,7 @@ const acceptedImageTypes = [
   "image/jpg",
   "image/png",
   "image/webp",
-  "image/gif"
+  "image/gif",
 ];
 
 export const CardModelEdit = ({
@@ -99,14 +99,14 @@ export const CardModelEdit = ({
 
   const handleIsPro = async (e: any) => {
     const isChecked = e.target.checked;
-  
+
     setIsPro(isChecked);
-  
+
     if (!isChecked) {
       const featureFlags = {
         featureFlags: [],
       };
-  
+
       const res = await fetch(`https://api.bioup.ai/models/${model.id}`, {
         body: JSON.stringify(featureFlags),
         headers: {
@@ -115,10 +115,10 @@ export const CardModelEdit = ({
         },
         method: "PUT",
       });
-  
+      console.log(res);
     }
   };
-  
+
   const gender = ["mulheres", "casais", "trans", "homens"];
 
   const handleSelectProfileImage = (e: any) => {
@@ -437,7 +437,7 @@ export const CardModelEdit = ({
                   className="hidden"
                   type="file"
                   id="previewImages"
-                  accept="image/png, image/jpeg, image/webp, image/jpg"
+                  accept="image/png, image/jpeg, image/webp, image/jpg image/gif"
                   multiple
                   onChange={handleSelectPreviewImages}
                 />
