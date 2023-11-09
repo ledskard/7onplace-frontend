@@ -10,12 +10,11 @@ import { Plus } from "lucide-react";
 import { FormModalRoot } from "../form-modal-root";
 import { ModelsFilterProps } from "@/types/model/models-filter-props";
 
-export const ModelDetailsAddNewButtonModal = ({
-  model,
-}: {
+type ModelDetailsAddNewButtonModalProps = {
   model: ModelsFilterProps;
-}) => {
-  console.log(model);
+}
+
+export const ModelDetailsAddNewButtonModal = ({  model }: ModelDetailsAddNewButtonModalProps) => {
   return (
     <Dialog>
       <DialogTrigger asChild className="self-end">

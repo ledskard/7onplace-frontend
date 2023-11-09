@@ -16,10 +16,10 @@ export type ModelsButtons = {
 };
 
 export default async function Model({ params }: { params: { slug: string } }) {
-  const dataModel = await getDataById(params.slug);
-  console.log(dataModel.buttons);
-  const session = await getServerSession();
-
+  const findDataModel =  getDataById(params.slug);
+  const findSession =  getServerSession();
+  const [dataModel, session] =  await Promise.all([findDataModel, findSession]);
+  
   return (
     <main className="w-10/12 max-w-xl mx-auto m-auto flex flex-col items-center justify-center sm:py-4">
       <ReturnToHomeButton className="sm:flex hidden absolute text-red-main top-16 left-7 xl:left-20 sm:left-10 items-center border-red-main mb-4" />
