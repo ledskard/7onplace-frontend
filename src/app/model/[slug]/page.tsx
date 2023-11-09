@@ -16,13 +16,13 @@ export type ModelsButtons = {
 };
 
 export default async function Model({ params }: { params: { slug: string } }) {
-  const findDataModel =  getDataById(params.slug);
-  const findSession =  getServerSession();
-  const [dataModel, session] =  await Promise.all([findDataModel, findSession]);
-  
+  const findDataModel = getDataById(params.slug);
+  const findSession = getServerSession();
+  const [dataModel, session] = await Promise.all([findDataModel, findSession]);
+
   return (
     <main className="w-10/12 max-w-xl mx-auto m-auto flex flex-col items-center justify-center sm:py-4">
-      <ReturnToHomeButton className="sm:flex hidden absolute text-red-main top-16 left-7 xl:left-20 sm:left-10 items-center border-red-main mb-4" />
+      <ReturnToHomeButton className="sm:flex hidden absolute sm:h-auto text-red-main sm:top-16 left-7 xl:left-20 sm:left-10 items-center border-red-main mb-4" />
       <div className="w-full md:my-4 my-10">
         <CarouselRoot model={dataModel} />
         <FlexDiv col>
@@ -38,7 +38,7 @@ export default async function Model({ params }: { params: { slug: string } }) {
                   />
                 );
             })}
-          <a href={dataModel.telegramVip} target="_blank">
+          <a href={dataModel.telegramVip} target="_blank" className="mt-4">
             <Button>telegram vip</Button>
           </a>
           <a href={dataModel.telegramFree} target="_blank">
