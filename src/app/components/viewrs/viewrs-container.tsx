@@ -46,7 +46,7 @@ export const ViewrsContainer = ({ className, ...props }: ViewrsContainer) => {
   return (
     <div
       className={twMerge(
-        "max-w-fit flex gap-2 items-center justify-center ml-2",
+        "max-w-fit flex gap-2 items-center justify-center",
         className
       )}
       {...props}

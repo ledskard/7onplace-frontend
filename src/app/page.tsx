@@ -6,6 +6,7 @@ import { Suspense } from "react";
 import { Viewrs } from "./components/viewrs/index";
 import { Card } from "@/components/interface/card-models";
 import { DialogProButton } from "./components/be-pro/be-pro";
+import { Button } from "@/components/ui/button";
 
 type SearchProps = {
   searchParams: {
@@ -16,8 +17,11 @@ type SearchProps = {
 export default function Home({ searchParams: { query } }: SearchProps) {
   return (
     <main className="w-11/12 mx-auto lg:pt-5 flex mb-5 gap-4">
-      <Tabs defaultValue="mulheres" className="w-full mx-auto p-0">
-        <Viewrs.Container className="lg:hidden flex mx-auto my-4" />
+      <Tabs defaultValue="mulheres" className="w-full mx-auto">
+        <Viewrs.Container className="xl:hidden flex mx-auto mb-4" />
+        <Button className="max-w-fit px-10 xl:hidden block mx-auto mb-6">
+          Seja Pro
+        </Button>
         <TabsList>
           <FlexDiv className="flex-wrap gap-0">
             <TabsTrigger value="mulheres">mulheres</TabsTrigger>
@@ -25,8 +29,13 @@ export default function Home({ searchParams: { query } }: SearchProps) {
             <TabsTrigger value="trans">trans</TabsTrigger>
             <TabsTrigger value="homens">homens</TabsTrigger>
           </FlexDiv>
-          <Viewrs.Container className="lg:flex hidden" />
-          <DialogProButton />
+          <div className="items-center justify-center gap-8 max-w-lg w-full mx-auto xl:flex hidden">
+            <Viewrs.Container />
+            <a href="https://buy.stripe.com/6oEbJc9RC2Ti54Q6oo" target="_blank">
+              <Button className="max-w-fit px-10">Seja Pro</Button>
+            </a>
+          </div>
+          {/* <DialogProButton /> */}
           <Search.Input className="sm:sticky hidden" />
         </TabsList>
 
