@@ -37,7 +37,7 @@ export const Header = ({ className, ...props }: HeaderProps) => {
     >
       <Navbar>
         {pathName === null ? (
-          <Logo href={"/"} />
+          <Logo href={"https://7onsexy.com"} />
         ) : (
           <ReturnToHomeButton className="sm:hidden block" />
         )}

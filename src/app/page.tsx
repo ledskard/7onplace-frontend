@@ -33,10 +33,10 @@ export default function Home({ searchParams: { query } }: SearchProps) {
             <TabsTrigger value="trans">trans</TabsTrigger>
             <TabsTrigger value="homens">homens</TabsTrigger>
           </FlexDiv>
-          <div className="items-center justify-center gap-8 max-w-lg w-full mx-auto xl:flex hidden">
+          <div className="items-center justify-center gap-9 max-w-lg w-full mx-auto xl:flex hidden">
             <Viewrs.Container />
             <a href="https://buy.stripe.com/6oEbJc9RC2Ti54Q6oo" target="_blank">
-              <Button className="max-w-fit px-10">Seja Pro (exclusivo para modelos)</Button>
+              <Button className="max-w-fit px-10 gap-10">Seja Pro (exclusivo para modelos)</Button>
             </a>
           </div>
           {/* <DialogProButton /> */}
