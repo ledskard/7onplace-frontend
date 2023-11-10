@@ -24,7 +24,7 @@ export default function Home({ searchParams: { query } }: SearchProps) {
           target="_blank"
           className="xl:hidden block text-center"
         >
-          <Button className="max-w-fit px-10 mx-auto mb-6">Seja Pro</Button>
+          <Button className="max-w-fit px-10 mx-auto mb-6">Seja PRO (exclusivo para modelos)</Button>
         </a>
         <TabsList>
           <FlexDiv className="flex-wrap gap-0">
