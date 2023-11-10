@@ -36,7 +36,7 @@ export default function Home({ searchParams: { query } }: SearchProps) {
           <div className="items-center justify-center gap-8 max-w-lg w-full mx-auto xl:flex hidden">
             <Viewrs.Container />
             <a href="https://buy.stripe.com/6oEbJc9RC2Ti54Q6oo" target="_blank">
-              <Button className="max-w-fit px-10">Seja Pro</Button>
+              <Button className="max-w-fit px-10">Seja Pro (exclusivo para modelos)</Button>
             </a>
           </div>
           {/* <DialogProButton /> */}
