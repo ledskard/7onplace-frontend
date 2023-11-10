@@ -22,10 +22,13 @@ export default function Home({ searchParams: { query } }: SearchProps) {
         <a
           href="https://buy.stripe.com/6oEbJc9RC2Ti54Q6oo"
           target="_blank"
-          className="xl:hidden block text-center max-w-fit"
+          className="xl:hidden block text-center"
         >
-          <Button className="max-w-fit px-10 mx-auto mb-6" >Seja PRO (exclusivo para modelos)</Button>
+          <Button className="px-4 md:px-6 lg:px-8 xl:px-10 mx-auto mb-6 text-sm md:text-base lg:text-lg xl:text-xl">
+            Seja PRO (exclusivo para modelos)
+          </Button>
         </a>
+
         <TabsList>
           <FlexDiv className="flex-wrap gap-0">
             <TabsTrigger value="mulheres">mulheres</TabsTrigger>
@@ -36,7 +39,7 @@ export default function Home({ searchParams: { query } }: SearchProps) {
           <div className="items-center justify-center gap-8 max-w-fit w-full mx-auto xl:flex hidden">
             <Viewrs.Container />
             <a href="https://buy.stripe.com/6oEbJc9RC2Ti54Q6oo" target="_blank">
-              <Button className="max-w-fit px-10">
+              <Button className="max-w-fit px-10 ">
                 Seja Pro (exclusivo para modelos)
               </Button>
             </a>
