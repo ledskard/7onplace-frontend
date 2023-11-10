@@ -41,7 +41,7 @@ export const Header = ({ className, ...props }: HeaderProps) => {
         ) : (
           <ReturnToHomeButton className="sm:hidden block" />
         )}
-        {pathName !== null && <Logo href={"/"} className="sm:block hidden" />}
+        {pathName !== null && <Logo href={"https://7onsexy.com"} className="sm:block hidden" />}
         {pathName === null && (
           <Search.Input className="sm:hidden flex border-white bg-white" />
         )}
