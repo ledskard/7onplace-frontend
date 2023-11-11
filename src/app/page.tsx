@@ -22,7 +22,7 @@ export default function Home({ searchParams: { query } }: SearchProps) {
         <a
           href="https://buy.stripe.com/6oEbJc9RC2Ti54Q6oo"
           target="_blank"
-          className="xl:hidden block text-center"
+          className="xl:hidden block text-center max-w-fit mx-auto"
         >
           <Button className="px-4 md:px-6 lg:px-8 xl:px-10 mx-auto mb-6 text-sm md:text-base lg:text-lg xl:text-xl">
             Seja PRO (exclusivo para modelos)
