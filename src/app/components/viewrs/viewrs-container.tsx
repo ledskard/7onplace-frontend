@@ -7,15 +7,15 @@ type ViewrsContainer = ComponentProps<"div">;
 
 export const ViewrsContainer = ({ className, ...props }: ViewrsContainer) => {
   function formatValue(value: number) {
-    if (value >= 1000000000) {
-      return (value / 1000000000).toFixed(2) + " Bi";
-    } else if (value >= 1000000) {
-      return (value / 1000000).toFixed(2) + " M";
-    } else if (value >= 1000) {
-      return (value / 1000).toFixed(2) + " K";
-    } else {
+    // if (value >= 1000000000) {
+    //   return (value / 1000000000).toFixed(2) + " Bi";
+    // } else if (value >= 1000000) {
+    //   return (value / 1000000).toFixed(2) + " M";
+    // } else if (value >= 1000) {
+    //   return (value / 1000).toFixed(2) + " K";
+    // } else {
       return value;
-    }
+    // }
   }
 
   const [value, setValue] = useState(15505);
