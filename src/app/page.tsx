@@ -7,6 +7,7 @@ import { Viewrs } from "./components/viewrs/index";
 import { Card } from "@/components/interface/card-models";
 import { DialogProButton } from "./components/be-pro/be-pro";
 import { Button } from "@/components/ui/button";
+import { BeProAndViewrsContainer } from "./components/be-pro-and-viewrs-container";
 
 type SearchProps = {
   searchParams: {
@@ -18,16 +19,7 @@ export default function Home({ searchParams: { query } }: SearchProps) {
   return (
     <main className="w-11/12 mx-auto lg:pt-5 flex mb-5 gap-4">
       <Tabs defaultValue="mulheres" className="w-full mx-auto">
-        <Viewrs.Container className="xl:hidden flex mx-auto mb-4" />
-        <a
-          href="https://buy.stripe.com/6oEbJc9RC2Ti54Q6oo"
-          target="_blank"
-          className="xl:hidden block text-center"
-        >
-          <Button className="px-4 md:px-6 lg:px-8 xl:px-10 mx-auto mb-6 text-sm md:text-base lg:text-lg xl:text-xl">
-            Seja PRO (exclusivo para modelos)
-          </Button>
-        </a>
+        <BeProAndViewrsContainer device="mobile" />
 
         <TabsList>
           <FlexDiv className="flex-wrap gap-0">
@@ -38,13 +30,8 @@ export default function Home({ searchParams: { query } }: SearchProps) {
           </FlexDiv>
           <div className="items-center justify-center gap-8 max-w-fit w-full mx-auto xl:flex hidden">
             <Viewrs.Container />
-            <a href="https://buy.stripe.com/6oEbJc9RC2Ti54Q6oo" target="_blank">
-              <Button className="max-w-fit px-10 ">
-                Seja Pro (exclusivo para modelos)
-              </Button>
-            </a>
+            <BeProAndViewrsContainer device="desktop" className="py-2" />
           </div>
-          {/* <DialogProButton /> */}
           <Search.Input className="sm:sticky hidden" />
         </TabsList>
 
