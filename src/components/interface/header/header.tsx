@@ -30,7 +30,7 @@ export const Header = ({ className, ...props }: HeaderProps) => {
     <header
       className={twMerge(
         "bg-red-main w-full h-14 p-1",
-        y && y > 300 && "fixed -top-1 z-[9999]",
+        y && y > 300 && "fixed -top-1 z-[48]",
         className
       )}
       {...props}
@@ -41,7 +41,9 @@ export const Header = ({ className, ...props }: HeaderProps) => {
         ) : (
           <ReturnToHomeButton className="sm:hidden block" />
         )}
-        {pathName !== null && <Logo href={"https://7onsexy.com"} className="sm:block hidden" />}
+        {pathName !== null && (
+          <Logo href={"https://7onsexy.com"} className="sm:block hidden" />
+        )}
         {pathName === null && (
           <Search.Input className="sm:hidden flex border-white bg-white" />
         )}

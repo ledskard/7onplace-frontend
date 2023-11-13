@@ -30,7 +30,7 @@ export const BeProAndViewrsContainer = ({
       className={cn(
         y &&
           y > 300 &&
-          "fixed top-[53px] z-[49] w-full mx-auto left-0 bg-white items-center justify-center",
+          "fixed top-[52px] z-[49] w-full mx-auto left-0 bg-white items-center justify-center",
         device === "desktop"
           ? "xl:block hidden"
           : "xl:hidden block text-center",
@@ -61,8 +61,8 @@ export const BeProAndViewrsContainer = ({
           </Button>
         </DialogTrigger>
         <DialogContent className="md:h-fit max-h-full max-w-3xl overflow-x-hidden mx-auto p-0 py-4 m-0">
-          <div className="grid md:grid-cols-2 grid-cols-1 mx-auto md:gap-8">
-            <div className="mx-auto md:mr-auto self-end mt-2 space-y-2 ">
+          <div className="grid md:grid-cols-2 grid-cols-1 mx-auto md:gap-8 order-2 md:order-1">
+            <div className="mx-auto md:mr-auto self-end mt-2 space-y-2">
               <h5 className="text-2xl">
                 Assinar o <b>Marketplace</b>
               </h5>
@@ -116,7 +116,7 @@ export const BeProAndViewrsContainer = ({
               className="absolute right-0 top-0 max-w-[300px] -z-[1] md:block hidden"
             />
           </div>
-          <div className="bg-red-main p-4 md:pb-0 md:pr-0 rounded-2xl md:w-[80%] md:max-w-fit max-w-full h-fit mx-auto grid md:grid-cols-3 justify-center">
+          <div className="order-1 md:order-2 md:mt-0 mt-7 bg-red-main p-4 md:pb-0 md:pr-0 rounded-2xl md:w-[80%] md:max-w-fit max-w-full h-fit mx-auto grid md:grid-cols-3 justify-center">
             <div className="col-span-2 h-fit pb-3">
               <Image
                 width={400}
