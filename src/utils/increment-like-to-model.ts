@@ -7,7 +7,7 @@ export const incrementLike = async (slug: string) => {
         headers: {
           "Content-Type": "application/json",
         },
-        // next: { revalidate: 6200 },/
+        // next: { revalidate },
       }
     );
 
