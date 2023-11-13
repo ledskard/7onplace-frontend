@@ -4,10 +4,10 @@ import { Search } from "@/components/interface/search";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Suspense } from "react";
 import { Viewrs } from "./components/viewrs/index";
-import { Card } from "@/components/interface/card-models";
-import { DialogProButton } from "./components/be-pro/be-pro";
-import { Button } from "@/components/ui/button";
+
 import { BeProAndViewrsContainer } from "./components/be-pro-and-viewrs-container";
+import { ModelsListContainer } from "./models-list-container";
+import { Card } from "@/components/interface/card-models";
 
 type SearchProps = {
   searchParams: {
@@ -34,29 +34,9 @@ export default function Home({ searchParams: { query } }: SearchProps) {
           </div>
           <Search.Input className="sm:sticky hidden" />
         </TabsList>
-
-        <TabsContent value="mulheres">
-          <Suspense fallback={<Card.Loading />}>
-            <ModelsList modelType="mulheres" query={query} />
-          </Suspense>
-        </TabsContent>
-
-        <TabsContent value="casais">
-          <Suspense fallback={<Card.Loading />}>
-            <ModelsList modelType="casais" query={query} />
-          </Suspense>
-        </TabsContent>
-
-        <TabsContent value="trans">
-          <Suspense fallback={<Card.Loading />}>
-            <ModelsList modelType="trans" query={query} />
-          </Suspense>
-        </TabsContent>
-        <TabsContent value="homens">
-          <Suspense fallback={<Card.Loading />}>
-            <ModelsList modelType="homens" query={query} />
-          </Suspense>
-        </TabsContent>
+        <Suspense fallback={<Card.Loading />}>
+          <ModelsListContainer query={query} />
+        </Suspense>
       </Tabs>
     </main>
   );

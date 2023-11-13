@@ -7,16 +7,19 @@ import dbLocal from "../../../dblocal.json";
 type ModelsListType = ComponentProps<"section"> & {
   modelType: string;
   query: string;
+  models: Array<ModelsFilterProps>;
 };
 
 export async function ModelsList({
   modelType,
   className,
   query,
+  models,
   ...props
 }: ModelsListType) {
-  const model: ModelsFilterProps[] = await getModelsByFilter(modelType);
-  const filterModels = model.filter((mod) => {
+  const modelsByFilter = models.filter((model) => model.type === modelType);
+
+  const filterModels = modelsByFilter.filter((mod) => {
     return query
       ? mod.username.toLowerCase().startsWith(query?.toLowerCase())
       : mod;
