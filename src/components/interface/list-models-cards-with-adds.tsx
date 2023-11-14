@@ -67,17 +67,11 @@ const CardModel = ({ model }: { model: ModelsFilterProps }) => {
           model.featureFlags.map((flag) => {
             if (flag.name === "enable_star") {
               return (
-                <Image
+                
+                <AiFillStar
+                  key={flag.id}
                   className="md:w-8 md:h- h-8 w-8 text-yellow-500 self-start absolute top-3 left-3 z-[10]"
-                  src={model.profileImage?.url ?? "/default-profile.jpg"}
-                  alt={model.username}
-                  width={56}
-                  height={56}
                 />
-                // <AiFillStar
-                //   key={flag.id}
-                //   className="md:w-8 md:h- h-8 w-8 text-yellow-500 self-start absolute top-3 left-3 z-[10]"
-                // />
               );
             }
           })}
