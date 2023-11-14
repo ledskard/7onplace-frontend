@@ -62,7 +62,7 @@ export const BeProAndViewrsContainer = ({
         </DialogTrigger>
         <DialogContent className="md:h-fit max-h-full max-w-3xl overflow-x-hidden mx-auto p-0 py-4 m-0">
           <div className="grid md:grid-cols-2 grid-cols-1 mx-auto md:gap-8 order-2 md:order-1">
-            <div className="mx-auto md:mr-auto self-end mt-2 space-y-2">
+            <div className="mx-auto md:mr-auto self-end mt-2 space-y-2 z-[51]">
               <h5 className="text-2xl">
                 Assinar o <b>Marketplace</b>
               </h5>
@@ -89,7 +89,7 @@ export const BeProAndViewrsContainer = ({
               >
                 <button className="bg-green-700 text-white font-bold p-2 rounded-xl w-full text-xl mt-4">
                   Garantir Vantagens Agora
-                </button>
+                </button>{" "}
               </a>
             </div>
             <div className="relative md:mt-0 mt-6">
