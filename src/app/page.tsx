@@ -29,7 +29,7 @@ export default function Home({ searchParams: { query } }: SearchProps) {
             <TabsTrigger value="homens">homens</TabsTrigger>
           </FlexDiv>
           <div className="items-center justify-center gap-8 max-w-fit w-full mx-auto xl:flex hidden">
-            <Viewrs.Container />
+            {/* <Viewrs.Container className="bg-yellow-500" /> */}
             <BeProAndViewrsContainer device="desktop" className="py-2" />
           </div>
           <Search.Input className="sm:sticky hidden" />
