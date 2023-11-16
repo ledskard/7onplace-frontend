@@ -26,7 +26,8 @@ export const BeProAndViewrsContainer = ({
 }: BeProAndViewrsProps) => {
   const [{ y }] = useWindowScroll();
   const scrollThreshold = 300;
-  const shouldFix = y && y > scrollThreshold;
+  
+  const shouldFix = y !== null && y !== undefined && y > scrollThreshold;
 
   return (
     <div
