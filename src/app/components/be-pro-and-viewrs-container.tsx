@@ -30,9 +30,9 @@ export const BeProAndViewrsContainer = ({
       className={cn(
         y &&
           y > 300 &&
-          "fixed top-[52px] z-[49] w-full mx-auto left-0 bg-white items-center justify-center",
+          "fixed top-[52px] z-[49] w-full mx-auto left-0 bg-white items-center justify-center flex-col",
         device === "desktop"
-          ? "xl:block hidden"
+          ? "xl:flex gap-x-6 hidden justify-between"
           : "xl:hidden block text-center",
         device === "desktop" &&
           y &&
@@ -43,7 +43,7 @@ export const BeProAndViewrsContainer = ({
     >
       <Viewrs.Container
         className={cn(
-          "xl:hidden flex mx-auto mb-4",
+          "xl:flex flex mx-auto mb-4",
           device === "desktop" && y && y >= 300 && "xl:flex mb-1"
         )}
       />
