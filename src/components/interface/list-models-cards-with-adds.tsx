@@ -19,6 +19,7 @@ export const ListModelsCardsWithAdds = ({
   models,
   ...props
 }: ListModelsCardsWithAddsProps) => {
+  // console.log("LOG", cardsPerAdd, models)
   return (
     <section
       className={twMerge(
@@ -28,28 +29,58 @@ export const ListModelsCardsWithAdds = ({
       {...props}
     >
       {models.map((model, index) => {
+        {console.log(index % cardsPerAdd === cardsPerAdd - 1 &&
+          index !== models.length - 1)}
         return (
           <React.Fragment key={model.id}>
             <CardModel model={model} />
+            
             {index % cardsPerAdd === cardsPerAdd - 1 &&
               index !== models.length - 1 && (
                 <div
                   key={`ad-${index}`}
                   className="text-center text-white min-h-[100px] sm:min-h-[300px] p-4 col-span-2 xl:col-span-3 relative rounded overflow-hidden"
                 >
+                  
                   <a
                     href="https://wa.me//48991013165?text=Gostaria%20de%20anunciar%20no%20marketplace%20da%207%20On%20Sexy"
                     target="_blank"
                   >
+                    
+                      
                     <Image
                       className="aspect-[12/9] object-fill object-center"
                       fill
                       src={"/default-ads.png"}
-                      alt={model.username}
+                      alt={model.username} 
                     />
+                    
+                    {
+                    index % cardsPerAdd === cardsPerAdd - 1 &&
+                    index !== models.length - 1 && index === 5 && <Image
+                      className="aspect-[12/9] object-fill object-center"
+                      fill
+                      src={"/ad-7onsexy.png"}
+                      alt={model.username} 
+                    />
+                    }
+                    {
+                    index % cardsPerAdd === cardsPerAdd - 1 &&
+                    index !== models.length - 1 && index === 3 && <Image
+                      className="aspect-[12/9] object-fill object-center"
+                      fill
+                      src={"/ad-7onsexy.png"}
+                      alt={model.username} 
+                    />
+                    }
+
+                    
+                    
+                    
                   </a>
                 </div>
               )}
+              
           </React.Fragment>
         );
       })}
