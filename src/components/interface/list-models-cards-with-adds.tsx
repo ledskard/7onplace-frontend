@@ -28,10 +28,7 @@ export const ListModelsCardsWithAdds = ({
       {...props}
     >
       {models.map((model, index) => {
-        {
-          console.log(index % cardsPerAdd === cardsPerAdd - 1 &&
-            index !== models.length - 1)
-        }
+        
         return (
           <React.Fragment key={model.id}>
             <CardModel model={model} />

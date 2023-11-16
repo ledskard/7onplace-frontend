@@ -10,7 +10,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { cn } from "@/lib/utils";
-import { ComponentProps } from "react";
+import { ComponentProps, useEffect, useState } from "react";
 import { useWindowScroll } from "@uidotdev/usehooks";
 import { twMerge } from "tailwind-merge";
 import Image from "next/image";
@@ -24,9 +24,29 @@ export const BeProAndViewrsContainer = ({
   device,
   className,
 }: BeProAndViewrsProps) => {
-  const [{ y }] = useWindowScroll();
-  const scrollThreshold = 300;
+  const useCustomScroll = () => {
+    const [scrollY, setScrollY] = useState(window.scrollY);
   
+    const handleScroll = () => {
+      setScrollY(window.scrollY);
+    };
+  
+    useEffect(() => {
+      // Adiciona um ouvinte de evento ao scroll
+      window.addEventListener('scroll', handleScroll);
+  
+      // Remove o ouvinte de evento ao desmontar o componente
+      return () => {
+        window.removeEventListener('scroll', handleScroll);
+      };
+    }, []); // A dependência vazia assegura que o efeito só é executado uma vez no montar do componente
+  
+    return scrollY;
+  };
+  
+  const  y  = useCustomScroll();
+  const scrollThreshold = 300;
+  console.log(y)
   const shouldFix = y !== null && y !== undefined && y > scrollThreshold;
 
   return (
