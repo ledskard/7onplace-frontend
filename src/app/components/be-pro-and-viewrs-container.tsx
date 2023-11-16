@@ -25,26 +25,24 @@ export const BeProAndViewrsContainer = ({
   className,
 }: BeProAndViewrsProps) => {
   const [{ y }] = useWindowScroll();
+  const scrollThreshold = 300;
+  const shouldFix = y && y > scrollThreshold;
+
   return (
     <div
       className={cn(
-        y &&
-          y > 300 &&
-          "fixed top-[52px] z-[49] w-full mx-auto left-0 bg-white items-center justify-center flex-col",
+        shouldFix && "fixed top-[52px] z-[49] w-full mx-auto left-0 bg-white items-center justify-center flex-col",
         device === "desktop"
           ? "xl:flex gap-x-6 hidden justify-between"
           : "xl:hidden block text-center",
-        device === "desktop" &&
-          y &&
-          y >= 300 &&
-          "xl:flex xl:flex-col items-center justify-center",
+        device === "desktop" && shouldFix && "xl:flex xl:flex-col items-center justify-center",
         className
       )}
     >
       <Viewrs.Container
         className={cn(
           "xl:flex flex mx-auto mb-4",
-          device === "desktop" && y && y >= 300 && "xl:flex mb-1"
+          device === "desktop" && shouldFix && "xl:flex mb-1"
         )}
       />
       <Dialog>
