@@ -5,6 +5,7 @@ import { Card } from "./card-models";
 import { AiFillStar } from "react-icons/ai";
 import Image from "next/image";
 import Link from "next/link";
+import { modelAddsConfig } from '@/config/model-add.config';
 
 type ListModelsCardsWithAddsProps = ComponentProps<"section"> & {
   models: Array<ModelsFilterProps>;
@@ -18,8 +19,9 @@ export const ListModelsCardsWithAdds = ({
   models,
   ...props
 }: ListModelsCardsWithAddsProps) => {
-  let adCount = 0;
 
+  let clicleAds: number = -1
+  
   return (
     <section
       className={twMerge(
@@ -29,31 +31,28 @@ export const ListModelsCardsWithAdds = ({
       {...props}
     >
       {models.map((model, index) => {
-        if (index > 0 && index % cardsPerAdd === 0) {
-          adCount++;
-          return (
-            <div
-              key={`ad-${adCount}`}
-              className="text-center text-white min-h-[100px] sm:min-h-[300px] p-4 col-span-2 xl:col-span-3 relative rounded overflow-hidden"
-            >
-              <a
-                href="https://wa.me//48991013165?text=Gostaria%20de%20anunciar%20no%20marketplace%20da%207%20On%20Sexy"
-                target="_blank"
-              >
-                <Image
-                  className="aspect-[12/9] object-fill object-center"
-                  fill
-                  src={adCount === 6 ? "/ad-7onsexy.png" : "/default-ads.png"}
-                  alt={model.username}
-                />
-              </a>
-            </div>
-          );
-        }
-
         return (
           <React.Fragment key={model.id}>
             <CardModel model={model} />
+            {index % cardsPerAdd === cardsPerAdd - 1 &&
+              index !== models.length - 1 && (
+                <div
+                  key={`ad-${index}`}
+                  className="text-center text-white min-h-[100px] sm:min-h-[300px] p-4 col-span-2 xl:col-span-3 relative rounded overflow-hidden"
+                >
+                  <a
+                    href="https://wa.me//48991013165?text=Gostaria%20de%20anunciar%20no%20marketplace%20da%207%20On%20Sexy"
+                    target="_blank"
+                  >
+                    <Image
+                      className="aspect-[12/9] object-fill object-center"
+                      fill
+                      src={"/default-ads.png"}
+                      alt={model.username}
+                    />
+                  </a>
+                </div>
+              )}
           </React.Fragment>
         );
       })}
@@ -70,7 +69,7 @@ const CardModel = ({ model }: { model: ModelsFilterProps }) => {
           model.featureFlags.map((flag) => {
             if (flag.name === "enable_star") {
               return (
-                
+
                 <AiFillStar
                   key={flag.id}
                   className="md:w-8 md:h- h-8 w-8 text-yellow-500 self-start absolute top-3 left-3 z-[10]"
@@ -79,6 +78,7 @@ const CardModel = ({ model }: { model: ModelsFilterProps }) => {
             }
           })}
         <Card.Actions>
+          
           <Card.Delete modelId={model.id} />
           <Card.Edit model={model} />
         </Card.Actions>
@@ -111,3 +111,31 @@ const CardModel = ({ model }: { model: ModelsFilterProps }) => {
     </div>
   );
 };
+
+type CardModelAddsProps = {
+  cicle: number
+}
+
+const CardModelAdds = ({ cicle }: CardModelAddsProps) => {
+  const imagesAds = modelAddsConfig
+  const imagesAdsCicle = imagesAds.ads[cicle]
+
+  const isExistsImage = imagesAdsCicle ? imagesAdsCicle : modelAddsConfig.default
+
+  return (
+    <div className="text-center text-white min-h-[100px] sm:min-h-[300px] p-4 col-span-2 xl:col-span-3 relative rounded overflow-hidden"
+    >
+      <a
+        href={isExistsImage.href}
+        target="_blank"
+      >
+        <Image
+          className="aspect-[12/9] object-fill object-center"
+          fill
+          src={isExistsImage.image}
+          alt={isExistsImage.alt}
+        />
+      </a>
+  </div>
+  )
+}

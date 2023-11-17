@@ -83,7 +83,7 @@ export const BeProAndViewrsContainer = ({
                 (Valor promocional de Lançamento)
               </p>
               <a
-                href="https://buy.stripe.com/4gw03V1A553q7WocMM"
+                href="https://buy.stripe.com/6oEbJc9RC2Ti54Q6oo"
                 target="_blank"
                 className="max-w-fit mx-auto text-center"
               >

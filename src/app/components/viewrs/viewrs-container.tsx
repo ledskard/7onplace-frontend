@@ -1,47 +1,14 @@
 "use client";
+import { Skeleton } from '@/components/ui/skeleton';
+import { useView } from '@/hooks/use-view';
 import { Eye } from "lucide-react";
-import { ComponentProps, useEffect, useState } from "react";
+import { ComponentProps } from "react";
 import { twMerge } from "tailwind-merge";
 
 type ViewrsContainer = ComponentProps<"div">;
 
 export const ViewrsContainer = ({ className, ...props }: ViewrsContainer) => {
-  function formatValue(value: number) {
-    // if (value >= 1000000000) {
-    //   return (value / 1000000000).toFixed(2) + " Bi";
-    // } else if (value >= 1000000) {
-    //   return (value / 1000000).toFixed(2) + " M";
-    // } else if (value >= 1000) {
-    //   return (value / 1000).toFixed(2) + " K";
-    // } else {
-      return value;
-    // }
-  }
-
-  const [value, setValue] = useState(15505);
-
-  function generateRandomValue(currentValue: any) {
-    const min = Math.max(currentValue - 1000, 12000);
-    const max = Math.min(currentValue + 1000, 20000);
-    const randomValue = Math.floor(Math.random() * (max - min + 1)) + min;
-    return randomValue;
-  }
-
-  useEffect(() => {
-    const initialValue = generateRandomValue(15000);
-    setValue(initialValue);
-
-    const interval = setInterval(() => {
-      setValue((prevValue) => {
-        const newValue = generateRandomValue(prevValue);
-        return newValue;
-      });
-    }, 5000);
-
-    return () => {
-      clearInterval(interval);
-    };
-  }, []);
+  const { numberView } = useView()
 
   return (
     <div
@@ -52,7 +19,7 @@ export const ViewrsContainer = ({ className, ...props }: ViewrsContainer) => {
       {...props}
     >
       <Eye className="text-red-main w-8 h-8" />
-      <p>{formatValue(value)}</p>
+      {numberView ? numberView :  <Skeleton className='h-6 w-11'  />}
       <p>Visualizadores</p>
     </div>
   );

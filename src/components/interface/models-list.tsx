@@ -1,8 +1,6 @@
 import React, { ComponentProps } from "react";
 import { ListModelsCardsWithAdds } from "./list-models-cards-with-adds";
 import { ModelsFilterProps } from "@/types/model/models-filter-props";
-import { getModelsByFilter } from "@/types/model/get-models-by-filter";
-import dbLocal from "../../../dblocal.json";
 
 type ModelsListType = ComponentProps<"section"> & {
   modelType: string;
