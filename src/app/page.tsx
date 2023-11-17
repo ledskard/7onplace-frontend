@@ -17,7 +17,7 @@ type SearchProps = {
 
 export default function Home({ searchParams: { query } }: SearchProps) {
   return (
-    <main className="w-11/12 mx-auto flex mb-5 gap-4 mt-44 xl:mt-28">
+    <main className="w-11/12 mx-auto flex mb-5 gap-4 mt-36 xl:mt-24">
       <Tabs defaultValue="mulheres" className="w-full mx-auto">
         <TabsList className="xl:fixed xl:z-[50] mx-auto xl:w-[93%] xl:bg-[#f3f3f3] xl:top-14 xl:px-4 xl:translate-x-1/2 xl:right-1/2">
           <FlexDiv className="flex-wrap gap-0">
