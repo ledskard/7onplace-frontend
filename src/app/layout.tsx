@@ -27,6 +27,7 @@ export default function RootLayout({
             </main>
           </div>
           <Analytics />
+          
         </Providers>
       </body>
     </html>
