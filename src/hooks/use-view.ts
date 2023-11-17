@@ -8,8 +8,6 @@ export const useView = () => {
   const setView = useSetAtom(viewAtom)
   
   useEffect(() => {
-    console.log('useView')
-
     const interval = setInterval(() => {
       const newValueUpdating = generateRandomValue(numberView);
       setView(newValueUpdating);
