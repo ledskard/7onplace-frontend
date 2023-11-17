@@ -24,10 +24,11 @@ export default function RootLayout({
             <Toaster />
             <main className="max-w-[1930px] w-full mx-auto flex-1 flex flex-col my-4">
               {children}
+              <Analytics />
             </main>
           </div>
-          <Analytics />
           
+
         </Providers>
       </body>
     </html>
