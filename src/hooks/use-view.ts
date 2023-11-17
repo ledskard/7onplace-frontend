@@ -19,8 +19,6 @@ export const useView = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [numberView]);
 
-
-
   return {
     numberView: numberView === 15505 ? null : numberView,
   }
