@@ -5,6 +5,7 @@ import { Card } from "./card-models";
 import { AiFillStar } from "react-icons/ai";
 import Image from "next/image";
 import Link from "next/link";
+import { modelAddsConfig } from '@/config/model-add.config';
 
 type ListModelsCardsWithAddsProps = ComponentProps<"section"> & {
   models: Array<ModelsFilterProps>;
@@ -19,6 +20,9 @@ export const ListModelsCardsWithAdds = ({
   models,
   ...props
 }: ListModelsCardsWithAddsProps) => {
+
+  let clicleAds: number = -1
+  
   return (
     <section
       className={twMerge(
@@ -28,60 +32,14 @@ export const ListModelsCardsWithAdds = ({
       {...props}
     >
       {models.map((model, index) => {
-        
+        const isVisibleAdds = index % cardsPerAdd === cardsPerAdd - 1 && index !== models.length - 1
+
+        if(isVisibleAdds) clicleAds++
+
         return (
           <React.Fragment key={model.id}>
             <CardModel model={model} />
-
-            {index % cardsPerAdd === cardsPerAdd - 1 &&
-              index !== models.length - 1 && (
-                <div
-                  key={`ad-${index}`}
-                  className="text-center text-white min-h-[100px] sm:min-h-[300px] p-4 col-span-2 xl:col-span-3 relative rounded overflow-hidden"
-                >
-
-                  <a
-                    href="https://wa.me//48991013165?text=Gostaria%20de%20anunciar%20no%20marketplace%20da%207%20On%20Sexy"
-                    target="_blank"
-                  >
-
-                    {
-                      index != 5 && index != 3 &&
-                      <Image
-                        className="aspect-[12/9] object-fill object-center"
-                        fill
-                        src={"/default-ads.png"}
-                        alt={model.username}
-                      />
-
-                    }
-
-                    {
-                      index % cardsPerAdd === cardsPerAdd - 1 &&
-                      index !== models.length - 1 && index === 5 && <Image
-                        className="aspect-[12/9] object-fill object-center"
-                        fill
-                        src={"/ad-7onsexy.png"}
-                        alt={model.username}
-                      />
-                    }
-                    {
-                      index % cardsPerAdd === cardsPerAdd - 1 &&
-                      index !== models.length - 1 && index === 3 && <Image
-                        className="aspect-[12/9] object-fill object-center"
-                        fill
-                        src={"/ad-7onsexy.png"}
-                        alt={model.username}
-                      />
-                    }
-
-
-
-
-                  </a>
-                </div>
-              )}
-
+            {isVisibleAdds && <CardModelAdds cicle={clicleAds} /> }
           </React.Fragment>
         );
       })}
@@ -140,3 +98,31 @@ const CardModel = ({ model }: { model: ModelsFilterProps }) => {
     </div>
   );
 };
+
+type CardModelAddsProps = {
+  cicle: number
+}
+
+const CardModelAdds = ({ cicle }: CardModelAddsProps) => {
+  const imagesAds = modelAddsConfig
+  const imagesAdsCicle = imagesAds.ads[cicle]
+
+  const isExistsImage = imagesAdsCicle ? imagesAdsCicle : modelAddsConfig.default
+
+  return (
+    <div className="text-center text-white min-h-[100px] sm:min-h-[300px] p-4 col-span-2 xl:col-span-3 relative rounded overflow-hidden"
+    >
+      <a
+        href={isExistsImage.href}
+        target="_blank"
+      >
+        <Image
+          className="aspect-[12/9] object-fill object-center"
+          fill
+          src={isExistsImage.image}
+          alt={isExistsImage.alt}
+        />
+      </a>
+  </div>
+  )
+}
