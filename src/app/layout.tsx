@@ -3,7 +3,7 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { Toaster } from "@/components/ui/toaster";
 import { Providers } from "@/providers/providers";
-// import { Analytics } from '@vercel/analytics/react';
+import { Analytics } from '@vercel/analytics/react';
 
 export const metadata: Metadata = {
   title: "7OnSexy",
@@ -26,7 +26,7 @@ export default function RootLayout({
               {children}
             </main>
           </div>
-          {/* <Analytics /> */}
+          <Analytics />
         </Providers>
       </body>
     </html>
