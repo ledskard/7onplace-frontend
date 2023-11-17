@@ -101,6 +101,7 @@ export const BeProAndViewrsContainer = ({
                 className="max-w-[280px] md:absolute mx-auto bottom-0"
               />
             </div>
+            
             <Image
               width={400}
               height={400}

@@ -44,6 +44,7 @@ export const ListModelsCardsWithAdds = ({
                     href="https://wa.me//48991013165?text=Gostaria%20de%20anunciar%20no%20marketplace%20da%207%20On%20Sexy"
                     target="_blank"
                   >
+                    
                     <Image
                       className="aspect-[12/9] object-fill object-center"
                       fill
