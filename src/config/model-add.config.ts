@@ -23,5 +23,6 @@ export const modelAddsConfig:ModelAddsConfigProps = {
       alt: 'ad 7onsexy',
     }
     
+
   ] 
 }
