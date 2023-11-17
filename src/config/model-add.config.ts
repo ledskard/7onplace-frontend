@@ -21,16 +21,6 @@ export const modelAddsConfig:ModelAddsConfigProps = {
       image: '/ad-7onsexy.png',
       href: 'https://wa.me//48991013165?text=Gostaria%20de%20anunciar%20no%20marketplace%20da%207%20On%20Sexy',
       alt: 'ad 7onsexy',
-    },
-    {
-      image: '/ad-7onsexy.png',
-      href: 'https://wa.me//48991013165?text=Gostaria%20de%20anunciar%20no%20marketplace%20da%207%20On%20Sexy',
-      alt: 'ad 7onsexy',
-    },
-    {
-      image: '/ad-7onsexy.png',
-      href: 'https://wa.me//48991013165?text=Gostaria%20de%20anunciar%20no%20marketplace%20da%207%20On%20Sexy',
-      alt: 'ad 7onsexy',
     }
   ] 
 }
