@@ -17,11 +17,9 @@ type SearchProps = {
 
 export default function Home({ searchParams: { query } }: SearchProps) {
   return (
-    <main className="w-11/12 mx-auto lg:pt-5 flex mb-5 gap-4">
+    <main className="w-11/12 mx-auto flex mb-5 gap-4 mt-36 xl:mt-24">
       <Tabs defaultValue="mulheres" className="w-full mx-auto">
-        <BeProAndViewrsContainer device="mobile" />
-
-        <TabsList>
+        <TabsList className="xl:fixed xl:z-[50] mx-auto xl:w-[93%] xl:bg-[#f3f3f3] xl:top-14 xl:px-4 xl:translate-x-1/2 xl:right-1/2">
           <FlexDiv className="flex-wrap gap-0">
             <TabsTrigger value="mulheres">mulheres</TabsTrigger>
             <TabsTrigger value="casais">casais</TabsTrigger>
@@ -29,7 +27,6 @@ export default function Home({ searchParams: { query } }: SearchProps) {
             <TabsTrigger value="homens">homens</TabsTrigger>
           </FlexDiv>
           <div className="items-center justify-center gap-8 max-w-fit w-full mx-auto xl:flex hidden">
-            {/* <Viewrs.Container className="bg-yellow-500" /> */}
             <BeProAndViewrsContainer device="desktop" className="py-2" />
           </div>
           <Search.Input className="sm:sticky hidden" />

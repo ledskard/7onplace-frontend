@@ -28,23 +28,16 @@ export const BeProAndViewrsContainer = ({
   return (
     <div
       className={cn(
-        y &&
-          y > 300 &&
-          "fixed top-[52px] z-[49] w-full mx-auto left-0 bg-white items-center justify-center flex-col",
         device === "desktop"
-          ? "xl:flex gap-x-6 hidden justify-between"
+          ? "xl:flex gap-x-6 hidden"
           : "xl:hidden block text-center",
-        device === "desktop" &&
-          y &&
-          y >= 300 &&
-          "xl:flex xl:flex-col items-center justify-center",
         className
       )}
     >
       <Viewrs.Container
         className={cn(
-          "xl:flex flex mx-auto mb-4",
-          device === "desktop" && y && y >= 300 && "xl:flex mb-1"
+          "xl:flex flex mx-auto",
+          device === "desktop" && y && y >= 300 && "xl:flex"
         )}
       />
       <Dialog>
@@ -101,7 +94,7 @@ export const BeProAndViewrsContainer = ({
                 className="max-w-[280px] md:absolute mx-auto bottom-0"
               />
             </div>
-            
+
             <Image
               width={400}
               height={400}

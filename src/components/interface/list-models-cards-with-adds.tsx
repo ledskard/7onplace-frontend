@@ -5,7 +5,7 @@ import { Card } from "./card-models";
 import { AiFillStar } from "react-icons/ai";
 import Image from "next/image";
 import Link from "next/link";
-import { modelAddsConfig } from '@/config/model-add.config';
+import { modelAddsConfig } from "@/config/model-add.config";
 
 type ListModelsCardsWithAddsProps = ComponentProps<"section"> & {
   models: Array<ModelsFilterProps>;
@@ -19,9 +19,8 @@ export const ListModelsCardsWithAdds = ({
   models,
   ...props
 }: ListModelsCardsWithAddsProps) => {
+  let clicleAds: number = -1;
 
-  let clicleAds: number = -1
-  
   return (
     <section
       className={twMerge(
@@ -31,11 +30,12 @@ export const ListModelsCardsWithAdds = ({
       {...props}
     >
       {models.map((model, index) => {
-
-        const isVisibleAdds = index % cardsPerAdd === cardsPerAdd - 1 && index !== models.length - 1 
+        const isVisibleAdds =
+          index % cardsPerAdd === cardsPerAdd - 1 &&
+          index !== models.length - 1;
 
         if (isVisibleAdds) {
-          clicleAds = clicleAds + 1
+          clicleAds = clicleAds + 1;
         }
 
         return (
@@ -58,7 +58,6 @@ const CardModel = ({ model }: { model: ModelsFilterProps }) => {
           model.featureFlags.map((flag) => {
             if (flag.name === "enable_star") {
               return (
-
                 <AiFillStar
                   key={flag.id}
                   className="md:w-8 md:h- h-8 w-8 text-yellow-500 self-start absolute top-3 left-3 z-[10]"
@@ -66,9 +65,8 @@ const CardModel = ({ model }: { model: ModelsFilterProps }) => {
               );
             }
           })}
-          
+
         <Card.Actions>
-          
           <Card.Delete modelId={model.id} />
           <Card.Edit model={model} />
         </Card.Actions>
@@ -103,22 +101,20 @@ const CardModel = ({ model }: { model: ModelsFilterProps }) => {
 };
 
 type CardModelAddsProps = {
-  cicle: number
-}
+  cicle: number;
+};
 
 const CardModelAdds = ({ cicle }: CardModelAddsProps) => {
-  const imagesAds = modelAddsConfig
-  const imagesAdsCicle = imagesAds.ads[cicle]
+  const imagesAds = modelAddsConfig;
+  const imagesAdsCicle = imagesAds.ads[cicle];
 
-  const isExistsImage = imagesAdsCicle ? imagesAdsCicle : modelAddsConfig.default
+  const isExistsImage = imagesAdsCicle
+    ? imagesAdsCicle
+    : modelAddsConfig.default;
 
   return (
-    <div className="text-center text-white min-h-[100px] sm:min-h-[300px] p-4 col-span-2 xl:col-span-3 relative rounded overflow-hidden"
-    >
-      <a
-        href={isExistsImage.href}
-        target="_blank"
-      >
+    <div className="text-center text-white min-h-[100px] sm:min-h-[300px] p-4 col-span-2 xl:col-span-3 relative rounded overflow-hidden">
+      <a href={isExistsImage.href} target="_blank">
         <Image
           className="aspect-[12/9] object-fill object-center"
           fill
@@ -126,6 +122,6 @@ const CardModelAdds = ({ cicle }: CardModelAddsProps) => {
           alt={isExistsImage.alt}
         />
       </a>
-  </div>
-  )
-}
+    </div>
+  );
+};
