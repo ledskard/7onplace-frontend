@@ -5,7 +5,7 @@ export const getModels = async (): Promise<Array<ModelsFilterProps>> => {
   const session = await getServerSession();
   try {
     const res = await fetch(`${process.env.NEXT_PUBLIC_DATABASE_URL}/models/`, {
-      next: { revalidate: 3600 },
+      next: { revalidate: 300 },
       headers: {
         "Content-Type": "application/json",
         Authorization: "Bearer " + session?.user.token,
