@@ -76,7 +76,7 @@ export const BeProAndViewrsContainer = ({
                 (Valor promocional de Lançamento)
               </p>
               <a
-                href="https://checkout.stripe.com/c/pay/cs_live_a15jkCOIFWaS0psGwZcZI2Kc9ScjgaoPI34mGOl3wHuv3351qFfDsStvlH#fidkdWxOYHwnPyd1blppbHNgWjA0TE5WUUdJU10wdlZSTV9jd01hMFVqQHdiN2dzQ0IxPVdraEBQS0xmSn1VVVNLT298PDFTR288alFQVEhBRkRMXGt8d0ZmVX1HbmFNXFI1UU1kYFdEQkNTNTVrUFdca05xMicpJ3VpbGtuQH11anZgYUxhJz8nMWJyNTZTNEQwMDZ0MlJqZkhIJ3gl"
+                href="https://buy.stripe.com/4gw03V1A553q7WocMM"
                 target="_blank"
                 className="max-w-fit mx-auto text-center"
               >
