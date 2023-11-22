@@ -45,7 +45,7 @@ export const Header = ({ className, ...props }: HeaderProps) => {
           )}
           {pathName === null && (
             <Search.Input className="sm:hidden flex border-white bg-white" />
-          )}
+          )}  
           {session && (
             <Button className="w-fit text-xl" onClick={handleSignOut}>
               <GoSignOut />
@@ -53,7 +53,8 @@ export const Header = ({ className, ...props }: HeaderProps) => {
           )}
         </Navbar>
       </header>
-      <div className="xl:hidden block fixed top-14 w-full z-[49] bg-[#f3f3f3] py-2">
+
+      <div className={`${pathName === null ? "fixed xl:fixed block": "hidden"} fixed top-14 w-full z-[49] bg-[#f3f3f3] py-2`}>
         <BeProAndViewrsContainer device="mobile" />
       </div>
     </>
