@@ -104,6 +104,10 @@ export const CarouselRoot = ({ model }: CarouselContentProps) => {
               social={"tiktok"}
               flags={flags}
             />
+            <div className="ml-auto"> {/* Ajustado aqui: adicionado 'ml-auto' class para mover a div para a direita */}
+              <Card.Fav modelId={model.id} favorites={model.likes} />
+            </div>
+
           </FlexDiv>
         </FlexDiv>
       </FlexDiv>
