@@ -101,11 +101,27 @@ export const CardModelEdit = ({
     const isChecked = e.target.checked;
 
     setIsPro(isChecked);
-
+    let featureFlags:any = []
     if (!isChecked) {
-      const featureFlags = {
-        featureFlags: [],
-      };
+        featureFlags = []
+    }
+    if(isChecked){
+      featureFlags = [
+        {id: 1,
+          name: "enable_social_media",
+          description: "Habilitar redes sociais"
+        },
+        
+        {id: 2,
+          name: "enable_star",
+          description: "Estrela de modelo PRO"
+        },
+        {id: 1,
+          name: "enable_create_button",
+          description: "Habilitar botões"
+        }
+      ]
+    }
 
       const res = await fetch(`https://api.bioup.ai/models/${model.username}`, {
         body: JSON.stringify(featureFlags),
@@ -116,7 +132,7 @@ export const CardModelEdit = ({
         method: "PUT",
       });
       console.log(res);
-    }
+    
   };
 
   const gender = ["mulheres", "casais", "trans", "homens"];
