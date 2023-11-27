@@ -49,6 +49,9 @@ export const ListModelsCardsWithAdds = ({
   );
 };
 const CardModel = ({ model }: { model: ModelsFilterProps }) => {
+  const username = model.username; 
+  const cleanUsername = username.replace(/\s+/g, ''); 
+  const url = `/${cleanUsername}`;
   return (
     <div key={model.id}>
       <Card.Root>
@@ -71,7 +74,7 @@ const CardModel = ({ model }: { model: ModelsFilterProps }) => {
           <Card.Edit model={model} />
         </Card.Actions>
         <Link
-          href={`model/${model.username}`}
+          href={`/${cleanUsername}`}
           className="z-20 absolute inset-0"
           key={model.id}
           prefetch={false}
