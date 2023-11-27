@@ -107,7 +107,7 @@ export const CardModelEdit = ({
         featureFlags: [],
       };
 
-      const res = await fetch(`https://api.bioup.ai/models/${model.id}`, {
+      const res = await fetch(`https://api.bioup.ai/models/${model.username}`, {
         body: JSON.stringify(featureFlags),
         headers: {
           "Content-Type": "application/json",
@@ -238,8 +238,8 @@ export const CardModelEdit = ({
         duration: 3000,
       });
     }
-
-    const res = await fetch(`https://api.bioup.ai/models/${model.id}`, {
+    
+    const res = await fetch(`https://api.bioup.ai/models/${model.username}`, {
       body: JSON.stringify(modelUpdated),
       headers: {
         "Content-Type": "application/json",

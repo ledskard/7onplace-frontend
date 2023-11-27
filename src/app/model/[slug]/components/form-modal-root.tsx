@@ -25,7 +25,7 @@ export const FormModalRoot = ({ model }: { model: ModelsFilterProps }) => {
   const [buttons, setButtons] = useState<ModelButtonsProps>(model.buttons);
   const { data: session } = useSession();
   const { slug } = useParams();
-
+  
   const {
     register,
     formState: { errors, isSubmitting, isSubmitSuccessful },

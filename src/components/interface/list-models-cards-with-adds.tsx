@@ -71,7 +71,7 @@ const CardModel = ({ model }: { model: ModelsFilterProps }) => {
           <Card.Edit model={model} />
         </Card.Actions>
         <Link
-          href={`model/${model.id}`}
+          href={`model/${model.username}`}
           className="z-20 absolute inset-0"
           key={model.id}
           prefetch={false}
