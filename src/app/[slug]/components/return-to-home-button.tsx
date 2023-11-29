@@ -17,7 +17,7 @@ export const ReturnToHomeButton = ({
         "sm:p-1 flex gap-4 text-white items-center my-auto md:h-auto h-full",
         className
       )}
-      onClick={() => route.back()}
+      onClick={() => route.push('/')}
       {...props}
     >
       <ArrowLeft className="w-9 h-9 sm:block hidden sm:border-2 sm:border-red-main rounded-full p-1" />
