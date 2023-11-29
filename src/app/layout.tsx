@@ -8,7 +8,7 @@ import { Analytics } from '@vercel/analytics/react';
 export const metadata: Metadata = {
   title: "7 On Place",
   description: "Maiores criadoras(es) de conteúdo hot em um só lugar!",
-  openGraph: {images: '../../public/7onsexy-logo-black.png'},  
+  openGraph: {images: 'https://www.7onplace.com/'},  
 };
 
 export default function RootLayout({
