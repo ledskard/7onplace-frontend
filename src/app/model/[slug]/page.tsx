@@ -2,7 +2,6 @@ import { Button } from "@/components/ui/button";
 import { CarouselRoot } from "./components/carousel/carousel-root";
 import { AboutModel } from "./components/about-model";
 import { FlexDiv } from "@/components/interface/flex-div";
-import { incrementLike } from "@/utils/increment-like-to-model";
 import { getDataById } from "@/utils/get-model-by-id";
 import { ReturnToHomeButton } from "./components/return-to-home-button";
 import { CarouselContentProps } from "@/types/model/carousel-content-props";

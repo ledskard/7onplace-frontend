@@ -96,7 +96,7 @@ const CardModel = ({ model }: { model: ModelsFilterProps }) => {
             height={56}
           />
           <Card.Name>{model.username}</Card.Name>
-          <Card.Fav modelId={model.id} favorites={model.likes} />
+          <Card.Fav modelName={model.username} favorites={model.likes} />
         </Card.ContentDiv>
       </Card.Root>
     </div>

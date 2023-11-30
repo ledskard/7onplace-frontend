@@ -8,13 +8,13 @@ import { incrementLike } from "@/utils/increment-like-to-model";
 
 type CardModelFavoriteProps = ComponentProps<"button"> & {
   favorites: number;
-  modelId: string;
+  modelName: string;
 };
 
 export const CardModelFavorite = ({
   favorites,
   className,
-  modelId,
+  modelName,
   ...props
 }: CardModelFavoriteProps) => {
   const [isLiked, setIsLiked] = useState(false);
@@ -31,7 +31,7 @@ export const CardModelFavorite = ({
       setCount(count - 1);
     } else {
       setCount(count + 1);
-      await incrementLike(modelId);
+      await incrementLike(modelName);
     }
   };
 
