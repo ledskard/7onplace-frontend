@@ -12,6 +12,7 @@ type ListModelsCardsWithAddsProps = ComponentProps<"section"> & {
   cardsPerAdd?: number;
   query: string;
 };
+
 export const ListModelsCardsWithAdds = ({
   className,
   cardsPerAdd = 6,
@@ -49,8 +50,8 @@ export const ListModelsCardsWithAdds = ({
   );
 };
 const CardModel = ({ model }: { model: ModelsFilterProps }) => {
-  const username = model.username; 
-  const cleanUsername = username.replace(/\s+/g, ''); 
+  const username = model.username;
+  const cleanUsername = username.replace(/\s+/g, "");
   const url = `/${cleanUsername}`;
   return (
     <div key={model.id}>
