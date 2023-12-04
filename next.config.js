@@ -1,5 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  experimental: {
+    serverActions: true
+  },
   images: {
     domains: [
       "xbio.s3.us-east-1.amazonaws.com",
