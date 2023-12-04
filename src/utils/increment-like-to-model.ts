@@ -1,3 +1,5 @@
+import revalidateTagAPI from "@/actions/revalidateTag";
+
 export const incrementLike = async (slug: string) => {
   try {
     const res = await fetch(
@@ -7,10 +9,10 @@ export const incrementLike = async (slug: string) => {
         headers: {
           "Content-Type": "application/json",
         },
-        // next: { revalidate },
       }
     );
 
+    revalidateTagAPI("modelsList");
     return await res.json();
   } catch (error) {
     throw new Error("API ERROR");
