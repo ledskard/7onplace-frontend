@@ -19,12 +19,13 @@ export const ReturnToHomeButton = ({
       )}
       onClick={() => route.push('/')}
       {...props}
-      
+
     >
       <ArrowLeft className="w-9 h-9 sm:block hidden sm:border-2 sm:border-red-main rounded-full p-1" />
 
       <ChevronLeft className="w-9 h-9 sm:hidden block" />
       <p className="sm:block hidden">Voltar a tela inical</p>
     </button>
+    
   );
 };
