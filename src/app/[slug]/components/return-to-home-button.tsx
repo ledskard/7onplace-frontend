@@ -19,6 +19,7 @@ export const ReturnToHomeButton = ({
       )}
       onClick={() => route.push('/')}
       {...props}
+      
     >
       <ArrowLeft className="w-9 h-9 sm:block hidden sm:border-2 sm:border-red-main rounded-full p-1" />
 
