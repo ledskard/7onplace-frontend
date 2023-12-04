@@ -13,6 +13,7 @@ export const incrementLike = async (slug: string) => {
     );
 
     revalidateTagAPI("modelsList");
+    revalidateTagAPI("modelById");
     return await res.json();
   } catch (error) {
     throw new Error("API ERROR");
