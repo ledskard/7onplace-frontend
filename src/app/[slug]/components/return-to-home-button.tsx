@@ -12,19 +12,17 @@ export const ReturnToHomeButton = ({
 }: ReturnToHomeButtonProps) => {
   const route = useRouter();
   const lastUrl = document.referrer;
- 
+
   const handleClick = () => {
-    if(lastUrl){
-      
-    route.back();
-    }   else {
+    if (lastUrl) {
+      route.back();
+    } else {
       route.push("/");
-  
     }
-    
-      console.log(lastUrl)
-       
-       
+
+    console.log("aaaa", lastUrl)
+
+
   };
   return (
     <button
@@ -41,6 +39,6 @@ export const ReturnToHomeButton = ({
       <ChevronLeft className="w-9 h-9 sm:hidden block" />
       <p className="sm:block hidden">Voltar a tela inical</p>
     </button>
-    
+
   );
 };
