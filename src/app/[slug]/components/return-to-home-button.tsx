@@ -11,9 +11,10 @@ export const ReturnToHomeButton = ({
   ...props
 }: ReturnToHomeButtonProps) => {
   const route = useRouter();
+  const lastUrl = returnToHome()
   const handleClick = () => {
     
-    const lastUrl = returnToHome()
+    
   
     if (lastUrl) {
       route.back();
