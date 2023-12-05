@@ -1,7 +1,7 @@
 "use client";
 import { ArrowLeft, ChevronLeft } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { ComponentProps } from "react";
+import { ComponentProps, useEffect } from "react";
 import { twMerge } from "tailwind-merge";
 
 type ReturnToHomeButtonProps = ComponentProps<"button">;
@@ -15,9 +15,8 @@ export const ReturnToHomeButton = ({
   const searchString = "7onplace";
 
   const containsSubstring = lastUrl.toLowerCase().includes(searchString.toLowerCase());
-
+  
   const handleClick = () => {
-
     if (containsSubstring) {      
       route.back();
     } else {
