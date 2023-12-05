@@ -17,11 +17,9 @@ export const ReturnToHomeButton = ({
   const containsSubstring = lastUrl.toLowerCase().includes(searchString.toLowerCase());
   
   const handleClick = () => {
-    if (containsSubstring) {      
+       
       route.back();
-    } else {
-      route.push('/');
-    }
+    
   };
   return (
     <button
