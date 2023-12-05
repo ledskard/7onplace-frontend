@@ -14,7 +14,14 @@ export const ReturnToHomeButton = ({
   const lastUrl = document.referrer;
  
   const handleClick = () => {
-        route.back();
+    if(lastUrl){
+      
+    route.back();
+    }   else {
+      route.push("/");
+  
+    }
+    
       console.log(lastUrl)
        
        
