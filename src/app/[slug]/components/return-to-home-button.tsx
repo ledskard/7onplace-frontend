@@ -10,12 +10,12 @@ export const ReturnToHomeButton = ({
   className,
   ...props
 }: ReturnToHomeButtonProps) => {
-  const route = useRouter();    
-  const isFromExternalSite = document.referrer && !document.referrer.includes(window.location.origin);
-
-  console.log(isFromExternalSite)
+  const route = useRouter();
+  const is = document.referrer
+  console.log(is)
   const handleClick = () => {
-    if (isFromExternalSite) {
+    if (is) {
+      
       route.back();
     } else {
       route.push('/');
