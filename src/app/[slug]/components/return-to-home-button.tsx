@@ -14,12 +14,9 @@ export const ReturnToHomeButton = ({
   const lastUrl = document.referrer;
  
   const handleClick = () => {
-       if(lastUrl.includes("7onplace")){
         route.back();
-      
-       } else {
-        route.push("/")
-       }
+      console.log(lastUrl)
+       
        
   };
   return (
