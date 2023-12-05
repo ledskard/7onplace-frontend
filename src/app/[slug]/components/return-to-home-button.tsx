@@ -12,8 +12,7 @@ export const ReturnToHomeButton = ({
 }: ReturnToHomeButtonProps) => {
   const route = useRouter();
   const handleClick = () => {
-    console.log(window.location.origin)
-    if (document.referrer.startsWith(window.location.origin)) {
+    if (document.referrer.includes("7onplace")) {
       route.back();
     } else {
       route.push('/');
