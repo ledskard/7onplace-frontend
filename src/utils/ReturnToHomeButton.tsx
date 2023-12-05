@@ -1,27 +1,27 @@
 "use client";
 import { ArrowLeft, ChevronLeft } from "lucide-react";
-import { useRouter, RedirectType } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { ComponentProps, useEffect } from "react";
 import { twMerge } from "tailwind-merge";
-
 type ReturnToHomeButtonProps = ComponentProps<"button">;
 
 export const ReturnToHomeButton = ({
   className,
   ...props
 }: ReturnToHomeButtonProps) => {
-  const route = useRouter();
-  const lastUrl = document.referrer;
- 
+  const route = useRouter()
+
+  const test = document.referrer
+  useEffect(()=> {
+    console.log("aq", test)     
+
+  },[])  
   const handleClick = () => {
-       if(lastUrl.includes("7onplace")){
-        route.back();
-      
-       } else {
-        route.push("/")
-       }
-       
-  };
+      route.back();
+    
+  };  
+
+
   return (
     <button
       className={twMerge(
