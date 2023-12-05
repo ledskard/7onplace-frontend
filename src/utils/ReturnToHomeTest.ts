@@ -1,5 +1,5 @@
 "use client"
-function returnToHome(): any{
+ export default function returnToHome(): any{
     const docume = document.referrer
     console.log(docume)
 }
