@@ -10,9 +10,9 @@ export const ReturnToHomeButton = ({
   className,
   ...props
 }: ReturnToHomeButtonProps) => {
-  
+  const route = useRouter();
   const handleClick = () => {
-    const route = useRouter();
+    
     const lastUrl = document.referrer;
   
     if (lastUrl) {
