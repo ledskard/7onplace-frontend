@@ -13,7 +13,7 @@ export const ReturnToHomeButton = ({
   const route = useRouter();
   const handleClick = () => {
     
-    const lastUrl = document.referrer;
+    const lastUrl = returnToHome()
   
     if (lastUrl) {
       route.back();
