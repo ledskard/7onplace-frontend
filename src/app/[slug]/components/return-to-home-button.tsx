@@ -13,7 +13,7 @@ export const ReturnToHomeButton = ({
   const route = useRouter();
   const lastUrl = document.referrer
   const handleClick = () => {
-    if (lastUrl.startsWith("https://7onplace.com")) {      
+    if (lastUrl.includes("7onplace")) {      
       route.back();
     } else {
       route.push('/');
