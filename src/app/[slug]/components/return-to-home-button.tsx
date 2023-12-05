@@ -11,9 +11,14 @@ export const ReturnToHomeButton = ({
   ...props
 }: ReturnToHomeButtonProps) => {
   const route = useRouter();
-  const lastUrl = document.referrer
+  const lastUrl = "https://7onplace.com";
+  const searchString = "7onplace";
+
+  const containsSubstring = lastUrl.toLowerCase().includes(searchString.toLowerCase());
+
   const handleClick = () => {
-    if (lastUrl.includes("7onplace")) {      
+
+    if (containsSubstring) {      
       route.back();
     } else {
       route.push('/');
