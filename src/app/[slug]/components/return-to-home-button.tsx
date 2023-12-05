@@ -11,7 +11,7 @@ export const ReturnToHomeButton = ({
   ...props
 }: ReturnToHomeButtonProps) => {
   const route = useRouter();
-  const lastUrl = "https://7onplace.com";
+  const lastUrl = document.referrer;
   const searchString = "7onplace";
 
   const containsSubstring = lastUrl.toLowerCase().includes(searchString.toLowerCase());
