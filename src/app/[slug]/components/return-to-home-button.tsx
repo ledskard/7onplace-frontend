@@ -14,8 +14,7 @@ export const ReturnToHomeButton = ({
   const is = document.referrer
   console.log(is)
   const handleClick = () => {
-    if (is) {
-      
+    if (is.startsWith(window.location.origin)) {      
       route.back();
     } else {
       route.push('/');
