@@ -11,10 +11,9 @@ export const ReturnToHomeButton = ({
   ...props
 }: ReturnToHomeButtonProps) => {
   const route = useRouter();
-  const is = document.referrer
-  console.log(is)
+  const lastUrl = document.referrer
   const handleClick = () => {
-    if (is.startsWith(window.location.origin)) {      
+    if (lastUrl.startsWith("https://7onplace.com")) {      
       route.back();
     } else {
       route.push('/');
