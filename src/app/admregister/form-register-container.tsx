@@ -260,7 +260,7 @@ export const FormRegisterContainer = () => {
           alt="Perfil Image"
           width={200}
           height={200}
-          className="w-10 h-10 rounded-full object-cover object-center"
+          className="mt-10 w-10 h-10 rounded-full object-cover object-center"
         />
 
         <FlexDiv col className="flex-1">
