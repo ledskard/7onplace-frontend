@@ -1,14 +1,20 @@
 
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
- 
-// This function can be marked `async` if using `await` inside
-export function middleware(request: NextRequest) {
-    // console.log("AQUIIUAIIII", request.headers.get('referer'))
+import { cookies } from "next/headers"
 
-}
- 
-// See "Matching Paths" below to learn more
-export const config = {
-  matcher: ['/', '/MaikellyMuhl'],
-}
+let pathname;
+
+export async function middleware(request: NextRequest) {
+    
+    pathname = request.nextUrl.pathname;
+    const referrer = request.headers.get('referer')
+    const response = NextResponse.next();
+    referrer !== null ? 
+    response.cookies.set('referrer', '7onplace') : response.cookies.set('referrer', 'another_site')
+    return response
+  }
+
+  export const config = {
+    matcher: ["/((?!api|_next/static|_next/image|favicon.ico).*)"],
+  };

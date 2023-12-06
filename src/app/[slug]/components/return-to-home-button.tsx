@@ -4,6 +4,8 @@ import { useRouter, RedirectType } from "next/navigation";
 import { ComponentProps, useEffect } from "react";
 import { twMerge } from "tailwind-merge";
 import returnToHome from "@/utils/ReturnToHomeTest"
+import { parseCookies } from "nookies"
+
 type ReturnToHomeButtonProps = ComponentProps<"button">;
 
 export const ReturnToHomeButton = ({
@@ -11,10 +13,16 @@ export const ReturnToHomeButton = ({
   ...props
 }: ReturnToHomeButtonProps) => {
   const route = useRouter();
-
+  const { referrer } = parseCookies()
   const handleClick = () => {
-    route.back();
+    if(referrer === "another_site") {
+      return route.push('/');
+    }
+      route.back();
+     
+    
   };
+  
   return (
     <button
       className={twMerge(
