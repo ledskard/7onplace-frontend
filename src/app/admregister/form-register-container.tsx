@@ -266,7 +266,7 @@ export const FormRegisterContainer = () => {
         <FlexDiv col className="flex-1">
           <label
             htmlFor="profileImg"
-            className="text-center first-letter:capitalize rounded font-medium py-2 px-1 md:rounded-md bg-red-main text-white w-full"
+            className="mt-10 text-center first-letter:capitalize rounded font-medium py-2 px-1 md:rounded-md bg-red-main text-white w-full"
           >
             Adicionar imagem de perfil
           </label>

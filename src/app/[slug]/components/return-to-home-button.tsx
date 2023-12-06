@@ -17,7 +17,7 @@ export const ReturnToHomeButton = ({
     if(referrer === "another_site") {
       return route.push('/');
     }
-      route.back();
+    route.back();
      
     
   };
