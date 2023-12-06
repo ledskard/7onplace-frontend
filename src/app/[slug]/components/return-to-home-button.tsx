@@ -18,8 +18,6 @@ export const ReturnToHomeButton = ({
       return route.push('/');
     }
     route.back();
-     
-    
   };
   
   return (
