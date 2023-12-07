@@ -45,7 +45,7 @@ export const CardModelFavorite = ({
       {...props}
     >
       <AiFillHeart className="" color={isLiked ? "#9A1F33" : "#000"} />
-      {normalizeFavorites(count)}
+      {count}
     </button>
   );
 };
