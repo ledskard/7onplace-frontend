@@ -37,6 +37,44 @@
   margin: auto !important;
 }
 
+@keyframes tremor {
+  0% {
+    transform: translateX(0);
+  }
+  10% {
+    transform: translateX(-2px) rotate(-2deg);
+  }
+  20% {
+    transform: translateX(2px) rotate(2deg);
+  }
+  30% {
+    transform: translateX(-2px) rotate(-2deg);
+  }
+  40% {
+    transform: translateX(2px) rotate(2deg);
+  }
+  50% {
+    transform: translateX(-1px) rotate(-1deg);
+  }
+  60% {
+    transform: translateX(1px) rotate(1deg);
+  }
+  70% {
+    transform: translateX(-1px) rotate(-1deg);
+  }
+  80% {
+    transform: translateX(1px) rotate(1deg);
+  }
+  90%,
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.animate-telegram {
+  animation: tremor 1s ease-in-out infinite;
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;
