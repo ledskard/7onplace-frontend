@@ -10,4 +10,5 @@ export const Logo = ({ className, href }: LogoProps) => {
       <Image src={"/7onplace-logo.png"} height={64} width={80} alt="7OnSexy" />
     </Link>
   );
+  
 };
