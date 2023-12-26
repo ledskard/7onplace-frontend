@@ -58,6 +58,7 @@ export default async function Model({ params }: { params: { slug: string } }) {
               )
                 return (
                   <ButtonSocialMedia
+                    key={but.id}
                     modelSlug={params.slug}
                     buttonId={but.id}
                     modelButtons={dataModel.buttons}
