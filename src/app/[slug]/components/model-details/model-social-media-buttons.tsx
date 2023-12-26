@@ -1,6 +1,8 @@
 "use client";
+import { toast } from "@/components/ui/use-toast";
 import { updateModelButtons } from "@/utils/update-model-buttons";
 import { Trash } from "lucide-react";
+import { useSession } from "next-auth/react";
 import { ComponentProps } from "react";
 import { twMerge } from "tailwind-merge";
 
@@ -27,15 +29,22 @@ const removeButton = async (
     (but) => but.id !== buttonId
   );
 
-  console.log("3",modelButtons);
-  console.log("2",buttonsWithoutDeletedButton);
-
-  const aaa = await updateModelButtons({
+  const modeloUpdated = await updateModelButtons({
     buttons: buttonsWithoutDeletedButton,
     slug: modelSlug,
   });
 
-  console.log("4", aaa);
+  if (!modeloUpdated) {
+    toast({
+      title: `Não foi possível deletar um botão da modelo`,
+      duration: 3000,
+    });
+  }
+
+  toast({
+    title: `✅ Botão removido da modelo`,
+    duration: 3000,
+  });
 };
 
 export const ButtonSocialMedia = ({
@@ -47,6 +56,8 @@ export const ButtonSocialMedia = ({
   url,
   ...props
 }: ButtonProps) => {
+  const { data: session } = useSession();
+
   return (
     <button
       className={twMerge(
@@ -58,10 +69,12 @@ export const ButtonSocialMedia = ({
       <a key={title} href={url} target="_blank">
         {title}
       </a>
-      <Trash
-        className="absolute z-50 top-1 right-1 text-white w-7 h-7 rounded-md p-1"
-        onClick={() => removeButton(buttonId, modelButtons, modelSlug)}
-      />
+      {session?.user.token && (
+        <Trash
+          className="absolute z-50 top-1 right-1 text-white w-7 h-7 rounded-md p-1"
+          onClick={() => removeButton(buttonId, modelButtons, modelSlug)}
+        />
+      )}
     </button>
   );
 };

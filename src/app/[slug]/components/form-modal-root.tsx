@@ -7,12 +7,13 @@ import { z } from "zod";
 import { useParams } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { ModelsFilterProps } from "@/types/model/models-filter-props";
-import { useState } from 'react';
+import { useState } from "react";
+import revalidateTagAPI from "@/actions/revalidateTag";
 
 type ModelButtonsProps = Array<{
   title: string;
   url: string;
-}>
+}>;
 
 const EditModelButtonsSchema = z.object({
   title: z.string().min(1, "Campo não pode estar vazio!"),
@@ -25,7 +26,7 @@ export const FormModalRoot = ({ model }: { model: ModelsFilterProps }) => {
   const [buttons, setButtons] = useState<ModelButtonsProps>(model.buttons);
   const { data: session } = useSession();
   const { slug } = useParams();
-  
+
   const {
     register,
     formState: { errors, isSubmitting, isSubmitSuccessful },
@@ -38,19 +39,16 @@ export const FormModalRoot = ({ model }: { model: ModelsFilterProps }) => {
   });
 
   const handleAddButton = async (data: EditModelButtonSchemaProps) => {
-
     try {
-      await fetch(
-        `${process.env.NEXT_PUBLIC_DATABASE_URL}/models/${slug}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: "Bearer " + session?.user.token,
-          },
-          body: JSON.stringify({ ...model, buttons: [...buttons, data] }),
-        }
-      );
+      await fetch(`${process.env.NEXT_PUBLIC_DATABASE_URL}/models/${slug}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + session?.user.token,
+        },
+        body: JSON.stringify({ ...model, buttons: [...buttons, data] }),
+      });
+      revalidateTagAPI("modelById");
       reset();
       setButtons((prev) => prev.concat(data));
     } catch (error) {
