@@ -8,7 +8,7 @@ import { useSelectedLayoutSegment } from "next/navigation";
 import { signOut, useSession } from "next-auth/react";
 import { Button } from "@/components/ui/button";
 import { GoSignOut } from "react-icons/go";
-import { ReturnToHomeButton } from "@/app/model/[slug]/components/return-to-home-button";
+import { ReturnToHomeButton } from "@/app/[slug]/components/return-to-home-button";
 import { BeProAndViewrsContainer } from "@/app/components/be-pro-and-viewrs-container";
 
 type HeaderProps = ComponentProps<"header">;
