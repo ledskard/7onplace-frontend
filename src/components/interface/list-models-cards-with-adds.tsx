@@ -120,7 +120,7 @@ const CardModelAdds = ({ cicle }: CardModelAddsProps) => {
     <div className="text-center text-white min-h-[100px] sm:min-h-[300px] p-4 col-span-2 xl:col-span-3 relative rounded overflow-hidden">
       <a href={isExistsImage.href} target="_blank">
         <Image
-          className="aspect-[12/9] object-fill object-center"
+          className="aspect-[16/7] object-fill object-center"
           fill
           src={isExistsImage.image}
           alt={isExistsImage.alt}

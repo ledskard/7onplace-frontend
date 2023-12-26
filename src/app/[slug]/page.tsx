@@ -8,10 +8,12 @@ import { ModelDetails } from "./components/model-details";
 import { Flags } from "@/types/model/models-filter-props";
 import { incrementLike } from "@/utils/increment-like-to-model";
 import { ButtonAnimated } from "./components/model-details/model-animated-button";
+import { ButtonSocialMedia } from "./components/model-details/model-social-media-buttons";
 
 export type ModelsButtons = {
   url: string;
   title: string;
+  id: string;
 };
 
 export default async function Model({ params }: { params: { slug: string } }) {
@@ -55,9 +57,13 @@ export default async function Model({ params }: { params: { slug: string } }) {
                 but.url !== ""
               )
                 return (
-                  <a key={but.title} href={but.url} target="_blank">
-                    <Button>{but.title}</Button>
-                  </a>
+                  <ButtonSocialMedia
+                    modelSlug={params.slug}
+                    buttonId={but.id}
+                    modelButtons={dataModel.buttons}
+                    title={but.title}
+                    url={but.url}
+                  />
                 );
             })}
         </FlexDiv>
