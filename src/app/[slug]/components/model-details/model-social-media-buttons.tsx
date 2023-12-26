@@ -27,15 +27,15 @@ const removeButton = async (
     (but) => but.id !== buttonId
   );
 
-  console.log(modelButtons);
-  console.log(buttonsWithoutDeletedButton);
+  console.log("3",modelButtons);
+  console.log("2",buttonsWithoutDeletedButton);
 
   const aaa = await updateModelButtons({
     buttons: buttonsWithoutDeletedButton,
     slug: modelSlug,
   });
 
-  console.log(aaa);
+  console.log("4", aaa);
 };
 
 export const ButtonSocialMedia = ({
