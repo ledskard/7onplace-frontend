@@ -19,6 +19,7 @@ module.exports = {
       screens: {
         tablet: "750px",
         vsm: { max: "374px" },
+        '2xl': {max: '1360px'}
       },
       gridTemplateColumns: {
         "auto-fit-100": "repeat(auto-fit, minmax(100px, 1fr))",
