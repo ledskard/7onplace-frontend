@@ -90,13 +90,13 @@ const CardModel = ({ model }: { model: ModelsFilterProps }) => {
         </div>
         <Card.ContentDiv>
           <Image
-            className="rounded-full sm:w-14 sm:h-14 h-9 w-9 object-cover object-top absolute top-0 -translate-y-1/2 shadow-md shadow-slate-500"
+            className="rounded-full sm:w-20 sm:h-20 h-9 w-9 object-cover object-top absolute top-0 -translate-y-1/2 shadow-md shadow-slate-500"
             src={model.profileImage?.url ?? "/default-profile.jpg"}
             alt={model.username}
             width={56}
             height={56}
           />
-          <Card.Name>{model.username}</Card.Name>
+          <Card.Name className="sm:pt-3">{model.username}</Card.Name>
           <Card.Fav modelName={model.username} favorites={model.likes} />
         </Card.ContentDiv>
       </Card.Root>
