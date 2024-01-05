@@ -29,8 +29,8 @@ export const BeProAndViewrsContainer = ({
     <div
       className={cn(
         device === "desktop"
-          ? "xl:flex gap-x-6 hidden"
-          : "xl:hidden block text-center",
+          ? "xl:flex flex-wrap gap-x-6 hidden"
+          : "xl:hidden flex flex-wrap text-center",
         className
       )}
     >

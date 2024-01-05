@@ -34,7 +34,7 @@ export const Header = ({ className, ...props }: HeaderProps) => {
         )}
         {...props}
       >
-        <Navbar className="max-w-[1920px]">
+        <Navbar className="max-w-[1920px] px-6 w-full gap-3">
           {pathName === null ? (
             <Logo href={"https://7onsexy.com"} />
           ) : (
