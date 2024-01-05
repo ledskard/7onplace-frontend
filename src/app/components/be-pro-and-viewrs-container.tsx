@@ -50,7 +50,7 @@ export const BeProAndViewrsContainer = ({
                 : "px-4 md:px-6 lg:px-8 xl:px-10 mb-2 text-sm md:text-base lg:text-lg xl:text-xl max-w-fit"
             )}
           >
-            Seja PRO (exclusivo para modelos)
+            Seja PREMIUM (exclusivo para modelos)
           </Button>
         </DialogTrigger>
         <DialogContent className="md:h-fit max-h-full max-w-3xl overflow-x-hidden mx-auto p-0 py-4 m-0">
@@ -127,7 +127,7 @@ export const BeProAndViewrsContainer = ({
               </div>
 
               <button className="bg-white border-2 p-3 rounded-md border-slate-300 max-w-fit mt-5 mx-auto text-red-main  first-letter:capitalize">
-                Assine o <span className="font-bold">PLANO PRO</span> e garanta
+                Assine o <span className="font-bold">PLANO PREMIUM</span> e garanta
                 os seguintes benefícios:
               </button>
               <ul className="mt-4 text-white space-y-2">
