@@ -20,16 +20,12 @@ export default function RootLayout({
     <html lang="pt-BR" className="h-full">
       <body className="bg-[#f3f3f3] h-full">
         <Providers>
-          <div className="h-full flex flex-col ">
-            <Header />
-            <Toaster />
-            <main className="max-w-[1930px] w-full mx-auto flex-1 flex flex-col my-4">
-              {children}
-              <Analytics />
-            </main>
-          </div>
-          
-
+          <Header />
+          <Toaster />
+          <main className="max-w-[1920px] w-full mx-auto flex-1 flex flex-col my-4">
+            {children}
+            <Analytics />
+          </main>
         </Providers>
       </body>
     </html>
