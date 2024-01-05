@@ -90,13 +90,13 @@ const CardModel = ({ model }: { model: ModelsFilterProps }) => {
         </div>
         <Card.ContentDiv>
           <Image
-            className="rounded-full sm:w-20 sm:h-20 h-9 w-9 object-cover object-top absolute top-0 -translate-y-1/2 shadow-md shadow-slate-500"
+            className="rounded-full sm:w-20 sm:h-20 h-12 w-12 object-cover object-top absolute top-0 -translate-y-1/2 shadow-md shadow-slate-500"
             src={model.profileImage?.url ?? "/default-profile.jpg"}
             alt={model.username}
             width={56}
             height={56}
           />
-          <Card.Name className="sm:pt-3">{model.username}</Card.Name>
+          <Card.Name className="sm:pt-3 pt-2.5">{model.username}</Card.Name>
           <Card.Fav modelName={model.username} favorites={model.likes} />
         </Card.ContentDiv>
       </Card.Root>
@@ -117,10 +117,10 @@ const CardModelAdds = ({ cicle }: CardModelAddsProps) => {
     : modelAddsConfig.default;
 
   return (
-    <div className="text-center text-white min-h-[100px] sm:min-h-[300px] p-4 col-span-2 xl:col-span-3 relative rounded overflow-hidden">
+    <div className="text-center text-white min-h-[80px] sm:min-h-[140px] md:min-h-[160px] lg:min-h-[260px] p-4 col-span-2 xl:col-span-3 relative rounded overflow-hidden">
       <a href={isExistsImage.href} target="_blank">
         <Image
-          className="aspect-[16/9] md:aspect-square object-cover object-center"
+          className="aspect-video object-fill object-center"
           fill
           src={isExistsImage.image}
           alt={isExistsImage.alt}
