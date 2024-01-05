@@ -7,3 +7,4 @@ export const getDataById = async (slug: string): Promise<ModelsFilterProps> => {
   );
   return await res.json();
 };
+
