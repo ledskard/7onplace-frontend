@@ -95,13 +95,14 @@ export const CardModelEdit = ({
   const hasFeatureFlags = model.featureFlags && model.featureFlags.length > 0;
 
   const [isPro, setIsPro] = useState(hasFeatureFlags);
-  // setIsPro(hasFeatureFlags);
 
   const handleIsPro = async (e: any) => {
     const isChecked = e.target.checked;
-
+    
     setIsPro(isChecked);
+
     let featureFlags:any = []
+
     if (!isChecked) {
         featureFlags = []
     }
@@ -111,28 +112,26 @@ export const CardModelEdit = ({
           name: "enable_social_media",
           description: "Habilitar redes sociais"
         },
-        
         {id: 2,
           name: "enable_star",
           description: "Estrela de modelo PRO"
         },
-        {id: 1,
+        {id: 3,
           name: "enable_create_button",
           description: "Habilitar botões"
         }
       ]
     }
 
-      const res = await fetch(`https://api.bioup.ai/models/${model.username}`, {
-        body: JSON.stringify(featureFlags),
+
+      const res = await fetch(`${process.env.NEXT_PUBLIC_DATABASE_URL}/models/${model.username}`, {
+        body: JSON.stringify({featureFlags}),
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${session?.user.token}`,
         },
         method: "PUT",
       });
-      console.log(res);
-    
   };
 
   const gender = ["mulheres", "casais", "trans", "homens"];
