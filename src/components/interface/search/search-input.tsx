@@ -13,6 +13,7 @@ export const SearchInput = ({ className, ...props }: SearchInputProps) => {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
+  const defaultValue = searchParams.get('query')
 
   const createQueryString = useCallback(
     (name: string, value: string) => {
@@ -72,6 +73,7 @@ export const SearchInput = ({ className, ...props }: SearchInputProps) => {
         type="text"
         className="bg-transparent outline-none max-w-[80%]"
         placeholder="Buscar modelos"
+        defaultValue={defaultValue || undefined}
         onKeyUp={handleSearchModels}
       />
       <button onClick={handleSearchModels} aria-label='Buscar modelos'>
