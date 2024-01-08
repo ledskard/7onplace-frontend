@@ -14,7 +14,8 @@ export const updateModelButtons = async ({
 }: UpdateModelButtonsProps): Promise<ModelsFilterProps> => {
   // const session = await getServerSession();
 
-  const res = await fetch(
+  const
+  res = await fetch(
     `${process.env.NEXT_PUBLIC_DATABASE_URL}/models/${slug}`,
     {
       next: { revalidate: 1 },
@@ -28,5 +29,6 @@ export const updateModelButtons = async ({
   );
   revalidateTagAPI("modelById");
 
+  
   return await res.json();
 };
