@@ -1,9 +1,7 @@
 import { FlexDiv } from "@/components/interface/flex-div";
-import { ModelsList } from "@/components/interface/models-list";
 import { Search } from "@/components/interface/search";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Suspense } from "react";
-import { Viewrs } from "./components/viewrs/index";
 
 import { BeProAndViewrsContainer } from "./components/be-pro-and-viewrs-container";
 import { ModelsListContainer } from "./models-list-container";
