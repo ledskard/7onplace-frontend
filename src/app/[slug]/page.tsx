@@ -56,6 +56,7 @@ export default async function Model({ params }: { params: { slug: string } }) {
                 but.title !== "" &&
                 but.url !== ""
               )
+              
                 return (
                   <ButtonSocialMedia
                     key={but.id}
