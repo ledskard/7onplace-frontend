@@ -452,7 +452,7 @@ export const CardModelEdit = ({
                   className="hidden"
                   type="file"
                   id="previewImages"
-                  accept="image/png, image/jpeg, image/webp, image/jpg image/gif"
+                  accept="image/png, image/jpeg, image/webp, image/jpg, image/gif"
                   multiple
                   onChange={handleSelectPreviewImages}
                 />
