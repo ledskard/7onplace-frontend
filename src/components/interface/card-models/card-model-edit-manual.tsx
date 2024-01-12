@@ -4,10 +4,7 @@ import { Pencil, XCircleIcon } from "lucide-react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { ComponentProps, useRef, useState } from "react";
-import { BsFillTrash3Fill } from "react-icons/bs";
 import { twMerge } from "tailwind-merge";
-import { EditModalContainer } from "../modal/edit-modal-container";
-
 import {
   Dialog,
   DialogClose,
@@ -20,14 +17,9 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { ModelsFilterProps } from "@/types/model/models-filter-props";
-import { delayLoadingAsyncRandom } from "@/utils/delay-loading-async-random";
 import { Form } from "../form-default";
-import z from "zod";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { FlexDiv } from "../flex-div";
 import Image from "next/image";
-import { FormError } from "../form-default/form-error";
 import {
   Select,
   SelectContent,
@@ -58,9 +50,9 @@ export const CardModelEdit = ({
   ...props
 }: CardModelsRootProps) => {
   const { data: session } = useSession();
-
+  
   const route = useRouter();
-
+  
   const [perfilImage, setPerfilImage] = useState<any>({
     name: model.profileImage.name || "default-profile.jpg",
     url: model.profileImage.url || "/default-profile.jpg",
@@ -71,6 +63,9 @@ export const CardModelEdit = ({
   const [genderData, setGenderData] = useState<string | null>(model.type);
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  
+  const [likesModel, setLikesModel] = useState<number>(model.likes); // AQUI
+
   const [name, setName] = useState<string>(model.username || "");
 
   const [telegramVipLink, setTelegramVipLink] = useState<string>(
@@ -164,6 +159,7 @@ export const CardModelEdit = ({
       telegramVip: telegramVipLink,
       telegramFree: telegramFreeLink,
       tiktok: tiktokLink,
+      likes: likesModel,
       twitter: twitterLink,
       instagram: instagramLink,
       type: genderData,
@@ -209,41 +205,6 @@ export const CardModelEdit = ({
         duration: 3000,
       });
     }
-    // if (modelUpdated.instagram === "" || modelUpdated.instagram.length === 0) {
-    //   setIsLoading(false);
-    //   return toast({
-    //     title:
-    //       "❌ Não foi possível atualizar a modelo! Campo instagram inválido...",
-    //     duration: 3000,
-    //   });
-    // }
-    // if (modelUpdated.tiktok === "" || modelUpdated.tiktok.length === 0) {
-    //   setIsLoading(false);
-    //   return toast({
-    //     title:
-    //       "❌ Não foi possível atualizar a modelo! Campo tiktok inválido...",
-    //     duration: 3000,
-    //   });
-    // }
-    // if (modelUpdated.twitter === "" || modelUpdated.twitter.length === 0) {
-    //   setIsLoading(false);
-    //   return toast({
-    //     title:
-    //       "❌ Não foi possível atualizar a modelo! Campo twitter inválido...",
-    //     duration: 3000,
-    //   });
-    // // }
-    // if (
-    //   modelUpdated.description === "" ||
-    //   modelUpdated.description.length === 0
-    // ) {
-    //   setIsLoading(false);
-    //   return toast({
-    //     title:
-    //       "❌ Não foi possível atualizar a modelo! Campo descrição inválido...",
-    //     duration: 3000,
-    //   });
-    // }
 
     if (displayImages.length === 0) {
       setIsLoading(false);
@@ -280,6 +241,42 @@ export const CardModelEdit = ({
       title: "❌ Não foi possível editar a modelo!",
       duration: 3000,
     });
+
+    // if (modelUpdated.instagram === "" || modelUpdated.instagram.length === 0) {
+    //   setIsLoading(false);
+    //   return toast({
+    //     title:
+    //       "❌ Não foi possível atualizar a modelo! Campo instagram inválido...",
+    //     duration: 3000,
+    //   });
+    // }
+    // if (modelUpdated.tiktok === "" || modelUpdated.tiktok.length === 0) {
+    //   setIsLoading(false);
+    //   return toast({
+    //     title:
+    //       "❌ Não foi possível atualizar a modelo! Campo tiktok inválido...",
+    //     duration: 3000,
+    //   });
+    // }
+    // if (modelUpdated.twitter === "" || modelUpdated.twitter.length === 0) {
+    //   setIsLoading(false);
+    //   return toast({
+    //     title:
+    //       "❌ Não foi possível atualizar a modelo! Campo twitter inválido...",
+    //     duration: 3000,
+    //   });
+    // // }
+    // if (
+    //   modelUpdated.description === "" ||
+    //   modelUpdated.description.length === 0
+    // ) {
+    //   setIsLoading(false);
+    //   return toast({
+    //     title:
+    //       "❌ Não foi possível atualizar a modelo! Campo descrição inválido...",
+    //     duration: 3000,
+    //   });
+    // }
   };
 
   const handleDeleteImage = (name: string) => {
@@ -372,6 +369,11 @@ export const CardModelEdit = ({
                     <label className="text-slate-950">Modelo PRO</label>
                   </div>
                 </FlexDiv>
+                <FlexDiv className="mx-auto">
+                  <Button type="button" onClick={() => setLikesModel( likesModel - 100)} className="max-w-fit p-2 h-fit py-0">-100</Button>
+                  <p className="max-w-fit">Likes: {likesModel}</p>
+                  <Button type="button" onClick={() => setLikesModel( likesModel + 100)} className="max-w-fit p-2 h-fit py-0">+100</Button>
+                </FlexDiv>
                 <input
                   type="text"
                   placeholder="Nome da modelo"
@@ -379,7 +381,6 @@ export const CardModelEdit = ({
                   onChange={(e) => setName(e.target.value)}
                   className="outline-none border-b-2 px-2 py-1 md:p-3 drop-shadow-md disabled:bg-inherit border-slate-200 rounded md:rounded-lg placeholder:text-slate-400"
                 />
-
                 <Select onValueChange={setGenderData}>
                   <SelectTrigger value={model.type ?? "Gênero"}>
                     <SelectValue
