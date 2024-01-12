@@ -36,12 +36,12 @@ export const Header = ({ className, ...props }: HeaderProps) => {
       >
         <Navbar className="max-w-[1920px] px-6 w-full gap-3">
           {pathName === null ? (
-            <Logo href={"https://7onsexy.com"} />
+            <Logo href={"https://7onplace.com.br"} />
           ) : (
             <ReturnToHomeButton className="sm:hidden block" />
           )}
           {pathName !== null && (
-            <Logo href={"https://7onsexy.com"} className="sm:block hidden" />
+            <Logo href={"https://7onplace.com.br"} className="sm:block hidden" />
           )}
           {pathName === null && (
             <Search.Input className="sm:hidden flex border-white bg-white" />
