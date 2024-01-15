@@ -441,14 +441,6 @@ export const CardModelEdit = ({
                   onChange={(e) => setTiktokLink(e.target.value)}
                 />
 
-                <textarea
-                  placeholder="Descrição da modelo"
-                  defaultValue={model.description}
-                  rows={6}
-                  value={description}
-                  onChange={(e) => setDescription(e.target.value)}
-                />
-
                 <input
                   className="hidden"
                   type="file"

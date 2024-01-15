@@ -49,6 +49,7 @@ export const ListModelsCardsWithAdds = ({
     </section>
   );
 };
+
 const CardModel = ({ model }: { model: ModelsFilterProps }) => {
   const username = model.username;
   const cleanUsername = username.replace(/\s+/g, "");
