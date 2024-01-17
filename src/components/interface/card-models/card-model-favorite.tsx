@@ -33,7 +33,6 @@ export const CardModelFavorite = ({
     e.stopPropagation();
 
     const likedModels = JSON.parse(localStorage.getItem("likedModels") || "[]");
-    likedModels.includes(modelName)
     if (isLiked) {
       setCount(count - 1);
     } else {
