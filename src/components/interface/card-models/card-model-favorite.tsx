@@ -31,7 +31,7 @@ export const CardModelFavorite = ({
       setCount(count - 1);
     } else {
       setCount(count + 1);
-      await incrementLike(modelName);
+      // await incrementLike(modelName);
     }
   };
 

@@ -361,17 +361,6 @@ export const FormRegisterContainer = () => {
         register={register}
       />
 
-      <Form.Area
-        register={register}
-        id="description"
-        error={!!errors.description}
-        helperText={
-          errors.description && errors.description.message?.toString()
-        }
-        placeholder="Descrição da modelo"
-        rows={6}
-        cols={50}
-      />
 
       <label
         htmlFor="images"
