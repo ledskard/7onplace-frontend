@@ -1,6 +1,6 @@
 "use client";
 
-import { ComponentProps, MouseEvent, useState } from "react";
+import { ComponentProps, MouseEvent, useEffect, useState } from "react";
 import { twMerge } from "tailwind-merge";
 import { AiFillHeart } from "react-icons/ai";
 import { normalizeFavorites } from "@/utils/normalize-favorites";
@@ -19,20 +19,33 @@ export const CardModelFavorite = ({
 }: CardModelFavoriteProps) => {
   const [isLiked, setIsLiked] = useState(false);
   const [count, setCount] = useState(favorites);
+  useEffect(() => {
+    const likedModels = JSON.parse(localStorage.getItem("likedModels") || "[]");
+    if (likedModels.includes(modelName)) {
+      setIsLiked(true);
+    }
+  }, [modelName]);
+
 
   const handleLike = async (
     e: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>
   ) => {
     e.stopPropagation();
 
-    setIsLiked(!isLiked);
-
+    const likedModels = JSON.parse(localStorage.getItem("likedModels") || "[]");
+    likedModels.includes(modelName)
     if (isLiked) {
       setCount(count - 1);
     } else {
       setCount(count + 1);
-      // await incrementLike(modelName);
+      localStorage.setItem("likedModels", JSON.stringify([...likedModels, modelName]));
+      if(!likedModels.includes(modelName)){
+        await incrementLike(modelName);
+      }
+
     }
+
+    setIsLiked(!isLiked);
   };
 
   return (
