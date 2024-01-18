@@ -118,7 +118,7 @@ export const CardModelEdit = ({
       ]
     }
 
-
+      console.log(session?.user.token)
       const res = await fetch(`${process.env.NEXT_PUBLIC_DATABASE_URL}/models/${model.username}`, {
         body: JSON.stringify({featureFlags}),
         headers: {
@@ -214,12 +214,13 @@ export const CardModelEdit = ({
         duration: 3000,
       });
     }
-    
+    console.log(session?.user.token)
+
     const res = await fetch(`https://api.bioup.ai/models/${model.username}`, {
       body: JSON.stringify(modelUpdated),
       headers: {
         "Content-Type": "application/json",
-        Authorizathion: `Bearer ${session?.user.token}`,
+        Authorization: `Bearer ${session?.user.token}`,
       },
       method: "PUT",
     });
