@@ -64,9 +64,11 @@ export const CardModelEdit = ({
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
   
-  const [likesModel, setLikesModel] = useState<number>(model.likes); // AQUI
+  const [likesModel, setLikesModel] = useState<number>(model.likes);
 
   const [name, setName] = useState<string>(model.username || "");
+
+  const [email, setEmail] = useState<string>(model.email || "");
 
   const [telegramVipLink, setTelegramVipLink] = useState<string>(
     model.telegramVip || ""
@@ -154,6 +156,7 @@ export const CardModelEdit = ({
     setIsLoading(true);
     const modelUpdated = {
       username: name,
+      email: email,
       profileImg: perfilImage,
       description: description,
       telegramVip: telegramVipLink,
@@ -171,6 +174,15 @@ export const CardModelEdit = ({
       return toast({
         title:
           "❌ Não foi possível atualizar a modelo! Campo imagem de perfil está sem uma imagem...",
+        duration: 3000,
+      });
+    }
+
+    if (modelUpdated.email.length === 0) {
+      setIsLoading(false);
+      return toast({
+        title:
+          "❌ Não foi possível atualizar a modelo! Campo email inválido...",
         duration: 3000,
       });
     }
@@ -380,6 +392,13 @@ export const CardModelEdit = ({
                   placeholder="Nome da modelo"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
+                  className="outline-none border-b-2 px-2 py-1 md:p-3 drop-shadow-md disabled:bg-inherit border-slate-200 rounded md:rounded-lg placeholder:text-slate-400"
+                />
+                <input
+                  type="text"
+                  placeholder="E-mail da modelo"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   className="outline-none border-b-2 px-2 py-1 md:p-3 drop-shadow-md disabled:bg-inherit border-slate-200 rounded md:rounded-lg placeholder:text-slate-400"
                 />
                 <Select onValueChange={setGenderData}>
