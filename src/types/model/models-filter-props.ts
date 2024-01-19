@@ -13,6 +13,7 @@ export type Flags = {
 
 export type ModelsFilterProps = {
   username: string;
+  email: string;
   id: string;
   location: string;
   description: string;
