@@ -120,8 +120,7 @@ export const CardModelEdit = ({
       ]
     }
 
-      console.log(session?.user.token)
-      const res = await fetch(`${process.env.NEXT_PUBLIC_DATABASE_URL}/models/${model.username}`, {
+      await fetch(`${process.env.NEXT_PUBLIC_DATABASE_URL}/models/${model.username}`, {
         body: JSON.stringify({featureFlags}),
         headers: {
           "Content-Type": "application/json",
@@ -168,6 +167,15 @@ export const CardModelEdit = ({
       type: genderData,
       images: displayImages,
     };
+
+    if (likesModel && !isPro) {
+      setIsLoading(false);
+      return toast({
+        title:
+          "❌ Não foi possível atualizar a modelo! Para adicionar likes a modelo deve ser PREMIUM antes",
+        duration: 3000,
+      });
+    }
 
     if (modelUpdated.profileImg.length === 0) {
       setIsLoading(false);
