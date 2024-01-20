@@ -54,8 +54,8 @@ export const CardModelEdit = ({
   const route = useRouter();
   
   const [perfilImage, setPerfilImage] = useState<any>({
-    name: model.profileImage.name || "default-profile.jpg",
-    url: model.profileImage.url || "/default-profile.jpg",
+    name: model.profileImage && model.profileImage.name && model.profileImage.name || "default-profile.jpg",
+    url: model.profileImage && model.profileImage.url && model.profileImage.url || "/default-profile.jpg",
   });
 
   const [displayImages, setDisplayImages] = useState<any>(model.images || []);
