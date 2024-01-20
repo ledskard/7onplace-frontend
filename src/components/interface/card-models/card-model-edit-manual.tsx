@@ -141,7 +141,7 @@ export const CardModelEdit = ({
       reader.onload = (e) => {
         const base64Image = e?.target?.result;
         setPerfilImage({
-          name: file.name,
+          name: file.name || "",
           base64: base64Image,
         });
       };
@@ -154,7 +154,7 @@ export const CardModelEdit = ({
     e.preventDefault();
     setIsLoading(true);
     const modelUpdated = {
-      username: name,
+      username: name || "",
       email: email,
       profileImg: perfilImage,
       description: description,
@@ -301,7 +301,7 @@ export const CardModelEdit = ({
   };
 
   const handleDeleteImage = (name: string) => {
-    setDisplayImages((prev: any[]) => prev.filter((img) => img.name !== name));
+    setDisplayImages((prev: any[]) => prev.filter((img) => img.name && img.name !== name));
   };
 
   const handleSelectPreviewImages = (e: any) => {
@@ -316,7 +316,7 @@ export const CardModelEdit = ({
           setDisplayImages((prevImages: any) => [
             ...prevImages,
             {
-              name: file.name,
+              name: file.name || "",
               base64: base64Image,
             },
           ]);
@@ -398,7 +398,7 @@ export const CardModelEdit = ({
                 <input
                   type="text"
                   placeholder="Nome da modelo"
-                  value={name}
+                  value={name || ""}
                   onChange={(e) => setName(e.target.value)}
                   className="outline-none border-b-2 px-2 py-1 md:p-3 drop-shadow-md disabled:bg-inherit border-slate-200 rounded md:rounded-lg placeholder:text-slate-400"
                 />
@@ -487,12 +487,12 @@ export const CardModelEdit = ({
                   {displayImages?.length > 0 &&
                     displayImages?.map((img: any) => (
                       <div
-                        key={img.name ?? img.base64}
+                        key={(img.name ?? img.base64) || ""}
                         className="relative p-2 h-full flex items-center justify-center m-2"
                       >
                         <button
                           className="absolute top-0 right-0"
-                          onClick={() => handleDeleteImage(img.name)}
+                          onClick={() => handleDeleteImage(img.name || "")}
                         >
                           <XCircleIcon />
                         </button>
@@ -501,7 +501,7 @@ export const CardModelEdit = ({
                           src={img.url ?? img.base64}
                           width={400}
                           height={400}
-                          alt={img.name}
+                          alt={img.name || ""}
                         />
                       </div>
                     ))}
