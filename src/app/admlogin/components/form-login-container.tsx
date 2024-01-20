@@ -35,35 +35,37 @@ export const FormLoginContainer = () => {
   };
 
   return (
-    <Form.Root
-      onSubmit={handleSubmit(handleSubmitLogin)}
-      className="m-auto"
-    >
-      <Form.Logo />
-      <Form.Input
-        type="text"
-        register={register}
-        id="username"
-        placeholder="Nome de usuário"
-        success={errors.username ? false : true}
-        error={errors.username ? true : false}
-        helperText={errors.username?.message}
-      />
-      <Form.Input
-        type="password"
-        register={register}
-        id="password"
-        placeholder="Senha"
-        success={errors.password ? false : true}
-        error={errors.password ? true : false}
-        helperText={errors.password?.message}
-      />
-      <Button
-        type="submit"
-        className="rounded-md max-w-[40%] md:max-w-[40%] mt-4"
+    <section className="flex flex-col h-[calc(100vh)] items-center justify-center">
+      <Form.Root
+        onSubmit={handleSubmit(handleSubmitLogin)}
+        className="m-auto my-0"
       >
-        {isSubmitting ? "Logando..." : "Fazer Login"}
-      </Button>
-    </Form.Root>
+        <Form.Logo />
+        <Form.Input
+          type="text"
+          register={register}
+          id="username"
+          placeholder="Nome de usuário"
+          success={errors.username ? false : true}
+          error={errors.username ? true : false}
+          helperText={errors.username?.message}
+        />
+        <Form.Input
+          type="password"
+          register={register}
+          id="password"
+          placeholder="Senha"
+          success={errors.password ? false : true}
+          error={errors.password ? true : false}
+          helperText={errors.password?.message}
+        />
+        <Button
+          type="submit"
+          className="rounded-md max-w-[40%] md:max-w-[40%] mt-4"
+        >
+          {isSubmitting ? "Logando..." : "Fazer Login"}
+        </Button>
+      </Form.Root>
+    </section>
   );
 };

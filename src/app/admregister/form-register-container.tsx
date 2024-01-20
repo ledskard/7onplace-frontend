@@ -53,6 +53,8 @@ export const FormRegisterContainer = () => {
   const registerSchema = z.object({
     username: z.string().min(2, "Campo nome deve conter pelo menos 2 dígitos"),
 
+    email: z.string().email("E-mail inválido"),
+
     profileImg: z
       .any()
       .refine((files: Array<File>) => {
@@ -289,6 +291,15 @@ export const FormRegisterContainer = () => {
         helperText={errors.username?.message?.toString()}
         success={!errors.username}
         error={!!errors.username}
+        register={register}
+      />
+      <Form.Input
+        wf
+        id="email"
+        placeholder="E-mail"
+        helperText={errors.email?.message?.toString()}
+        success={!errors.email}
+        error={!!errors.email}
         register={register}
       />
 
