@@ -28,7 +28,7 @@ export const authOptions: NextAuthOptions = {
         }
 
         const user = await response.json();
-        console.log(user)
+
         if (!user) {
           throw new Error("User not found");
         }
@@ -39,7 +39,8 @@ export const authOptions: NextAuthOptions = {
   ],
   callbacks: {
     async session({ session, token }) {
-      if (token) {
+
+      if (token) {        
         session = {
           ...session,
           user: {
@@ -51,6 +52,7 @@ export const authOptions: NextAuthOptions = {
       }
       return session;
     },
+
     async jwt({ token, user }) {
       if (user) {
         token.token = user.token;

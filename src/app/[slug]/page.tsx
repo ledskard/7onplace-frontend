@@ -23,7 +23,7 @@ export default async function Model({ params }: { params: { slug: string } }) {
   const [dataModel, session] = await Promise.all([findDataModel, findSession]);
 
   return (
-    <main className="w-10/12 max-w-xl mx-auto m-auto flex flex-col items-center justify-center sm:py-4 mt-6">
+    <main className="w-10/12 max-w-xl mx-auto m-auto flex flex-col items-center justify-center sm:py-4 lg:mt-6">
       <ReturnToHomeButton className="sm:flex hidden absolute sm:h-auto text-red-main sm:top-16 left-7 xl:left-20 sm:left-10 items-center border-red-main mb-4" />
       <div className="w-full md:my-4 my-10">
         <CarouselRoot model={dataModel} />
