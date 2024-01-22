@@ -176,6 +176,7 @@ export const CardModelEdit = ({
     //     duration: 3000,
     //   });
     // }
+    
 
     if (modelUpdated.profileImg.length === 0) {
       setIsLoading(false);
