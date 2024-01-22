@@ -13,7 +13,7 @@ export const updateModelButtons = async ({
   slug,
 }: UpdateModelButtonsProps): Promise<ModelsFilterProps> => {
   const session = await getServerSession();
-  console.log(session)
+  
   const
   res = await fetch(
     `${process.env.NEXT_PUBLIC_DATABASE_URL}/models/${slug}`,
