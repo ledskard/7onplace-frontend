@@ -176,16 +176,7 @@ export const CardModelEdit = ({
           "❌ Não foi possível atualizar a modelo! Campo imagem de perfil está sem uma imagem...",
         duration: 3000,
       });
-    }
-
-    if (modelUpdated.email.length === 0) {
-      setIsLoading(false);
-      return toast({
-        title:
-          "❌ Não foi possível atualizar a modelo! Campo email inválido...",
-        duration: 3000,
-      });
-    }
+    }/
 
     if (modelUpdated.type === null) {
       setIsLoading(false);
