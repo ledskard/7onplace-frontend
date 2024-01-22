@@ -168,14 +168,14 @@ export const CardModelEdit = ({
       images: displayImages,
     };
 
-    if (likesModel && !isPro) {
-      setIsLoading(false);
-      return toast({
-        title:
-          "❌ Não foi possível atualizar a modelo! Para adicionar likes a modelo deve ser PREMIUM antes",
-        duration: 3000,
-      });
-    }
+    // if (likesModel && !isPro) {
+    //   setIsLoading(false);
+    //   return toast({
+    //     title:
+    //       "❌ Não foi possível atualizar a modelo! Para adicionar likes a modelo deve ser PREMIUM antes",
+    //     duration: 3000,
+    //   });
+    // }
 
     if (modelUpdated.profileImg.length === 0) {
       setIsLoading(false);
