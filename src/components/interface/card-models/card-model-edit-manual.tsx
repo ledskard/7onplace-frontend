@@ -61,6 +61,7 @@ export const CardModelEdit = ({
   const [displayImages, setDisplayImages] = useState<any>(model.images || []);
 
   const [genderData, setGenderData] = useState<string | null>(model.type);
+  console.log(genderData)
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
   
@@ -399,10 +400,11 @@ export const CardModelEdit = ({
                   onChange={(e) => setEmail(e.target.value)}
                   className="outline-none border-b-2 px-2 py-1 md:p-3 drop-shadow-md disabled:bg-inherit border-slate-200 rounded md:rounded-lg placeholder:text-slate-400"
                 />
-                <Select onValueChange={setGenderData}>
-                  <SelectTrigger value={model.type ?? "Gênero"}>
+                <Select onValueChange={setGenderData} defaultValue={genderData ?? "Gênero"}>
+                  <SelectTrigger value={genderData ?? "Gênero"}>
                     <SelectValue
                       placeholder="Gênero"
+                      defaultValue={genderData ?? 'Gênero'}
                       className="text-gray-300"
                     />
                   </SelectTrigger>
