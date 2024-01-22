@@ -176,7 +176,7 @@ export const CardModelEdit = ({
           "❌ Não foi possível atualizar a modelo! Campo imagem de perfil está sem uma imagem...",
         duration: 3000,
       });
-    }/
+    }
 
     if (modelUpdated.type === null) {
       setIsLoading(false);
