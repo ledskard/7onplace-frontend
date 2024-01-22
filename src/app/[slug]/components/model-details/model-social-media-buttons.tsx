@@ -20,10 +20,15 @@ type ButtonProps = ComponentProps<"button"> & {
   modelSlug: string;
 };
 
-const removeButton = async (
+type RemoveButtonProps = {
   buttonId: string,
   modelButtons: ModelButtonsProps[],
-  modelSlug: string
+  modelSlug: string,
+  token: string
+}
+
+const removeButton = async (
+  {buttonId, modelButtons, modelSlug, token}: RemoveButtonProps
 ) => {
   const buttonsWithoutDeletedButton = modelButtons.filter(
     (but) => but.id !== buttonId
@@ -32,6 +37,7 @@ const removeButton = async (
   const modeloUpdated = await updateModelButtons({
     buttons: buttonsWithoutDeletedButton,
     slug: modelSlug,
+    token
   });
 
   if (!modeloUpdated) {
@@ -72,7 +78,12 @@ export const ButtonSocialMedia = ({
       {session?.user.token && (
         <Trash
           className="absolute z-50 top-1 right-1 text-white w-7 h-7 rounded-md p-1"
-          onClick={() => removeButton(buttonId, modelButtons, modelSlug)}
+          onClick={() => removeButton({
+            buttonId,
+            modelButtons,
+            modelSlug,
+            token: session.user.token
+          })}
         />
       )}
     </button>

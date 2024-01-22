@@ -28,7 +28,7 @@ export async function middleware(request: NextRequest) {
 
       const tokenIsExpired = new Date() < new Date(tokenPayload.exp)
 
-      if (!tokenIsExpired) {
+      if (tokenIsExpired) {
 
         response.cookies.delete('next-auth.session-token')
         response.cookies.delete('next-auth.callback-url')

@@ -1,19 +1,19 @@
 import revalidateTagAPI from "@/actions/revalidateTag";
 import { ModelButtonsProps } from "@/app/[slug]/components/model-details/model-social-media-buttons";
 import { ModelsFilterProps } from "@/types/model/models-filter-props";
-import { getServerSession } from "next-auth";
 
 type UpdateModelButtonsProps = {
   buttons: ModelButtonsProps[];
   slug: string;
+  token: string
 };
 
 export const updateModelButtons = async ({
   buttons,
   slug,
+  token
 }: UpdateModelButtonsProps): Promise<ModelsFilterProps> => {
-  const session = await getServerSession();
-  
+
   const
   res = await fetch(
     `${process.env.NEXT_PUBLIC_DATABASE_URL}/models/${slug}`,
@@ -22,7 +22,7 @@ export const updateModelButtons = async ({
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
-        Authorization: "Bearer " + session?.user.token,
+        Authorization: "Bearer " + token,
       },
       body: JSON.stringify({ buttons }),
     }
