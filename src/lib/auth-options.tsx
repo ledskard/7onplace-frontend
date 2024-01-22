@@ -1,5 +1,9 @@
+'use server'
+
 import { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+
+
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -39,7 +43,8 @@ export const authOptions: NextAuthOptions = {
   ],
   callbacks: {
     async session({ session, token }) {
-      if (token) {
+
+      if (token) {        
         session = {
           ...session,
           user: {
@@ -51,6 +56,7 @@ export const authOptions: NextAuthOptions = {
       }
       return session;
     },
+
     async jwt({ token, user }) {
       if (user) {
         token.token = user.token;
