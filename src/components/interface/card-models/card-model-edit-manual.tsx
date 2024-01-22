@@ -234,7 +234,6 @@ export const CardModelEdit = ({
         duration: 3000,
       });
     }
-    console.log(session?.user.token)
 
     const res = await fetch(`https://api.bioup.ai/models/${model.username}`, {
       body: JSON.stringify(modelUpdated),

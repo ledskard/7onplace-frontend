@@ -1,9 +1,6 @@
 
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
-import { cookies } from "next/headers"
-import { getServerSession } from 'next-auth';
-import { getSession } from 'next-auth/react';
 import { getToken } from 'next-auth/jwt';
 import jwt from 'jsonwebtoken'
 
@@ -20,7 +17,7 @@ export async function middleware(request: NextRequest) {
     const session = await getToken({
       req: request,
     });
-    console.log('session: ', session)
+
 
     if (session?.token) {
       const tokenPayload = jwt.decode(session?.token) as {
@@ -32,7 +29,6 @@ export async function middleware(request: NextRequest) {
       const tokenIsExpired = new Date() < new Date(tokenPayload.exp)
 
       if (!tokenIsExpired) {
-        console.log('removendo cookies - deslogou')
 
         response.cookies.delete('next-auth.session-token')
         response.cookies.delete('next-auth.callback-url')

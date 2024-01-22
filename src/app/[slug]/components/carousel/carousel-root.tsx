@@ -62,7 +62,8 @@ export const CarouselRoot = ({ model }: CarouselContentProps) => {
                 className="sm:max-h-auto max-h-[450px] object-center object-contain rounded-md"
               />
             </SwiperSlide>
-          ))}
+          ))
+        }
 
         <Carousel.CenterButtonDiv>
           <Carousel.BorderButton>
@@ -82,7 +83,7 @@ export const CarouselRoot = ({ model }: CarouselContentProps) => {
       <FlexDiv className="px-4">
         <FlexDiv col className="flex-1">
           <FlexDiv>
-            <PerfilImage src={model.profileImage.url} alt={model.username} />
+            <PerfilImage src={model.profileImage.url ?? '/default-profile.jpg'} alt={model.username} />
             <Card.Name>{model.username}</Card.Name>
           </FlexDiv>
           <FlexDiv>
