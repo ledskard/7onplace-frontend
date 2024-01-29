@@ -72,7 +72,7 @@ const CardModel = ({ model }: { model: ModelsFilterProps }) => {
           })}
 
         <Card.Actions>
-          <Card.Delete modelId={model.id} />
+          <Card.Delete modelId={model.username} />
           <Card.Edit model={model} />
         </Card.Actions>
         <Link
