@@ -26,7 +26,7 @@ export async function middleware(request: NextRequest) {
 
       if (typeof tokenPayload === "string" || !tokenPayload) return session
 
-      const tokenIsExpired = new Date() < new Date(tokenPayload.exp)
+      const tokenIsExpired = new Date() > new Date(tokenPayload.exp)
 
       if (tokenIsExpired) {
 

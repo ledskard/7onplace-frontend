@@ -61,7 +61,6 @@ export const CardModelEdit = ({
   const [displayImages, setDisplayImages] = useState<any>(model.images || []);
 
   const [genderData, setGenderData] = useState<string | null>(model.type);
-  console.log(genderData)
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
   

@@ -27,7 +27,6 @@ export const CardModelDelete = ({
           Authorizathion: `Bearer ${session?.user.token}`,
         },
       });
-
       if (res) {
         toast({
           title: `✅ Modelo deletada`,
