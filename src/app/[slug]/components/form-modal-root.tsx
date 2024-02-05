@@ -49,6 +49,7 @@ export const FormModalRoot = ({ model }: { model: ModelsFilterProps }) => {
         body: JSON.stringify({ ...model, buttons: [...buttons, data] }),
       });
       const result = await res.json()
+      
       if(result.status === 401){
         signOut()
       }

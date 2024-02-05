@@ -225,12 +225,14 @@ export const FormRegisterContainer = () => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorizathion: `Bearer ${session?.user.token}`,
+        Authorization: `Bearer ${session?.user.token}`,
       },
       body: JSON.stringify(modelData),
     });
-
+    
     const result = await res.json();
+    
+    console.log(result)
     if(result.status === 401){
       signOut()
     }
