@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useParams } from "next/navigation";
-import { useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import { ModelsFilterProps } from "@/types/model/models-filter-props";
 import { useState } from "react";
 import revalidateTagAPI from "@/actions/revalidateTag";
@@ -40,7 +40,7 @@ export const FormModalRoot = ({ model }: { model: ModelsFilterProps }) => {
 
   const handleAddButton = async (data: EditModelButtonSchemaProps) => {
     try {
-      await fetch(`${process.env.NEXT_PUBLIC_DATABASE_URL}/models/${slug}`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_DATABASE_URL}/models/${slug}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -48,6 +48,10 @@ export const FormModalRoot = ({ model }: { model: ModelsFilterProps }) => {
         },
         body: JSON.stringify({ ...model, buttons: [...buttons, data] }),
       });
+      const result = await res.json()
+      if(result.status === 401){
+        signOut()
+      }
       revalidateTagAPI("modelById");
       reset();
       setButtons((prev) => prev.concat(data));

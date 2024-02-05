@@ -1,7 +1,7 @@
 "use client";
 import { toast } from "@/components/ui/use-toast";
 import { Pencil, XCircleIcon } from "lucide-react";
-import { useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { ComponentProps, useRef, useState } from "react";
 import { twMerge } from "tailwind-merge";
@@ -120,7 +120,7 @@ export const CardModelEdit = ({
       ]
     }
 
-      await fetch(`${process.env.NEXT_PUBLIC_DATABASE_URL}/models/${model.username}`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_DATABASE_URL}/models/${model.username}`, {
         body: JSON.stringify({featureFlags}),
         headers: {
           "Content-Type": "application/json",
@@ -128,6 +128,10 @@ export const CardModelEdit = ({
         },
         method: "PUT",
       });
+      const result = await res.json()
+      if(result.status === 401){
+        signOut()
+      }
   };
 
   const gender = ["mulheres", "casais", "trans", "homens"];
@@ -227,7 +231,9 @@ export const CardModelEdit = ({
     });
 
     const result = await res.json();
-
+    if(result.status === 401){
+      signOut()
+    }
     if (result.id) {
       setIsLoading(false);
       toast({

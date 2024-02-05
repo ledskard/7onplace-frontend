@@ -21,7 +21,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { location } from "../config/location";
 import { XCircleIcon } from "lucide-react";
 import { toast } from "@/components/ui/use-toast";
-import { useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 
 const maxFileSize = 1024 * 1024 * 10; // 10MB
 
@@ -231,7 +231,9 @@ export const FormRegisterContainer = () => {
     });
 
     const result = await res.json();
-
+    if(result.status === 401){
+      signOut()
+    }
     if (result.success) {
       reset();
       toast({

@@ -1,6 +1,6 @@
 "use client";
 import { toast } from "@/components/ui/use-toast";
-import { useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { ComponentProps } from "react";
 import { BsFillTrash3Fill } from "react-icons/bs";
@@ -34,6 +34,9 @@ export const CardModelDelete = ({
         });
       }
       route.refresh();
+      if(res.status === 401){
+        signOut()
+      }
     } catch (error) {
       toast({
         title: "❌ Não foi possível deletar a modelo",

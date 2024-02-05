@@ -23,6 +23,7 @@ export const authOptions: NextAuthOptions = {
             body: JSON.stringify({ username, password }),
           }
         );
+        
         if (response.status !== 200) {
           throw new Error("User not found");
         }
