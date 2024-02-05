@@ -24,7 +24,7 @@ export const CardModelDelete = ({
       const res = await fetch(`https://api.bioup.ai/models/${modelId}`, {
         method: "DELETE",
         headers: {
-          Authorizathion: `Bearer ${session?.user.token}`,
+          Authorization: `Bearer ${session?.user.token}`,
         },
       });
       if (res) {
