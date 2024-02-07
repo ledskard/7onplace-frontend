@@ -22,7 +22,5 @@ export const modelAddsConfig: ModelAddsConfigProps = {
       href: 'https://t.me/addlist/oaq3ePbadGQ0NzIx',
       alt: 'ad 7onsexy',
     }
-    
-
   ] 
 }
