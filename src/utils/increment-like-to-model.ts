@@ -2,7 +2,7 @@ import revalidateTagAPI from "@/actions/revalidateTag";
 
 export const incrementLike = async (slug: string) => {
   try {
-    if(slug.toLowerCase() === "MorenaMineira".toLowerCase() || slug.toLowerCase() === "PollyannaPersch".toLowerCase()){
+    if(slug.toLowerCase() === "MorenaMineira".toLowerCase() || slug.toLowerCase() === "PollyannaPersch".toLowerCase() || slug.toLocaleLowerCase() === "maricasada"){
       return
     }
     const res = await fetch(
