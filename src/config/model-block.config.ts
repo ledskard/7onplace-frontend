@@ -1,0 +1,1 @@
+export const blockedModelConfig = ['MariCasada', 'MorenaMineira', 'PollyannaPersch', 'SafiraSatto']
