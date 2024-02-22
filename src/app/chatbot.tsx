@@ -35,7 +35,7 @@ function ChatbotIframe() {
             )}
             {!isOpen && (
                 <div className="w-17 h-17 md:w-20 md:h-20 rounded-full overflow-hidden flex items-center justify-center ">
-                    <img src="/7onplace-chatbot-logo.jpg" alt="Chat Icon" className="w-full h-full object-cover" />
+                    <img src="https://7onsexycatalogo.s3.amazonaws.com/Suporte+7+On+Place.png" alt="Chat Icon" className="w-full h-full object-cover" />
                 </div>
             )}
 
