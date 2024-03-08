@@ -19,8 +19,8 @@ export const modelAddsConfig: ModelAddsConfigProps = {
   ads: [
     {
       image: '/template-ads.png',
-      href: 'https://t.me/addlist/rXc1gGZkCTo4OTVh',
+      href: 'https://t.me/addlist/LhHaT46TXhtkMjAx',
       alt: 'ad 7onsexy',
     }
-  ] 
+  ]
 }
