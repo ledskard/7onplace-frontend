@@ -48,7 +48,7 @@ export default async function Model({ params }: { params: { slug: string } }) {
           </a>
 
           <a href={dataModel.telegramFree} target="_blank">
-            <Button>canal free</Button>
+            <Button>telegram free</Button>
           </a>
           {dataModel.buttons &&
             dataModel.buttons.length > 0 &&
