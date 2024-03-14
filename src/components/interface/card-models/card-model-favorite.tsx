@@ -27,25 +27,30 @@ export const CardModelFavorite = ({
   }, [modelName]);
 
 
-  const handleLike = async (
-    e: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>
-  ) => {
+  const handleLike = async (e: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>) => {
     e.stopPropagation();
 
-    const likedModels = JSON.parse(localStorage.getItem("likedModels") || "[]");
-    if (isLiked) {
+    // Busca os modelos curtidos do armazenamento local.
+    const likedModels: any = JSON.parse(localStorage.getItem("likedModels") || "[]");
+    const isCurrentlyLiked = likedModels.includes(modelName);
+
+    if (isCurrentlyLiked) {
+      // @ts-ignore
+      const newLikedModels = likedModels.filter(model => model !== modelName);
+      localStorage.setItem("likedModels", JSON.stringify(newLikedModels));
       setCount(count - 1);
-      setIsLiked(!isLiked);
     } else {
-      setCount(count + 1);
-      setIsLiked(isLiked);
+      // Se não está curtido, adiciona o modelo aos curtidos e incrementa o contador.
       localStorage.setItem("likedModels", JSON.stringify([...likedModels, modelName]));
-      if (!likedModels.includes(modelName)) {
-        await incrementLike(modelName);
-      }
+      setCount(count + 1);
+      // Só chama incrementLike se o modelo realmente não estava curtido antes.
+      await incrementLike(modelName);
     }
 
+    // Atualiza o estado de curtido.
+    setIsLiked(!isLiked);
   };
+
 
   return (
     <button
