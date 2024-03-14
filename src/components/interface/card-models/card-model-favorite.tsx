@@ -35,16 +35,17 @@ export const CardModelFavorite = ({
     const likedModels = JSON.parse(localStorage.getItem("likedModels") || "[]");
     if (isLiked) {
       setCount(count - 1);
+      setIsLiked(!isLiked);
     } else {
       setCount(count + 1);
+      setIsLiked(isLiked);
       localStorage.setItem("likedModels", JSON.stringify([...likedModels, modelName]));
-      if(!likedModels.includes(modelName)){
+      if (!likedModels.includes(modelName)) {
         await incrementLike(modelName);
       }
 
     }
 
-    setIsLiked(!isLiked);
   };
 
   return (
