@@ -33,7 +33,6 @@ export const ListModelsCardsWithAdds = ({
         const isVisibleAdds =
           index % cardsPerAdd === cardsPerAdd - 1 &&
           index !== models.length - 1;
-
         if (isVisibleAdds) {
           clicleAds = clicleAds + 1;
         }

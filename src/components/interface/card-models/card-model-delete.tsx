@@ -21,7 +21,7 @@ export const CardModelDelete = ({
 
   const handleDeleteModel = async () => {
     try {
-      const res = await fetch(`https://api.bioup.ai/models/${modelId}`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_DATABASE_URL}/models/${modelId}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${session?.user.token}`,
