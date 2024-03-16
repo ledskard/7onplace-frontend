@@ -19,7 +19,7 @@ export async function ModelsList({
 
   const filterModels = modelsByFilter.filter((mod) => {
     return query
-      ? mod.username.toLowerCase().startsWith(query?.toLowerCase())
+      ? mod.username.toLowerCase().includes(query?.toLowerCase())
       : mod;
   });
 
