@@ -26,6 +26,7 @@ export type ModelsFilterProps = {
   telegramFree: string;
   images: ModelImage[];
   profileImage: ModelImage;
+  coverImage: ModelImage;
   buttons: Array<{
     id: string;
     url: string;

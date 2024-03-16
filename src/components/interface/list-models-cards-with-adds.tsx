@@ -21,7 +21,6 @@ export const ListModelsCardsWithAdds = ({
   ...props
 }: ListModelsCardsWithAddsProps) => {
   let clicleAds: number = -1;
-
   return (
     <section
       className={twMerge(
@@ -84,7 +83,7 @@ const CardModel = ({ model }: { model: ModelsFilterProps }) => {
         />
         <div className="relative flex-1 overflow-hidden max-h-[500px] h-full">
           <Card.Img
-            src={model.images[0]?.url ?? "/default-profile.jpg"}
+            src={model?.coverImage?.url ?? model.images?.[0]?.url ?? '/default-profile.jpg'}
             alt={model.username}
             className="object-cover object-top hover:scale-90"
           />

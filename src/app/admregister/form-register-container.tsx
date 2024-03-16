@@ -49,7 +49,29 @@ export const FormRegisterContainer = () => {
   const [genderData, setGenderData] = useState<string | null>(null);
 
   const gender = ["mulheres", "casais", "trans", "homens"];
+  const [coverImage, setCoverImage] = useState<Base64Img | null>(null);
+  const handleDeleteCoverImage = () => {
+    setCoverImage(null);
+  };
+  // Função para manipular a mudança no input da capa
+  const handleCoverImageChange = (event: any) => {
+    const file = event.target.files?.[0];
 
+    if (file && acceptedImageTypes.includes(file.type)) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const imageBase64 = e.target?.result as string;
+        const nameUnique = `${file.name}-${Date.now()}`;
+
+        setCoverImage({
+          name: nameUnique,
+          base64: imageBase64,
+        });
+      };
+
+      reader.readAsDataURL(file);
+    }
+  };
   const registerSchema = z.object({
     username: z.string().min(2, "Campo nome deve conter pelo menos 2 dígitos"),
 
@@ -216,6 +238,7 @@ export const FormRegisterContainer = () => {
     const modelData = {
       ...dataZod,
       profileImg: perfilImage,
+      coverImg: coverImage,
       images: displayImages,
       type: genderData,
       likes: 1,
@@ -229,11 +252,11 @@ export const FormRegisterContainer = () => {
       },
       body: JSON.stringify(modelData),
     });
-    
+
     const result = await res.json();
-    
+
     console.log(result)
-    if(result.status === 401){
+    if (result.status === 401) {
       signOut()
     }
     if (result.success) {
@@ -244,6 +267,7 @@ export const FormRegisterContainer = () => {
       });
       setDisplayImages([]);
       setPerfilImage(null);
+      setCoverImage(null);
       setLocationData(null);
       setGenderData(null);
       return;
@@ -406,6 +430,40 @@ export const FormRegisterContainer = () => {
             </div>
           ))}
         </GridCol>
+      )}
+      <label
+        htmlFor="coverImage"
+        className="mt-4 text-center first-letter:capitalize rounded font-medium py-2 px-1 md:rounded-md bg-red-main text-white w-full"
+      >
+        Adicionar capa
+      </label>
+      <input
+        className="hidden"
+        type="file"
+        accept="image/png, image/jpeg, image/webp, image/jpg"
+        id="coverImage"
+        onChange={handleCoverImageChange}
+      />
+
+      {/* Pré-visualização da Capa */}
+      {coverImage && (
+        <div className="p-2 h-full flex items-center justify-center">
+          <button
+            className="absolute top-1 right-1 bg-red-500 text-white rounded-full p-1"
+            onClick={handleDeleteCoverImage}
+            aria-label="Remover capa"
+          >
+            <XCircleIcon size={24} />
+          </button>
+
+          <Image
+            className="p-4 rounded md:rounded-md w-full sm:max-w-[300px] sm:max-h-[300px] max-w-[200px] text-center max-h-[200px] object-cover object-center"
+            src={coverImage.base64}
+            alt="Capa"
+            width={400}
+            height={400}
+          />
+        </div>
       )}
       <Form.Input
         wf
