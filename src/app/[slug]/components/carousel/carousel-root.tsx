@@ -119,3 +119,4 @@ export const CarouselRoot = ({ model }: CarouselContentProps) => {
     </section>
   );
 };
+
