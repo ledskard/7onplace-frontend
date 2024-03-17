@@ -1,14 +1,21 @@
 import { Header } from "@/components/interface/header";
+
 import "./globals.css";
 import type { Metadata } from "next";
+
 import { Toaster } from "@/components/ui/toaster";
+
 import { Providers } from "@/providers/providers";
-import { Analytics } from '@vercel/analytics/react';
+import { Analytics } from "@vercel/analytics/react";
+
+import { AgeCheckModal } from "./components/age-check-modal";
 
 export const metadata: Metadata = {
   title: "7 On Place",
   description: "Maiores criadoras(es) de conteúdo hot em um só lugar!",
-  openGraph: {images: 'https://7onsexycatalogo.s3.amazonaws.com/76onplaceee.jpg'},  
+  openGraph: {
+    images: "https://7onsexycatalogo.s3.amazonaws.com/76onplaceee.jpg",
+  },
 };
 
 export default function RootLayout({
@@ -23,6 +30,7 @@ export default function RootLayout({
           <Header />
           <Toaster />
           <main className="max-w-[1920px] w-full mx-auto flex-1 flex flex-col">
+            <AgeCheckModal />
             {children}
             <Analytics />
           </main>
@@ -30,5 +38,4 @@ export default function RootLayout({
       </body>
     </html>
   );
-  
 }

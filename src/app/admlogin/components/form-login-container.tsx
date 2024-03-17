@@ -1,5 +1,5 @@
 "use client";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/button-main";
 import { Form } from "../../../components/interface/form-default/index";
 import { FormLoginProps, UseLogin } from "@/hooks/use-login";
 import { signIn } from "next-auth/react";

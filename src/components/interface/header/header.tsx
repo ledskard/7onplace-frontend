@@ -6,7 +6,7 @@ import { Navbar } from "./navigation/navbar";
 import { Search } from "../search";
 import { useSelectedLayoutSegment } from "next/navigation";
 import { signOut, useSession } from "next-auth/react";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/button-main";
 import { GoSignOut } from "react-icons/go";
 import { ReturnToHomeButton } from "@/app/[slug]/components/return-to-home-button";
 import { BeProAndViewrsContainer } from "@/app/components/be-pro-and-viewrs-container";

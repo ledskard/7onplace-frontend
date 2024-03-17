@@ -1,11 +1,13 @@
-import { ModelsFilterProps } from "@/types/model/models-filter-props";
-import React, { ComponentProps } from "react";
-import { twMerge } from "tailwind-merge";
-import { Card } from "./card-models";
-import { AiFillStar } from "react-icons/ai";
 import Image from "next/image";
 import Link from "next/link";
+import React, { ComponentProps } from "react";
+import { AiFillStar } from "react-icons/ai";
+
 import { modelAddsConfig } from "@/config/model-add.config";
+import { ModelsFilterProps } from "@/types/model/models-filter-props";
+import { twMerge } from "tailwind-merge";
+
+import { Card } from "./card-models";
 
 type ListModelsCardsWithAddsProps = ComponentProps<"section"> & {
   models: Array<ModelsFilterProps>;
@@ -25,7 +27,7 @@ export const ListModelsCardsWithAdds = ({
     <section
       className={twMerge(
         "grid gap-4 grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 w-full mx-auto items-center justify-center z-0",
-        className
+        className,
       )}
       {...props}
     >
@@ -82,7 +84,11 @@ const CardModel = ({ model }: { model: ModelsFilterProps }) => {
         />
         <div className="relative flex-1 overflow-hidden max-h-[500px] h-full">
           <Card.Img
-            src={model?.coverImage?.url ?? model.images?.[0]?.url ?? '/default-profile.jpg'}
+            src={
+              model?.coverImage?.url ??
+              model.images?.[0]?.url ??
+              "/default-profile.jpg"
+            }
             alt={model.username}
             className="object-cover object-top hover:scale-90"
           />
@@ -117,7 +123,7 @@ const CardModelAdds = ({ cicle }: CardModelAddsProps) => {
 
   return (
     <div className="text-center text-white min-h-[80px] sm:min-h-[140px] md:min-h-[160px] lg:min-h-[260px] p-4 col-span-2 xl:col-span-3 relative rounded overflow-hidden">
-      <a href={isExistsImage.href} target="_blank">
+      <a href={isExistsImage.href} target="_blank" rel="noreferrer">
         <Image
           className="aspect-video object-fill object-center"
           fill

@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/button-main";
 import { CarouselRoot } from "./components/carousel/carousel-root";
 import { FlexDiv } from "@/components/interface/flex-div";
 import { getDataById } from "@/utils/get-model-by-id";
