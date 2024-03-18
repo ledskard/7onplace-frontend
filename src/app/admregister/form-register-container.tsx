@@ -3,7 +3,7 @@ import { FlexDiv } from "@/components/interface/flex-div";
 import { Form } from "@/components/interface/form-default";
 import { FormError } from "@/components/interface/form-default/form-error";
 import { GridCol } from "@/components/interface/grid-col";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/button-main";
 import {
   Select,
   SelectContent,

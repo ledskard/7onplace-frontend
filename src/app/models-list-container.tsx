@@ -1,8 +1,10 @@
+import { ComponentProps } from "react";
+
 import { ModelsList } from "@/components/interface/models-list";
 import { TabsContent } from "@/components/ui/tabs";
+
 import { ModelsFilterProps } from "@/types/model/models-filter-props";
 import { getModels } from "@/utils/get-models";
-import { ComponentProps } from "react";
 
 type ModelsListContainerProps = ComponentProps<"div"> & {
   query: string;
