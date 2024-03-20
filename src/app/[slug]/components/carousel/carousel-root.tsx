@@ -39,7 +39,7 @@ export const CarouselRoot = ({ model }: CarouselContentProps) => {
   };
 
   return (
-    <section className="mx-auto rounded-md mt-5">
+    <section className="mx-auto rounded-md mt-10 sm:mt-5">
       <Swiper
         onSwiper={(e) => (swiperRef.current = e)}
         modules={[Navigation, Pagination, Autoplay, EffectFade]}
@@ -119,4 +119,3 @@ export const CarouselRoot = ({ model }: CarouselContentProps) => {
     </section>
   );
 };
-

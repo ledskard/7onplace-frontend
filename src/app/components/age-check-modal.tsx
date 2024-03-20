@@ -1,28 +1,30 @@
 "use client";
+import { usePathname, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 import {
   AlertDialog,
   AlertDialogAction,
-  AlertDialogCancel,
   AlertDialogContent,
   AlertDialogDescription,
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-  AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 
 export const AgeCheckModal = () => {
   const [modalIsOpen, setModalIsOpen] = useState<boolean>(true);
   const [mount, setMount] = useState<boolean>(false);
+  const route = usePathname();
+
+  const isLoginPage = route?.includes("login");
 
   useEffect(() => {
     setMount(true);
   }, []);
 
-  if (!mount) {
+  if (!mount || isLoginPage) {
     return null;
   }
 

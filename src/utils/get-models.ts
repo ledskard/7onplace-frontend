@@ -1,5 +1,6 @@
-import { ModelsFilterProps } from "@/types/model/models-filter-props";
 import { getServerSession } from "next-auth";
+
+import { ModelsFilterProps } from "@/types/model/models-filter-props";
 
 export const getModels = async (): Promise<Array<ModelsFilterProps>> => {
   const session = await getServerSession();
