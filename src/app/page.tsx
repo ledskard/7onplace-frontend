@@ -54,7 +54,7 @@ export default function Home({
         </Suspense>
 
         <Suspense fallback={<Card.Loading />}>
-          <ModelsListContainer query={query} page={page} tab={tab} />
+          <ModelsListContainer query={query} page={page} type={tab} />
         </Suspense>
       </Tabs>
     </main>

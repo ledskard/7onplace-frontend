@@ -10,15 +10,18 @@ import { getModels } from "@/utils/get-models";
 type ModelsListContainerProps = ComponentProps<"div"> & {
   query: string;
   page?: string;
-  tab?: string;
+  type?: string;
 };
 
 export const ModelsListContainer = async ({
   query,
   page,
-  tab,
+  type,
 }: ModelsListContainerProps) => {
-  const models: ModelsFilterProps = await getModels();
+  const models: ModelsFilterProps = await getModels({
+    page: page ?? "1",
+    type: type ?? "mulheres",
+  });
 
   return (
     <>
