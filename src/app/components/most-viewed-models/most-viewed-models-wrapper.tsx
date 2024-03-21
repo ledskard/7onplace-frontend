@@ -7,3 +7,4 @@ export const MostViewedModelsWrapper = async () => {
 
   return <MostViewedModelsSlider models={models} />;
 };
++
