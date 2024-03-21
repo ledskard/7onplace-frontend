@@ -1,9 +1,9 @@
 // import { getServerSession } from "next-auth";
 
-import { ModelsFilterProps } from "@/types/model/models-filter-props";
+import { ModelsProps } from "@/types/model/models-filter-props";
 
 export const getModelsMostViewedByWeek = async (): Promise<
-  Array<ModelsFilterProps>
+  Array<ModelsProps>
 > => {
   // const session = await getServerSession();
   try {

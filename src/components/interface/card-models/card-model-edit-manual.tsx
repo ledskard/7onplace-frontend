@@ -25,7 +25,7 @@ import {
 } from "@/components/ui/select";
 import { toast } from "@/components/ui/use-toast";
 
-import { ModelsFilterProps } from "@/types/model/models-filter-props";
+import { ModelsProps } from "@/types/model/models-filter-props";
 import { Pencil, XCircleIcon } from "lucide-react";
 import { twMerge } from "tailwind-merge";
 
@@ -34,7 +34,7 @@ import { Form } from "../form-default";
 import { GridCol } from "../grid-col";
 
 type CardModelsRootProps = ComponentProps<"button"> & {
-  model: ModelsFilterProps;
+  model: ModelsProps;
 };
 
 const maxFileSize = 1024 * 1024 * 10; // 10MB

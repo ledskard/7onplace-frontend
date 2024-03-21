@@ -4,13 +4,13 @@ import React, { ComponentProps } from "react";
 import { AiFillStar } from "react-icons/ai";
 
 import { modelAddsConfig } from "@/config/model-add.config";
-import { ModelsFilterProps } from "@/types/model/models-filter-props";
+import { ModelsProps } from "@/types/model/models-filter-props";
 import { twMerge } from "tailwind-merge";
 
 import { Card } from "./card-models";
 
 type ListModelsCardsWithAddsProps = ComponentProps<"section"> & {
-  models: Array<ModelsFilterProps>;
+  models: ModelsProps[];
   cardsPerAdd?: number;
   query: string;
 };
@@ -23,6 +23,11 @@ export const ListModelsCardsWithAdds = ({
   ...props
 }: ListModelsCardsWithAddsProps) => {
   let clicleAds: number = -1;
+
+  if (!models || models?.length > 0) {
+    return null;
+  }
+
   return (
     <section
       className={twMerge(
@@ -50,7 +55,7 @@ export const ListModelsCardsWithAdds = ({
   );
 };
 
-const CardModel = ({ model }: { model: ModelsFilterProps }) => {
+const CardModel = ({ model }: { model: ModelsProps }) => {
   const username = model.username;
   const cleanUsername = username.replace(/\s+/g, "");
   const url = `/${cleanUsername}`;

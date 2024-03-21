@@ -8,7 +8,7 @@ import { Form } from "@/components/interface/form-default";
 import { Button } from "@/components/ui/button-main";
 
 import revalidateTagAPI from "@/actions/revalidateTag";
-import { ModelsFilterProps } from "@/types/model/models-filter-props";
+import { ModelsProps } from "@/types/model/models-filter-props";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 
@@ -24,7 +24,7 @@ const EditModelButtonsSchema = z.object({
 
 export type EditModelButtonSchemaProps = z.infer<typeof EditModelButtonsSchema>;
 
-export const FormModalRoot = ({ model }: { model: ModelsFilterProps }) => {
+export const FormModalRoot = ({ model }: { model: ModelsProps }) => {
   const [buttons, setButtons] = useState<ModelButtonsProps>(model.buttons);
   const { data: session } = useSession();
   const { slug } = useParams();

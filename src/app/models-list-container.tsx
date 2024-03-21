@@ -1,6 +1,7 @@
 import { ComponentProps } from "react";
 
 import { ModelsList } from "@/components/interface/models-list";
+import { PaginationApp } from "@/components/interface/pagination-app";
 import { TabsContent } from "@/components/ui/tabs";
 
 import { ModelsFilterProps } from "@/types/model/models-filter-props";
@@ -8,29 +9,41 @@ import { getModels } from "@/utils/get-models";
 
 type ModelsListContainerProps = ComponentProps<"div"> & {
   query: string;
+  page?: string;
+  tab?: string;
 };
 
 export const ModelsListContainer = async ({
   query,
+  page,
+  tab,
 }: ModelsListContainerProps) => {
-  const models: ModelsFilterProps[] = await getModels();
+  const models: ModelsFilterProps = await getModels();
 
   return (
     <>
       <TabsContent value="mulheres">
-        <ModelsList modelType="mulheres" models={models} query={query} />
+        <ModelsList modelType="mulheres" models={models.data} query={query} />
       </TabsContent>
 
       <TabsContent value="casais">
-        <ModelsList models={models} modelType="casais" query={query} />
+        <ModelsList models={models.data} modelType="casais" query={query} />
       </TabsContent>
 
       <TabsContent value="trans">
-        <ModelsList models={models} modelType="trans" query={query} />
+        <ModelsList models={models.data} modelType="trans" query={query} />
       </TabsContent>
       <TabsContent value="homens">
-        <ModelsList models={models} modelType="homens" query={query} />
+        <ModelsList models={models.data} modelType="homens" query={query} />
       </TabsContent>
+
+      {page && page !== "1" && (
+        <PaginationApp
+          actual_page={page ?? "1"}
+          link="/"
+          total_pages={models.totalPages ?? 1}
+        />
+      )}
     </>
   );
 };

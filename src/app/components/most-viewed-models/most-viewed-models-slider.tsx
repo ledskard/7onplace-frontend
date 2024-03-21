@@ -5,7 +5,7 @@ import { BsArrowLeftShort, BsArrowRightShort } from "react-icons/bs";
 
 import { Carousel } from "@/app/[slug]/components/carousel";
 
-import { ModelsFilterProps } from "@/types/model/models-filter-props";
+import { ModelsProps } from "@/types/model/models-filter-props";
 import { Autoplay, Navigation, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 
@@ -17,7 +17,7 @@ import { Card } from "@/components/interface/card-models";
 import Link from "next/link";
 
 type MostViewedModelsSliderProps = {
-  models: ModelsFilterProps[];
+  models: ModelsProps[];
 };
 
 export const MostViewedModelsSlider = ({

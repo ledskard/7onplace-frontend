@@ -2,11 +2,9 @@ import Link from "next/link";
 import { Suspense } from "react";
 
 import { BeProAndViewrsContainer } from "./components/be-pro-and-viewrs-container";
-import { MostViewedModelsSlider } from "./components/most-viewed-models/most-viewed-models-slider";
 import { MostViewedModelsWrapper } from "./components/most-viewed-models/most-viewed-models-wrapper";
 import { Card } from "@/components/interface/card-models";
 import { FlexDiv } from "@/components/interface/flex-div";
-import { PaginationApp } from "@/components/interface/pagination-app";
 import { Search } from "@/components/interface/search";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
@@ -17,11 +15,13 @@ type SearchProps = {
   searchParams: {
     query: string;
     page?: string;
-    limit?: string;
+    tab?: string;
   };
 };
 
-export default function Home({ searchParams: { query, page } }: SearchProps) {
+export default function Home({
+  searchParams: { query, page, tab },
+}: SearchProps) {
   return (
     <main className="mx-auto flex mb-5 gap-4 mt-20 xl:mt-16 max-w-[1900px] w-full sm:px-6 px-2 md:py-10 xl:py-3">
       <ChatbotIframe />
@@ -54,14 +54,8 @@ export default function Home({ searchParams: { query, page } }: SearchProps) {
         </Suspense>
 
         <Suspense fallback={<Card.Loading />}>
-          <ModelsListContainer query={query} />
+          <ModelsListContainer query={query} page={page} tab={tab} />
         </Suspense>
-
-        <PaginationApp
-          actual_page={page ?? "1"}
-          link="/"
-          total_pages={100 ?? 1}
-        />
       </Tabs>
     </main>
   );

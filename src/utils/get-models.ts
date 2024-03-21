@@ -2,7 +2,7 @@ import { getServerSession } from "next-auth";
 
 import { ModelsFilterProps } from "@/types/model/models-filter-props";
 
-export const getModels = async (): Promise<Array<ModelsFilterProps>> => {
+export const getModels = async (): Promise<ModelsFilterProps> => {
   const session = await getServerSession();
   try {
     const res = await fetch(`${process.env.NEXT_PUBLIC_DATABASE_URL}/models/`, {
