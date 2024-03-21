@@ -58,7 +58,9 @@ export const MostViewedModelsSlider = ({
         rewind={true}
         className="mySwiper2 !gap-10 !mt-6 sm:!mt-0 !pt-12 relative rounded-md !cursor-grab lg:max-w-[70%]"
       >
-        <h1 className="mb-4 text-2xl absolute top-0">Destaques da semana</h1>
+        <h1 className="mb-4 text-2xl absolute top-0 pl-3">
+          Destaques da semana
+        </h1>
         {models &&
           models.map.length > 0 &&
           models.map((model) => {

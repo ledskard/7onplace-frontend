@@ -24,9 +24,9 @@ export const ListModelsCardsWithAdds = ({
 }: ListModelsCardsWithAddsProps) => {
   let clicleAds: number = -1;
 
-  if (!models || models?.length > 0) {
-    return null;
-  }
+  // if (!models || models?.length > 0) {
+  //   return null;
+  // }
 
   return (
     <section
