@@ -1,5 +1,6 @@
 "use client";
 import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect } from "react";
 
 import {
   Pagination,
@@ -23,7 +24,23 @@ export const PaginationApp = ({
   link,
 }: PaginationAppProps) => {
   const searchParams = useSearchParams();
-  const tab = searchParams.get("/tab");
+  const tab = searchParams.get("tab");
+  const router = useRouter();
+  useEffect(() => {
+    const handleKeyPress = (e: KeyboardEvent) => {
+      if (e.key === "r" && e.ctrlKey) {
+        e.preventDefault(); // Previne o comportamento padrão do Ctrl+R
+        router.push("/"); // Redireciona para a URL desejada
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyPress);
+
+    // Limpeza do ouvinte de eventos ao desmontar o componente
+    return () => {
+      window.removeEventListener("keydown", handleKeyPress);
+    };
+  }, [router]);
 
   return (
     <Pagination className="my-8">
@@ -61,7 +78,7 @@ export const PaginationApp = ({
           </PaginationLink>
         </PaginationItem>
 
-        {+actual_page + 1 < total_pages && (
+        {+actual_page < total_pages && (
           <PaginationItem>
             <PaginationLink
               href={`${link}?page=${+actual_page + 1}&tab=${tab ?? "mulheres"}`}

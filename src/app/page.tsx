@@ -31,18 +31,18 @@ export default function Home({
       >
         <TabsList className="xl:fixed xl:z-[50] mx-auto xl:max-w-[1900px] xl:w-[99%] px-4 xl:bg-[#f3f3f3] xl:top-14 xl:translate-x-1/2 xl:right-1/2">
           <FlexDiv className="gap-0 flex-wrap gap-y-3">
-            <TabsTrigger value="mulheres">
-              <Link href={`/?page=1&tab=mulheres`}>mulheres</Link>
-            </TabsTrigger>
-            <TabsTrigger value="casais">
-              <Link href={`/?page=1&tab=casais`}>casais</Link>
-            </TabsTrigger>
-            <TabsTrigger value="trans">
-              <Link href={`/?page=1&tab=trans`}>trans</Link>
-            </TabsTrigger>
-            <TabsTrigger value="homens">
-              <Link href={`/?page=1&tab=homens`}>homens</Link>
-            </TabsTrigger>
+            <Link href={`/?page=1&tab=mulheres`}>
+              <TabsTrigger value="mulheres">mulheres</TabsTrigger>
+            </Link>
+            <Link href={`/?page=1&tab=casais`}>
+              <TabsTrigger value="casais">casais</TabsTrigger>
+            </Link>
+            <Link href={`/?page=1&tab=trans`}>
+              <TabsTrigger value="trans">trans</TabsTrigger>
+            </Link>
+            <Link href={`/?page=1&tab=homens`}>
+              <TabsTrigger value="homens">homens</TabsTrigger>
+            </Link>
           </FlexDiv>
 
           <div className="items-center justify-center gap-8 max-w-fit w-full mx-auto xl:flex hidden">

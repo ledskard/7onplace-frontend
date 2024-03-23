@@ -39,8 +39,7 @@ export const ModelsListContainer = async ({
       <TabsContent value="homens">
         <ModelsList models={models.data} modelType="homens" query={query} />
       </TabsContent>
-
-      {page && page !== "1" && (
+      {models.totalPages > 1 && (
         <PaginationApp
           actual_page={page ?? "1"}
           link="/"

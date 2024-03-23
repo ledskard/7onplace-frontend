@@ -67,19 +67,21 @@ export const CarouselRoot = ({ model }: CarouselContentProps) => {
             </SwiperSlide>
           ))}
 
-        <Carousel.CenterButtonDiv>
-          <Carousel.BorderButton>
-            <Carousel.SlideButton onClick={prevSlide}>
-              <BsArrowLeftShort />
-            </Carousel.SlideButton>
-          </Carousel.BorderButton>
+        {model.images.length > 0 && (
+          <Carousel.CenterButtonDiv>
+            <Carousel.BorderButton>
+              <Carousel.SlideButton onClick={prevSlide}>
+                <BsArrowLeftShort />
+              </Carousel.SlideButton>
+            </Carousel.BorderButton>
 
-          <Carousel.BorderButton>
-            <Carousel.SlideButton onClick={nextSlide}>
-              <BsArrowRightShort />
-            </Carousel.SlideButton>
-          </Carousel.BorderButton>
-        </Carousel.CenterButtonDiv>
+            <Carousel.BorderButton>
+              <Carousel.SlideButton onClick={nextSlide}>
+                <BsArrowRightShort />
+              </Carousel.SlideButton>
+            </Carousel.BorderButton>
+          </Carousel.CenterButtonDiv>
+        )}
       </Swiper>
 
       <FlexDiv className="px-4">
