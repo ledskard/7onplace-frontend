@@ -75,7 +75,6 @@ const CardModel = ({ model }: { model: ModelsProps }) => {
               );
             }
           })}
-
         <Card.Actions>
           <Card.Delete modelId={model.username} />
           <Card.Edit model={model} />
