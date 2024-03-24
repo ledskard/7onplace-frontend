@@ -1,10 +1,10 @@
 "use client";
-import { toast } from "@/components/ui/use-toast";
-import { Pencil, XCircleIcon } from "lucide-react";
 import { signOut, useSession } from "next-auth/react";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { ComponentProps, useRef, useState } from "react";
-import { twMerge } from "tailwind-merge";
+
+import { Button } from "@/components/ui/button-main";
 import {
   Dialog,
   DialogClose,
@@ -15,11 +15,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
-import { ModelsFilterProps } from "@/types/model/models-filter-props";
-import { Form } from "../form-default";
-import { FlexDiv } from "../flex-div";
-import Image from "next/image";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import {
   Select,
   SelectContent,
@@ -27,11 +23,18 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { ScrollArea } from "@/components/ui/scroll-area";
+import { toast } from "@/components/ui/use-toast";
+
+import { ModelsProps } from "@/types/model/models-filter-props";
+import { Pencil, XCircleIcon } from "lucide-react";
+import { twMerge } from "tailwind-merge";
+
+import { FlexDiv } from "../flex-div";
+import { Form } from "../form-default";
 import { GridCol } from "../grid-col";
 
 type CardModelsRootProps = ComponentProps<"button"> & {
-  model: ModelsFilterProps;
+  model: ModelsProps;
 };
 
 const maxFileSize = 1024 * 1024 * 10; // 10MB
@@ -50,12 +53,20 @@ export const CardModelEdit = ({
   ...props
 }: CardModelsRootProps) => {
   const { data: session } = useSession();
-  
+
   const route = useRouter();
-  
+
   const [perfilImage, setPerfilImage] = useState<any>({
-    name: model.profileImage && model.profileImage.name && model.profileImage.name || "default-profile.jpg",
-    url: model.profileImage && model.profileImage.url && model.profileImage.url || "/default-profile.jpg",
+    name:
+      (model.profileImage &&
+        model.profileImage.name &&
+        model.profileImage.name) ||
+      "default-profile.jpg",
+    url:
+      (model.profileImage &&
+        model.profileImage.url &&
+        model.profileImage.url) ||
+      "/default-profile.jpg",
   });
 
   const [displayImages, setDisplayImages] = useState<any>(model.images || []);
@@ -63,7 +74,7 @@ export const CardModelEdit = ({
   const [genderData, setGenderData] = useState<string | null>(model.type);
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  
+
   const [likesModel, setLikesModel] = useState<number>(model.likes);
 
   const [name, setName] = useState<string>(model.username || "");
@@ -71,7 +82,7 @@ export const CardModelEdit = ({
   const [email, setEmail] = useState<string>(model.email || "");
 
   const [telegramVipLink, setTelegramVipLink] = useState<string>(
-    model.telegramVip || ""
+    model.telegramVip || "",
   );
 
   const [tiktokLink, setTiktokLink] = useState<string>(model.tiktok || "");
@@ -79,15 +90,15 @@ export const CardModelEdit = ({
   const [twitterLink, setTwitterLink] = useState<string>(model.twitter || "");
 
   const [telegramFreeLink, setTelegramFreeLink] = useState<string>(
-    model.telegramFree || ""
+    model.telegramFree || "",
   );
 
   const [instagramLink, setInstagramLink] = useState<string>(
-    model.instagram || ""
+    model.instagram || "",
   );
 
   const [description, setDescription] = useState<string>(
-    model.description || ""
+    model.description || "",
   );
   const hasFeatureFlags = model.featureFlags && model.featureFlags.length > 0;
 
@@ -95,43 +106,45 @@ export const CardModelEdit = ({
 
   const handleIsPro = async (e: any) => {
     const isChecked = e.target.checked;
-    
+
     setIsPro(isChecked);
 
-    let featureFlags:any = []
+    let featureFlags: any = [];
 
     if (!isChecked) {
-        featureFlags = []
+      featureFlags = [];
     }
-    if(isChecked){
+    if (isChecked) {
       featureFlags = [
-        {id: 1,
+        {
+          id: 1,
           name: "enable_social_media",
-          description: "Habilitar redes sociais"
+          description: "Habilitar redes sociais",
         },
-        {id: 2,
-          name: "enable_star",
-          description: "Estrela de modelo PRO"
-        },
-        {id: 3,
+        { id: 2, name: "enable_star", description: "Estrela de modelo PRO" },
+        {
+          id: 3,
           name: "enable_create_button",
-          description: "Habilitar botões"
-        }
-      ]
+          description: "Habilitar botões",
+        },
+      ];
     }
 
-      const res = await fetch(`${process.env.NEXT_PUBLIC_DATABASE_URL}/models/${model.username}`, {
-        body: JSON.stringify({featureFlags}),
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_DATABASE_URL}/models/${model.username}`,
+      {
+        body: JSON.stringify({ featureFlags }),
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${session?.user.token}`,
         },
         method: "PUT",
-      });
-      const result = await res.json()
-      if(result.status === 401){
-        signOut()
-      }
+      },
+    );
+    const result = await res.json();
+    if (result.status === 401) {
+      signOut();
+    }
   };
 
   const gender = ["mulheres", "casais", "trans", "homens"];
@@ -231,8 +244,8 @@ export const CardModelEdit = ({
     });
 
     const result = await res.json();
-    if(result.status === 401){
-      signOut()
+    if (result.status === 401) {
+      signOut();
     }
     if (result.id) {
       setIsLoading(false);
@@ -288,7 +301,9 @@ export const CardModelEdit = ({
   };
 
   const handleDeleteImage = (name: string) => {
-    setDisplayImages((prev: any[]) => prev.filter((img) => img.name && img.name !== name));
+    setDisplayImages((prev: any[]) =>
+      prev.filter((img) => img.name && img.name !== name),
+    );
   };
 
   const handleSelectPreviewImages = (e: any) => {
@@ -320,7 +335,7 @@ export const CardModelEdit = ({
           <button
             className={twMerge(
               "flex text-red-main bg-white shadow rounded-full w-8 h-8 justify-center items-center p-2 hover:bg-red-main hover:text-white duration-300 cursor-pointer",
-              className
+              className,
             )}
             {...props}
           >
@@ -378,9 +393,21 @@ export const CardModelEdit = ({
                   </div>
                 </FlexDiv>
                 <FlexDiv className="mx-auto">
-                  <Button type="button" onClick={() => setLikesModel( likesModel - 100)} className="max-w-fit p-2 h-fit py-0">-100</Button>
+                  <Button
+                    type="button"
+                    onClick={() => setLikesModel(likesModel - 100)}
+                    className="max-w-fit p-2 h-fit py-0"
+                  >
+                    -100
+                  </Button>
                   <p className="max-w-fit">Likes: {likesModel}</p>
-                  <Button type="button" onClick={() => setLikesModel( likesModel + 100)} className="max-w-fit p-2 h-fit py-0">+100</Button>
+                  <Button
+                    type="button"
+                    onClick={() => setLikesModel(likesModel + 100)}
+                    className="max-w-fit p-2 h-fit py-0"
+                  >
+                    +100
+                  </Button>
                 </FlexDiv>
                 <input
                   type="text"
@@ -396,11 +423,14 @@ export const CardModelEdit = ({
                   onChange={(e) => setEmail(e.target.value)}
                   className="outline-none border-b-2 px-2 py-1 md:p-3 drop-shadow-md disabled:bg-inherit border-slate-200 rounded md:rounded-lg placeholder:text-slate-400"
                 />
-                <Select onValueChange={setGenderData} defaultValue={genderData ?? "Gênero"}>
+                <Select
+                  onValueChange={setGenderData}
+                  defaultValue={genderData ?? "Gênero"}
+                >
                   <SelectTrigger value={genderData ?? "Gênero"}>
                     <SelectValue
                       placeholder="Gênero"
-                      defaultValue={genderData ?? 'Gênero'}
+                      defaultValue={genderData ?? "Gênero"}
                       className="text-gray-300"
                     />
                   </SelectTrigger>

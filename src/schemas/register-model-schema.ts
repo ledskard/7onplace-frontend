@@ -25,6 +25,7 @@ export const registerSchema = z.object({
       }
       return acceptedImageTypes.includes(file[0]?.type);
     }, "Somente os formatos .jpg, .jpeg, .png e .webp são suportados"),
+    coverImg: z.any().optional(),
   displayImg: z
     .any()
     .refine((files: Array<File>) => {

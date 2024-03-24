@@ -1,14 +1,16 @@
-import { ModelsFilterProps } from "@/types/model/models-filter-props";
-import React, { ComponentProps } from "react";
-import { twMerge } from "tailwind-merge";
-import { Card } from "./card-models";
-import { AiFillStar } from "react-icons/ai";
 import Image from "next/image";
 import Link from "next/link";
+import React, { ComponentProps } from "react";
+import { AiFillStar } from "react-icons/ai";
+
 import { modelAddsConfig } from "@/config/model-add.config";
+import { ModelsProps } from "@/types/model/models-filter-props";
+import { twMerge } from "tailwind-merge";
+
+import { Card } from "./card-models";
 
 type ListModelsCardsWithAddsProps = ComponentProps<"section"> & {
-  models: Array<ModelsFilterProps>;
+  models: ModelsProps[];
   cardsPerAdd?: number;
   query: string;
 };
@@ -22,11 +24,15 @@ export const ListModelsCardsWithAdds = ({
 }: ListModelsCardsWithAddsProps) => {
   let clicleAds: number = -1;
 
+  // if (!models || models?.length > 0) {
+  //   return null;
+  // }
+
   return (
     <section
       className={twMerge(
         "grid gap-4 grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 w-full mx-auto items-center justify-center z-0",
-        className
+        className,
       )}
       {...props}
     >
@@ -34,7 +40,6 @@ export const ListModelsCardsWithAdds = ({
         const isVisibleAdds =
           index % cardsPerAdd === cardsPerAdd - 1 &&
           index !== models.length - 1;
-
         if (isVisibleAdds) {
           clicleAds = clicleAds + 1;
         }
@@ -50,7 +55,7 @@ export const ListModelsCardsWithAdds = ({
   );
 };
 
-const CardModel = ({ model }: { model: ModelsFilterProps }) => {
+const CardModel = ({ model }: { model: ModelsProps }) => {
   const username = model.username;
   const cleanUsername = username.replace(/\s+/g, "");
   const url = `/${cleanUsername}`;
@@ -70,7 +75,6 @@ const CardModel = ({ model }: { model: ModelsFilterProps }) => {
               );
             }
           })}
-
         <Card.Actions>
           <Card.Delete modelId={model.username} />
           <Card.Edit model={model} />
@@ -84,7 +88,11 @@ const CardModel = ({ model }: { model: ModelsFilterProps }) => {
         />
         <div className="relative flex-1 overflow-hidden max-h-[500px] h-full">
           <Card.Img
-            src={model.images[0]?.url ?? "/default-profile.jpg"}
+            src={
+              model?.coverImage?.url ??
+              model.images?.[0]?.url ??
+              "/default-profile.jpg"
+            }
             alt={model.username}
             className="object-cover object-top hover:scale-90"
           />
@@ -119,7 +127,7 @@ const CardModelAdds = ({ cicle }: CardModelAddsProps) => {
 
   return (
     <div className="text-center text-white min-h-[80px] sm:min-h-[140px] md:min-h-[160px] lg:min-h-[260px] p-4 col-span-2 xl:col-span-3 relative rounded overflow-hidden">
-      <a href={isExistsImage.href} target="_blank">
+      <a href={isExistsImage.href} target="_blank" rel="noreferrer">
         <Image
           className="aspect-video object-fill object-center"
           fill

@@ -11,7 +11,7 @@ export type Flags = {
   created_at: Date;
 };
 
-export type ModelsFilterProps = {
+export type ModelsProps = {
   username: string;
   email: string;
   id: string;
@@ -26,10 +26,16 @@ export type ModelsFilterProps = {
   telegramFree: string;
   images: ModelImage[];
   profileImage: ModelImage;
+  coverImage: ModelImage;
   buttons: Array<{
     id: string;
     url: string;
     title: string;
   }>;
   featureFlags: Array<Flags>;
+};
+
+export type ModelsFilterProps = {
+  data: Array<ModelsProps>;
+  totalPages: number;
 };

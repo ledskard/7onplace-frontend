@@ -1,16 +1,19 @@
 "use client";
-import { SwiperSlide, Swiper } from "swiper/react";
-import { Autoplay, Navigation, Pagination, EffectFade } from "swiper/modules";
-import { useRef } from "react";
-import { Card } from "@/components/interface/card-models";
 import Image from "next/image";
+import { useRef } from "react";
 import { BsArrowLeftShort, BsArrowRightShort, BsTiktok } from "react-icons/bs";
-import { Carousel } from "./index";
-import { PerfilImage } from "@/components/interface/perfil-image";
+
+import { Card } from "@/components/interface/card-models";
 import { FlexDiv } from "@/components/interface/flex-div";
-import { ModelDetails } from "../model-details";
+import { PerfilImage } from "@/components/interface/perfil-image";
+
 import { CarouselContentProps } from "@/types/model/carousel-content-props";
 import { Instagram, Twitter } from "lucide-react";
+import { Autoplay, Navigation, Pagination, EffectFade } from "swiper/modules";
+import { SwiperSlide, Swiper } from "swiper/react";
+
+import { ModelDetails } from "../model-details";
+import { Carousel } from "./index";
 
 import "swiper/css";
 import "swiper/css/navigation";
@@ -36,7 +39,7 @@ export const CarouselRoot = ({ model }: CarouselContentProps) => {
   };
 
   return (
-    <section className="mx-auto rounded-md mt-5">
+    <section className="mx-auto rounded-md mt-10 sm:mt-5">
       <Swiper
         onSwiper={(e) => (swiperRef.current = e)}
         modules={[Navigation, Pagination, Autoplay, EffectFade]}
@@ -62,28 +65,32 @@ export const CarouselRoot = ({ model }: CarouselContentProps) => {
                 className="sm:max-h-auto max-h-[450px] object-center object-contain rounded-md"
               />
             </SwiperSlide>
-          ))
-        }
+          ))}
 
-        <Carousel.CenterButtonDiv>
-          <Carousel.BorderButton>
-            <Carousel.SlideButton onClick={prevSlide}>
-              <BsArrowLeftShort />
-            </Carousel.SlideButton>
-          </Carousel.BorderButton>
+        {model.images.length > 0 && (
+          <Carousel.CenterButtonDiv>
+            <Carousel.BorderButton>
+              <Carousel.SlideButton onClick={prevSlide}>
+                <BsArrowLeftShort />
+              </Carousel.SlideButton>
+            </Carousel.BorderButton>
 
-          <Carousel.BorderButton>
-            <Carousel.SlideButton onClick={nextSlide}>
-              <BsArrowRightShort />
-            </Carousel.SlideButton>
-          </Carousel.BorderButton>
-        </Carousel.CenterButtonDiv>
+            <Carousel.BorderButton>
+              <Carousel.SlideButton onClick={nextSlide}>
+                <BsArrowRightShort />
+              </Carousel.SlideButton>
+            </Carousel.BorderButton>
+          </Carousel.CenterButtonDiv>
+        )}
       </Swiper>
 
       <FlexDiv className="px-4">
         <FlexDiv col className="flex-1">
           <FlexDiv>
-            <PerfilImage src={model.profileImage.url ?? '/default-profile.jpg'} alt={model.username} />
+            <PerfilImage
+              src={model.profileImage.url ?? "/default-profile.jpg"}
+              alt={model.username}
+            />
             <Card.Name>{model.username}</Card.Name>
           </FlexDiv>
           <FlexDiv>
@@ -108,7 +115,6 @@ export const CarouselRoot = ({ model }: CarouselContentProps) => {
             <div className="ml-auto">
               <Card.Fav modelName={model.username} favorites={model.likes} />
             </div>
-
           </FlexDiv>
         </FlexDiv>
       </FlexDiv>

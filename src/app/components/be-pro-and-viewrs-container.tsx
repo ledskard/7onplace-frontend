@@ -1,5 +1,5 @@
 "use client";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/button-main";
 import { Viewrs } from "./viewrs";
 import {
   Dialog,

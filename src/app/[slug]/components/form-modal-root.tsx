@@ -1,14 +1,16 @@
 "use client";
-import { Form } from "@/components/interface/form-default";
-import { Button } from "@/components/ui/button";
+import { signOut, useSession } from "next-auth/react";
+import { useParams } from "next/navigation";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
+
+import { Form } from "@/components/interface/form-default";
+import { Button } from "@/components/ui/button-main";
+
+import revalidateTagAPI from "@/actions/revalidateTag";
+import { ModelsProps } from "@/types/model/models-filter-props";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { useParams } from "next/navigation";
-import { signOut, useSession } from "next-auth/react";
-import { ModelsFilterProps } from "@/types/model/models-filter-props";
-import { useState } from "react";
-import revalidateTagAPI from "@/actions/revalidateTag";
 
 type ModelButtonsProps = Array<{
   title: string;
@@ -22,7 +24,7 @@ const EditModelButtonsSchema = z.object({
 
 export type EditModelButtonSchemaProps = z.infer<typeof EditModelButtonsSchema>;
 
-export const FormModalRoot = ({ model }: { model: ModelsFilterProps }) => {
+export const FormModalRoot = ({ model }: { model: ModelsProps }) => {
   const [buttons, setButtons] = useState<ModelButtonsProps>(model.buttons);
   const { data: session } = useSession();
   const { slug } = useParams();
@@ -40,18 +42,21 @@ export const FormModalRoot = ({ model }: { model: ModelsFilterProps }) => {
 
   const handleAddButton = async (data: EditModelButtonSchemaProps) => {
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_DATABASE_URL}/models/${slug}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + session?.user.token,
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_DATABASE_URL}/models/${slug}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + session?.user.token,
+          },
+          body: JSON.stringify({ ...model, buttons: [...buttons, data] }),
         },
-        body: JSON.stringify({ ...model, buttons: [...buttons, data] }),
-      });
-      const result = await res.json()
-      
-      if(result.status === 401){
-        signOut()
+      );
+      const result = await res.json();
+
+      if (result.status === 401) {
+        signOut();
       }
       revalidateTagAPI("modelById");
       reset();

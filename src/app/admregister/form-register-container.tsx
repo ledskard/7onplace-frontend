@@ -3,7 +3,7 @@ import { FlexDiv } from "@/components/interface/flex-div";
 import { Form } from "@/components/interface/form-default";
 import { FormError } from "@/components/interface/form-default/form-error";
 import { GridCol } from "@/components/interface/grid-col";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/button-main";
 import {
   Select,
   SelectContent,
@@ -16,7 +16,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import Image from "next/image";
 import { useState } from "react";
 import z from "zod";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { location } from "../config/location";
 import { XCircleIcon } from "lucide-react";
@@ -49,12 +49,34 @@ export const FormRegisterContainer = () => {
   const [genderData, setGenderData] = useState<string | null>(null);
 
   const gender = ["mulheres", "casais", "trans", "homens"];
+  const [coverImage, setCoverImage] = useState<Base64Img | null>(null);
+  const handleDeleteCoverImage = () => {
+    setCoverImage(null);
+  };
+  // Função para manipular a mudança no input da capa
+  const handleCoverImageChange = (event: any) => {
+    const file = event.target.files?.[0];
 
+    if (file && acceptedImageTypes.includes(file.type)) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const imageBase64 = e.target?.result as string;
+        const nameUnique = `${file.name}-${Date.now()}`;
+
+        setCoverImage({
+          name: nameUnique,
+          base64: imageBase64,
+        });
+      };
+
+      reader.readAsDataURL(file);
+    }
+  };
   const registerSchema = z.object({
     username: z.string().min(2, "Campo nome deve conter pelo menos 2 dígitos"),
 
-    email: z.string().email("E-mail inválido"),
-
+    email: z.string().optional(),
+    gender: z.any().optional(),
     profileImg: z
       .any()
       .refine((files: Array<File>) => {
@@ -200,6 +222,7 @@ export const FormRegisterContainer = () => {
     handleSubmit,
     formState: { errors, isSubmitting },
     reset,
+    control, // Adicione 'control' aqui
   } = useForm<RegisterModelProps>({
     mode: "onChange",
     reValidateMode: "onChange",
@@ -216,11 +239,12 @@ export const FormRegisterContainer = () => {
     const modelData = {
       ...dataZod,
       profileImg: perfilImage,
+      coverImg: coverImage,
       images: displayImages,
       type: genderData,
       likes: 1,
     };
-
+    delete modelData.gender;
     const res = await fetch(`${process.env.NEXT_PUBLIC_DATABASE_URL}/models`, {
       method: "POST",
       headers: {
@@ -229,11 +253,10 @@ export const FormRegisterContainer = () => {
       },
       body: JSON.stringify(modelData),
     });
-    
+
     const result = await res.json();
-    
-    console.log(result)
-    if(result.status === 401){
+
+    if (result.status === 401) {
       signOut()
     }
     if (result.success) {
@@ -244,6 +267,7 @@ export const FormRegisterContainer = () => {
       });
       setDisplayImages([]);
       setPerfilImage(null);
+      setCoverImage(null);
       setLocationData(null);
       setGenderData(null);
       return;
@@ -306,37 +330,36 @@ export const FormRegisterContainer = () => {
         error={!!errors.email}
         register={register}
       />
+<Controller
+name="gender"
+  control={control} // Garanta que está desestruturando 'control' do useForm
+  defaultValue="" // Valor padrão para `gender`, ajuste conforme necessário
 
-      <Select onValueChange={setGenderData}>
-        <SelectTrigger value={genderData ?? "Gênero"}>
-          <SelectValue placeholder="Gênero" className="text-gray-300" />
-        </SelectTrigger>
-        <SelectContent>
-          <ScrollArea className="w-full h-32 pr-3">
-            {gender.map((gen) => (
-              <SelectItem className="capitalize" key={gen} value={gen}>
-                {gen}
-              </SelectItem>
-            ))}
-          </ScrollArea>
-        </SelectContent>
-      </Select>
-      {/* 
-      <Select onValueChange={setLocationData}>
-        <SelectTrigger>
-          <SelectValue placeholder="Localização" className="text-gray-300" />
-        </SelectTrigger>
-        <SelectContent>
-          <ScrollArea className="w-full h-36 pr-3">
-            {location.map((loc) => (
-              <SelectItem className="capitalize" key={loc} value={loc}>
-                {loc}
-              </SelectItem>
-            ))}
-          </ScrollArea>
-        </SelectContent>
-      </Select> */}
-
+  render={({ field }) => (
+    <Select
+      {...field}
+      onValueChange={(value) => {
+        field.onChange(value);
+        setGenderData(value); // Se ainda precisar atualizar o estado externamente
+      }}
+      value={field.value}
+    >
+      <SelectTrigger value={genderData ?? "Gênero"}>
+        <SelectValue placeholder="Gênero" className="text-gray-300" />
+      </SelectTrigger>
+      <SelectContent>
+        <ScrollArea className="w-full h-32 pr-3">
+          {gender.map((gen) => (
+            <SelectItem className="capitalize" key={gen} value={gen}>
+              {gen}
+            </SelectItem>
+          ))}
+        </ScrollArea>
+      </SelectContent>
+    </Select>
+  )}
+/>
+     
       <Form.Input
         wf
         id="telegramVip"
@@ -406,6 +429,41 @@ export const FormRegisterContainer = () => {
             </div>
           ))}
         </GridCol>
+      )}
+      <label
+        htmlFor="coverImage"
+        className="mt-4 text-center first-letter:capitalize rounded font-medium py-2 px-1 md:rounded-md bg-red-main text-white w-full"
+      >
+        Adicionar capa
+      </label>
+      <input
+        className="hidden"
+        type="file"
+        accept="image/png, image/jpeg, image/webp, image/jpg, image/gif"
+        id="coverImage"
+        onChange={handleCoverImageChange}
+      />
+
+      {/* Pré-visualização da Capa */}
+      {coverImage && (
+        <div className="relative p-2 h-full flex items-center justify-center">
+        <button
+      className="absolute top-0 right-0 z-10 bg-transparent text-black rounded-full p-1"
+      onClick={handleDeleteCoverImage}
+      aria-label="Remover capa"
+    >
+      <XCircleIcon size={24} color="black" />
+    </button>
+
+    
+        <Image
+          className="rounded md:rounded-md object-cover object-center"
+          src={coverImage.base64}
+          alt="Capa"
+          width={400}
+          height={400}
+        />
+      </div>
       )}
       <Form.Input
         wf

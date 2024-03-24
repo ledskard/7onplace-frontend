@@ -30,11 +30,9 @@ export const CardModelFavorite = ({
   const handleLike = async (e: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>) => {
     e.stopPropagation();
 
-    // Atualiza a UI imediatamente para dar feedback ao usuário.
     setIsLiked(!isLiked);
     setCount(isLiked ? count - 1 : count + 1);
 
-    // Busca os modelos curtidos do armazenamento local em segundo plano.
     const likedModels: any = JSON.parse(localStorage.getItem("likedModels") || "[]");
     const isCurrentlyLiked = likedModels.includes(modelName);
 

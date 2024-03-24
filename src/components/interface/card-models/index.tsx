@@ -1,13 +1,13 @@
+import { CardModelActions } from "./card-model-actions";
 import { CardModelContentDiv } from "./card-model-content-div";
 import { CardModelDelete } from "./card-model-delete";
-import { CardModelActions } from "./card-model-actions";
+import { CardModelEdit } from "./card-model-edit-manual";
 import { CardModelFavorite } from "./card-model-favorite";
 import { CardModelImage } from "./card-model-img";
-import { CardModelName } from "./card-model-name";
-import { CardModelRoot } from "./card-model-root";
-import { CardModelEdit } from "./card-model-edit-manual";
 import { CardModelLoading } from "./card-model-loading";
+import { CardModelName } from "./card-model-name";
 import { CardModelPremium } from "./card-model-premium";
+import { CardModelRoot } from "./card-model-root";
 
 export const Card = {
   Root: CardModelRoot,
