@@ -43,9 +43,9 @@ export const PaginationApp = ({
   }, [router]);
 
   return (
-    <Pagination className="my-8">
-      <PaginationContent>
-        {+actual_page > 1 && (
+    <Pagination className="my-10">
+      <PaginationContent className="space-x-0 gap-0">
+        {+actual_page > 3 && (
           <PaginationItem>
             <PaginationPrevious
               href={`${link}?page=${+actual_page - 1}&tab=${tab ?? "mulheres"}`}
@@ -53,9 +53,19 @@ export const PaginationApp = ({
           </PaginationItem>
         )}
 
-        {+actual_page > 2 && (
+        {+actual_page > 3 && (
           <PaginationItem>
             <PaginationEllipsis />
+          </PaginationItem>
+        )}
+
+        {+actual_page - 2 < total_pages && +actual_page - 2 > 0 && (
+          <PaginationItem>
+            <PaginationLink
+              href={`${link}?page=${+actual_page - 2}&tab=${tab ?? "mulheres"}`}
+            >
+              {+actual_page - 2}
+            </PaginationLink>
           </PaginationItem>
         )}
 
@@ -88,9 +98,29 @@ export const PaginationApp = ({
           </PaginationItem>
         )}
 
-        {+actual_page < total_pages && (
+        {+actual_page + 2 < total_pages && (
+          <PaginationItem>
+            <PaginationLink
+              href={`${link}?page=${+actual_page + 2}&tab=${tab ?? "mulheres"}`}
+            >
+              {+actual_page + 2}
+            </PaginationLink>
+          </PaginationItem>
+        )}
+
+        {+actual_page + 2 < total_pages && (
           <PaginationItem>
             <PaginationEllipsis />
+          </PaginationItem>
+        )}
+
+        {+actual_page + 1 < +total_pages && (
+          <PaginationItem>
+            <PaginationLink
+              href={`${link}?page=${+total_pages}&tab=${tab ?? "mulheres"}`}
+            >
+              {+total_pages}
+            </PaginationLink>
           </PaginationItem>
         )}
 

@@ -1,5 +1,5 @@
 "use client";
-import { usePathname, useSearchParams } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
 import {
@@ -13,8 +13,14 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 
+import { useAtom } from "jotai";
+import { atomWithStorage } from "jotai/utils";
+
+const ageCheck = atomWithStorage<boolean>("ageCheck", false);
+
 export const AgeCheckModal = () => {
-  const [modalIsOpen, setModalIsOpen] = useState<boolean>(true);
+  const [modalIsOpen, setModalIsOpen] = useAtom(ageCheck);
+
   const [mount, setMount] = useState<boolean>(false);
   const route = usePathname();
 
@@ -29,7 +35,7 @@ export const AgeCheckModal = () => {
   }
 
   return (
-    <AlertDialog open={modalIsOpen}>
+    <AlertDialog open={!modalIsOpen}>
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle className="text-center">
@@ -42,7 +48,7 @@ export const AgeCheckModal = () => {
         <AlertDialogFooter className="justify-center gap-4">
           <AlertDialogAction
             className="bg-red-main shadow-sm hover:bg-red-main/75"
-            onClick={() => setModalIsOpen(false)}
+            onClick={() => setModalIsOpen(true)}
           >
             Sim
           </AlertDialogAction>

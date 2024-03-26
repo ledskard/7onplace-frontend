@@ -60,6 +60,7 @@ export default async function Model({ params }: { params: { slug: string } }) {
           </a>
           {dataModel.buttons &&
             dataModel.buttons.length > 0 &&
+            dataModel.featureFlags.length > 0 &&
             dataModel.buttons.map((but: ModelsButtons) => {
               if (
                 but.url !== null &&
