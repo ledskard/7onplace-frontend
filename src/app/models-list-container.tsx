@@ -21,6 +21,7 @@ export const ModelsListContainer = async ({
   const models: ModelsFilterProps = await getModels({
     page: page ?? "1",
     type: type ?? "mulheres",
+    query: query ?? "",
   });
 
   return (
