@@ -5,7 +5,7 @@ import { BsArrowLeftShort, BsArrowRightShort } from "react-icons/bs";
 
 import { Carousel } from "@/app/[slug]/components/carousel";
 
-import { ModelsFilterProps } from "@/types/model/models-filter-props";
+import { ModelsProps } from "@/types/model/models-filter-props";
 import { Autoplay, Navigation, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 
@@ -17,7 +17,7 @@ import { Card } from "@/components/interface/card-models";
 import Link from "next/link";
 
 type MostViewedModelsSliderProps = {
-  models: ModelsFilterProps[];
+  models: ModelsProps[];
 };
 
 export const MostViewedModelsSlider = ({
@@ -37,18 +37,18 @@ export const MostViewedModelsSlider = ({
   }
 
   return (
-    <section className="relative xl:mt-16 my-6 max-w-[1920px]">
+    <section className="relative xl:mt-16 sm:my-6 my-10 max-w-[1920px]">
       <Swiper
         onSwiper={(e) => (swiperRef.current = e)}
         modules={[Navigation, Pagination, Autoplay]}
         pagination={{ clickable: true }}
         loop={true}
         breakpoints={{
-          500: {
+          100: {
             slidesPerView: 2,
           },
           1280: {
-            slidesPerView: 3,
+            slidesPerView: 4,
           },
         }}
         autoplay={{
@@ -56,9 +56,9 @@ export const MostViewedModelsSlider = ({
           disableOnInteraction: false,
         }}
         rewind={true}
-        className="mySwiper2 !gap-10 !mt-6 sm:!mt-0 !pt-12 relative rounded-md !cursor-grab lg:max-w-[70%] !space-x-8"
+        className="mySwiper2 !gap-10 !mt-6 sm:!mt-0 !pt-12 relative rounded-md !cursor-grab lg:max-w-[70%]"
       >
-        <h1 className="mb-4 text-2xl order-1 absolute top-0">
+        <h1 className="mb-4 text-2xl absolute top-0 pl-3">
           Destaques da semana
         </h1>
         {models &&
@@ -70,10 +70,10 @@ export const MostViewedModelsSlider = ({
             return (
               <SwiperSlide
                 key={model.id}
-                className="!pb-4 max-w-full w-full !mx-5"
+                className="!pb-2 sm:!pb-4 !ml-0 !space-x-0 max-w-full w-full !mx-5 items-center justify-center flex flex-col"
               >
-                <div className="px-3 sm:max-h-auto sm:max-h-[400px] sm:min-h-[400px] relative min-h-[400px] max-h-[400px] mb-4 object-center object-contain rounded-md">
-                  <Card.Root className="sm:max-h-auto sm:max-h-[400px] sm:min-h-[400px] relative min-h-[400px] max-h-[400px] mb-4 object-center object-contain rounded-md">
+                <div className="px-3 sm:max-h-auto sm:max-h-[250px] sm:min-h-[250px] relative min-h-[200px] max-h-[200px] mb-4 object-center object-contain rounded-lg">
+                  <Card.Root className="sm:max-h-auto sm:max-h-[250px] sm:min-h-[250px] relative min-h-[200px] max-h-[200px] mb-4 object-center object-contain rounded-lg">
                     <Card.Actions>
                       <Card.Delete modelId={model.username} />
                       <Card.Edit model={model} />
@@ -96,22 +96,22 @@ export const MostViewedModelsSlider = ({
                         className="object-cover object-top hover:scale-90"
                       />
                     </div>
-                    <Card.ContentDiv>
+                    <div className="flex gap-3 h-auto p-1">
                       <Image
-                        className="rounded-full sm:w-20 sm:h-20 h-12 w-12 object-cover object-top absolute top-0 -translate-y-1/2 shadow-md shadow-slate-500"
+                        className="rounded-full sm:w-14 sm:h-14 h-12 w-12 object-cover object-top shadow-md shadow-slate-500"
                         src={model.profileImage?.url ?? "/default-profile.jpg"}
                         alt={model.username}
                         width={56}
                         height={56}
                       />
-                      <Card.Name className="sm:pt-3 pt-2.5">
-                        {model.username}
-                      </Card.Name>
-                      <Card.Fav
-                        modelName={model.username}
-                        favorites={model.likes}
-                      />
-                    </Card.ContentDiv>
+                      <div className="space-y-1">
+                        <Card.Name>{model.username}</Card.Name>
+                        <Card.Fav
+                          modelName={model.username}
+                          favorites={model.likes}
+                        />
+                      </div>
+                    </div>
                   </Card.Root>
                 </div>
               </SwiperSlide>

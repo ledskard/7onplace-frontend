@@ -37,6 +37,7 @@
   margin: auto !important;
 }
 
+
 @keyframes tremor {
   0% {
     transform: translateX(0);

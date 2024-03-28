@@ -1,11 +1,13 @@
 import React, { ComponentProps } from "react";
+
+import { ModelsProps } from "@/types/model/models-filter-props";
+
 import { ListModelsCardsWithAdds } from "./list-models-cards-with-adds";
-import { ModelsFilterProps } from "@/types/model/models-filter-props";
 
 type ModelsListType = ComponentProps<"section"> & {
   modelType: string;
   query: string;
-  models: Array<ModelsFilterProps>;
+  models: Array<ModelsProps>;
 };
 
 export async function ModelsList({
@@ -15,27 +17,27 @@ export async function ModelsList({
   models,
   ...props
 }: ModelsListType) {
-  const modelsByFilter = models.filter((model) => model.type === modelType);
+  // const modelsByFilter = models.filter((model) => model.type === modelType);
 
-  const filterModels = modelsByFilter.filter((mod) => {
-    return query
-      ? mod.username.toLowerCase().includes(query?.toLowerCase())
-      : mod;
-  });
+  // const filterModels = modelsByFilter.filter((mod) => {
+  //   return query
+  //     ? mod.username.toLowerCase().includes(query?.toLowerCase())
+  //     : mod;
+  // });
 
-  const orderModelsLikes = filterModels.sort((a, b) => {
-    return b.likes - a.likes;
-  });
+  // const orderModelsLikes = filterModels.sort((a, b) => {
+  //   return b.likes - a.likes;
+  // });
 
   return (
     <>
       <ListModelsCardsWithAdds
-        models={orderModelsLikes}
+        models={models}
         query={query}
         className="hidden xl:grid"
       />
       <ListModelsCardsWithAdds
-        models={orderModelsLikes}
+        models={models}
         query={query}
         cardsPerAdd={4}
         className="grid xl:hidden"

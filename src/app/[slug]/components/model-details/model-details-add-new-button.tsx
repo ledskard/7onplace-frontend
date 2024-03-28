@@ -6,15 +6,19 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+
+import { ModelsProps } from "@/types/model/models-filter-props";
 import { Plus } from "lucide-react";
+
 import { FormModalRoot } from "../form-modal-root";
-import { ModelsFilterProps } from "@/types/model/models-filter-props";
 
 type ModelDetailsAddNewButtonModalProps = {
-  model: ModelsFilterProps;
-}
+  model: ModelsProps;
+};
 
-export const ModelDetailsAddNewButtonModal = ({  model }: ModelDetailsAddNewButtonModalProps) => {
+export const ModelDetailsAddNewButtonModal = ({
+  model,
+}: ModelDetailsAddNewButtonModalProps) => {
   return (
     <Dialog>
       <DialogTrigger asChild className="self-end">

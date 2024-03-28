@@ -1,10 +1,20 @@
-import { ComponentProps } from "react"
-import { twMerge } from "tailwind-merge"
+import { ComponentProps } from "react";
 
-type CenterButtonDivProps = ComponentProps<"div">
+import { twMerge } from "tailwind-merge";
 
-export const CenterButtonDiv = ({className,...props}: CenterButtonDivProps) => {
+type CenterButtonDivProps = ComponentProps<"div">;
+
+export const CenterButtonDiv = ({
+  className,
+  ...props
+}: CenterButtonDivProps) => {
   return (
-    <div className={twMerge("absolute z-[10000] container-button-swiper px-4", className)} {...props}/>
-  )
-}
+    <div
+      className={twMerge(
+        "absolute z-[19] container-button-swiper px-4",
+        className,
+      )}
+      {...props}
+    />
+  );
+};

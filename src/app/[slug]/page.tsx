@@ -1,14 +1,17 @@
-import { Button } from "@/components/ui/button-main";
-import { CarouselRoot } from "./components/carousel/carousel-root";
-import { FlexDiv } from "@/components/interface/flex-div";
-import { getDataById } from "@/utils/get-model-by-id";
-import { ReturnToHomeButton } from "./components/return-to-home-button";
 import { getServerSession } from "next-auth";
+
+import { CarouselRoot } from "./components/carousel/carousel-root";
 import { ModelDetails } from "./components/model-details";
-import { Flags } from "@/types/model/models-filter-props";
-import { incrementLike } from "@/utils/increment-like-to-model";
 import { ButtonAnimated } from "./components/model-details/model-animated-button";
 import { ButtonSocialMedia } from "./components/model-details/model-social-media-buttons";
+import { ReturnToHomeButton } from "./components/return-to-home-button";
+import { FlexDiv } from "@/components/interface/flex-div";
+import { Button } from "@/components/ui/button-main";
+
+import { Flags } from "@/types/model/models-filter-props";
+import { getDataById } from "@/utils/get-model-by-id";
+import { incrementLike } from "@/utils/increment-like-to-model";
+
 import ChatbotIframe from "../chatbot";
 
 export type ModelsButtons = {
@@ -43,15 +46,21 @@ export default async function Model({ params }: { params: { slug: string } }) {
                   />
                 );
             })}
-          <a href={dataModel.telegramVip} target="_blank" className="mt-4">
+          <a
+            href={dataModel.telegramVip}
+            target="_blank"
+            className="mt-4"
+            rel="noreferrer"
+          >
             <ButtonAnimated>telegram vip</ButtonAnimated>
           </a>
 
-          <a href={dataModel.telegramFree} target="_blank">
+          <a href={dataModel.telegramFree} target="_blank" rel="noreferrer">
             <Button>telegram free</Button>
           </a>
           {dataModel.buttons &&
             dataModel.buttons.length > 0 &&
+            dataModel.featureFlags.length > 0 &&
             dataModel.buttons.map((but: ModelsButtons) => {
               if (
                 but.url !== null &&
