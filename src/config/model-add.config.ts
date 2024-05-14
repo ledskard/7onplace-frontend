@@ -1,26 +1,25 @@
 type ModelAddsProps = {
-  image: string,
-  href: string
-  alt: string
-}
+  image: string;
+  href: string;
+  alt: string;
+};
 
 type ModelAddsConfigProps = {
-  default: ModelAddsProps
-  ads: Array<ModelAddsProps>
-}
-
+  default: ModelAddsProps;
+  ads: Array<ModelAddsProps>;
+};
 
 export const modelAddsConfig: ModelAddsConfigProps = {
   default: {
-    image: '/anuncio-7onplace.png',
-    href: 'https://wa.me//48991013165?text=Gostaria%20de%20anunciar%20no%20marketplace%20da%207%20On%20Sexy',
-    alt: 'image default',
+    image: "/anuncio-7onplace.png",
+    href: "https://wa.me//48991013165?text=Gostaria%20de%20anunciar%20no%20marketplace%20da%207%20On%20Sexy",
+    alt: "image default",
   },
   ads: [
     {
-      image: '/template-ads.png',
-      href: 'https://t.me/addlist/tmt1Xgpk1CBiNWQx',
-      alt: 'ad 7onsexy',
-    }
-  ]
-}
+      image: "/template-ads.png",
+      href: "https://t.me/addlist/kH4kppdZmJRlNDVh",
+      alt: "ad 7onsexy",
+    },
+  ],
+};
