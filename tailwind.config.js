@@ -16,6 +16,9 @@ module.exports = {
       },
     },
     extend: {
+      backgroundImage: {
+        '7onp': "url('https://7onsexycatalogo.s3.amazonaws.com/Fundo+Marketplace.png')"
+      },
       screens: {
         tablet: "750px",
         vsm: { max: "374px" },

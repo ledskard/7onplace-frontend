@@ -25,7 +25,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="pt-BR">
-      <body className="bg-[#f3f3f3]">
+      <body className="bg-7onp bg-cover bg-no-repeat">
         <Providers>
           <Header />
           <Toaster />

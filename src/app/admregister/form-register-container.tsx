@@ -1,9 +1,15 @@
 "use client";
+import { signOut, useSession } from "next-auth/react";
+import Image from "next/image";
+import { useState } from "react";
+import { Controller, useForm } from "react-hook-form";
+
 import { FlexDiv } from "@/components/interface/flex-div";
 import { Form } from "@/components/interface/form-default";
 import { FormError } from "@/components/interface/form-default/form-error";
 import { GridCol } from "@/components/interface/grid-col";
 import { Button } from "@/components/ui/button-main";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import {
   Select,
   SelectContent,
@@ -11,17 +17,13 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { ScrollArea } from "@/components/ui/scroll-area";
-
-import Image from "next/image";
-import { useState } from "react";
-import z from "zod";
-import { Controller, useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { location } from "../config/location";
-import { XCircleIcon } from "lucide-react";
 import { toast } from "@/components/ui/use-toast";
-import { signOut, useSession } from "next-auth/react";
+
+import { zodResolver } from "@hookform/resolvers/zod";
+import { XCircleIcon } from "lucide-react";
+import z from "zod";
+
+import { location } from "../config/location";
 
 const maxFileSize = 1024 * 1024 * 10; // 10MB
 
@@ -148,7 +150,7 @@ export const FormRegisterContainer = () => {
         if (!filesIsExists) return false;
 
         const isAllFilesLessThanMaxSize = filesArray.every(
-          (file: File) => file.size <= maxFileSize
+          (file: File) => file.size <= maxFileSize,
         );
 
         if (!isAllFilesLessThanMaxSize) return false;
@@ -165,7 +167,7 @@ export const FormRegisterContainer = () => {
         if (!filesIsExists) return false;
 
         const isAllFilesCorrectlyType = filesArray.every((file: File) =>
-          acceptedImageTypes.includes(file?.type)
+          acceptedImageTypes.includes(file?.type),
         );
 
         if (!isAllFilesCorrectlyType) return false;
@@ -257,7 +259,7 @@ export const FormRegisterContainer = () => {
     const result = await res.json();
 
     if (result.status === 401) {
-      signOut()
+      signOut();
     }
     if (result.success) {
       reset();
@@ -330,36 +332,35 @@ export const FormRegisterContainer = () => {
         error={!!errors.email}
         register={register}
       />
-<Controller
-name="gender"
-  control={control} // Garanta que está desestruturando 'control' do useForm
-  defaultValue="" // Valor padrão para `gender`, ajuste conforme necessário
+      <Controller
+        name="gender"
+        control={control} // Garanta que está desestruturando 'control' do useForm
+        defaultValue="" // Valor padrão para `gender`, ajuste conforme necessário
+        render={({ field }) => (
+          <Select
+            {...field}
+            onValueChange={(value) => {
+              field.onChange(value);
+              setGenderData(value); // Se ainda precisar atualizar o estado externamente
+            }}
+            value={field.value}
+          >
+            <SelectTrigger value={genderData ?? "Gênero"}>
+              <SelectValue placeholder="Gênero" className="text-gray-300" />
+            </SelectTrigger>
+            <SelectContent>
+              <ScrollArea className="w-full h-32 pr-3">
+                {gender.map((gen) => (
+                  <SelectItem className="capitalize" key={gen} value={gen}>
+                    {gen}
+                  </SelectItem>
+                ))}
+              </ScrollArea>
+            </SelectContent>
+          </Select>
+        )}
+      />
 
-  render={({ field }) => (
-    <Select
-      {...field}
-      onValueChange={(value) => {
-        field.onChange(value);
-        setGenderData(value); // Se ainda precisar atualizar o estado externamente
-      }}
-      value={field.value}
-    >
-      <SelectTrigger value={genderData ?? "Gênero"}>
-        <SelectValue placeholder="Gênero" className="text-gray-300" />
-      </SelectTrigger>
-      <SelectContent>
-        <ScrollArea className="w-full h-32 pr-3">
-          {gender.map((gen) => (
-            <SelectItem className="capitalize" key={gen} value={gen}>
-              {gen}
-            </SelectItem>
-          ))}
-        </ScrollArea>
-      </SelectContent>
-    </Select>
-  )}
-/>
-     
       <Form.Input
         wf
         id="telegramVip"
@@ -398,7 +399,6 @@ name="gender"
         placeholder="Link TikTok"
         register={register}
       />
-
 
       <label
         htmlFor="images"
@@ -447,23 +447,22 @@ name="gender"
       {/* Pré-visualização da Capa */}
       {coverImage && (
         <div className="relative p-2 h-full flex items-center justify-center">
-        <button
-      className="absolute top-0 right-0 z-10 bg-transparent text-black rounded-full p-1"
-      onClick={handleDeleteCoverImage}
-      aria-label="Remover capa"
-    >
-      <XCircleIcon size={24} color="black" />
-    </button>
+          <button
+            className="absolute top-0 right-0 z-10 bg-transparent text-black rounded-full p-1"
+            onClick={handleDeleteCoverImage}
+            aria-label="Remover capa"
+          >
+            <XCircleIcon size={24} color="black" />
+          </button>
 
-    
-        <Image
-          className="rounded md:rounded-md object-cover object-center"
-          src={coverImage.base64}
-          alt="Capa"
-          width={400}
-          height={400}
-        />
-      </div>
+          <Image
+            className="rounded md:rounded-md object-cover object-center"
+            src={coverImage.base64}
+            alt="Capa"
+            width={400}
+            height={400}
+          />
+        </div>
       )}
       <Form.Input
         wf

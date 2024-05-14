@@ -25,7 +25,7 @@ import {
 } from "@/components/ui/select";
 import { toast } from "@/components/ui/use-toast";
 
-import { ModelsProps } from "@/types/model/models-filter-props";
+import { ModelImage, ModelsProps } from "@/types/model/models-filter-props";
 import { Pencil, XCircleIcon } from "lucide-react";
 import { twMerge } from "tailwind-merge";
 
@@ -46,6 +46,16 @@ const acceptedImageTypes = [
   "image/webp",
   "image/gif",
 ];
+
+type Base64Img = {
+  name: string;
+  base64: string;
+};
+
+type CoverImg = {
+  name: string;
+  url: string;
+};
 
 export const CardModelEdit = ({
   className,
@@ -103,6 +113,35 @@ export const CardModelEdit = ({
   const hasFeatureFlags = model.featureFlags && model.featureFlags.length > 0;
 
   const [isPro, setIsPro] = useState(hasFeatureFlags);
+
+  const [coverImage, setCoverImage] = useState<Base64Img | null>(null);
+
+  const [oldCoverImage, setOldCoverImage] = useState<CoverImg | null>(
+    model.coverImage ?? null,
+  );
+
+  const handleDeleteCoverImage = () => {
+    setCoverImage(null);
+  };
+
+  const handleCoverImageChange = (event: any) => {
+    const file = event.target.files?.[0];
+
+    if (file && acceptedImageTypes.includes(file.type)) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const imageBase64 = e.target?.result as string;
+        const nameUnique = `${file.name}-${Date.now()}`;
+
+        setCoverImage({
+          name: nameUnique,
+          base64: imageBase64,
+        });
+      };
+
+      reader.readAsDataURL(file);
+    }
+  };
 
   const handleIsPro = async (e: any) => {
     const isChecked = e.target.checked;
@@ -183,6 +222,7 @@ export const CardModelEdit = ({
       instagram: instagramLink,
       type: genderData,
       images: displayImages,
+      coverImg: coverImage,
     };
 
     if (modelUpdated.profileImg.length === 0) {
@@ -262,42 +302,6 @@ export const CardModelEdit = ({
       title: "❌ Não foi possível editar a modelo!",
       duration: 3000,
     });
-
-    // if (modelUpdated.instagram === "" || modelUpdated.instagram.length === 0) {
-    //   setIsLoading(false);
-    //   return toast({
-    //     title:
-    //       "❌ Não foi possível atualizar a modelo! Campo instagram inválido...",
-    //     duration: 3000,
-    //   });
-    // }
-    // if (modelUpdated.tiktok === "" || modelUpdated.tiktok.length === 0) {
-    //   setIsLoading(false);
-    //   return toast({
-    //     title:
-    //       "❌ Não foi possível atualizar a modelo! Campo tiktok inválido...",
-    //     duration: 3000,
-    //   });
-    // }
-    // if (modelUpdated.twitter === "" || modelUpdated.twitter.length === 0) {
-    //   setIsLoading(false);
-    //   return toast({
-    //     title:
-    //       "❌ Não foi possível atualizar a modelo! Campo twitter inválido...",
-    //     duration: 3000,
-    //   });
-    // // }
-    // if (
-    //   modelUpdated.description === "" ||
-    //   modelUpdated.description.length === 0
-    // ) {
-    //   setIsLoading(false);
-    //   return toast({
-    //     title:
-    //       "❌ Não foi possível atualizar a modelo! Campo descrição inválido...",
-    //     duration: 3000,
-    //   });
-    // }
   };
 
   const handleDeleteImage = (name: string) => {
@@ -486,6 +490,58 @@ export const CardModelEdit = ({
                   value={tiktokLink}
                   onChange={(e) => setTiktokLink(e.target.value)}
                 />
+
+                <input
+                  className="hidden"
+                  type="file"
+                  id="coverImage"
+                  accept="image/png, image/jpeg, image/webp, image/jpg, image/gif"
+                  onChange={handleCoverImageChange}
+                />
+                <label
+                  htmlFor="coverImage"
+                  className="text-center first-letter:capitalize rounded font-medium py-2 px-1 md:rounded-md bg-red-main text-white w-full m-0 cursor-pointer" // Adicionei "cursor-pointer"
+                >
+                  Adicionar capa
+                </label>
+                {oldCoverImage && !coverImage && (
+                  <GridCol col="1" className="md:grid-cols-2 mt-0 mb-0">
+                    <div className="relative p-2 h-full flex items-center justify-center m-2">
+                      <button
+                        className="absolute top-0 right-0"
+                        onClick={handleDeleteCoverImage}
+                      >
+                        <XCircleIcon />
+                      </button>
+                      <Image
+                        className="p-4 rounded md:rounded-md max-w-full max-h-full object-cover object-center"
+                        src={oldCoverImage.url}
+                        width={400}
+                        height={400}
+                        alt={oldCoverImage.name}
+                      />
+                    </div>
+                  </GridCol>
+                )}
+                {coverImage && (
+                  <GridCol col="1" className="md:grid-cols-2 mt-0 mb-0">
+                    <div className="relative p-2 h-full flex items-center justify-center m-2">
+                      <button
+                        className="absolute top-0 right-0"
+                        onClick={handleDeleteCoverImage}
+                      >
+                        <XCircleIcon />
+                      </button>
+                      <Image
+                        className="p-4 rounded md:rounded-md max-w-full max-h-full object-cover object-center"
+                        src={coverImage.base64}
+                        width={400}
+                        height={400}
+                        alt={coverImage.name}
+                      />
+                    </div>
+                  </GridCol>
+                )}
 
                 <input
                   className="hidden"
