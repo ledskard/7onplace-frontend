@@ -12,21 +12,25 @@ const nextConfig = withOptimizedImages({
       "pbs.twimg.com",
       "images.unsplash.com",
     ],
+    formats: ['image/avif', 'image/webp'], // Adicione suporte para WebP e AVIF
   },
   optimizeImagesInDev: true, // Otimiza imagens apenas na produção
   handleImages: ['jpeg', 'png', 'svg', 'webp', 'gif'],
   mozjpeg: {
-    quality: 75,
+    quality: 65,
   },
   pngquant: {
     speed: 3,
-    quality: [0.65, 0.80], // Qualidade entre 65% e 80%
+    quality: [0.60, 0.70], // Qualidade entre 65% e 80%
   },
   svgo: {
     plugins: [
       { removeViewBox: false },
       { cleanupIDs: false }
     ]
+  },
+  webp: {
+    quality: 75, // Qualidade para conversão WebP
   },
   webpack(config, options) {
     return config;

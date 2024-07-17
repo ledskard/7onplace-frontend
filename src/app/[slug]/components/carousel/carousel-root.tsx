@@ -21,6 +21,7 @@ import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import "swiper/css/effect-fade";
 import "swiper/css/autoplay";
+import { imgLoading } from "@/components/interface/card-models/card-model-base64-img-loading";
 
 export const CarouselRoot = ({ model }: CarouselContentProps) => {
   const swiperRef = useRef<any>();
@@ -62,6 +63,8 @@ export const CarouselRoot = ({ model }: CarouselContentProps) => {
                 height={600}
                 width={1280}
                 placeholder="blur"
+                blurDataURL={imgLoading}
+                loading="lazy"
                 quality={100}
                 className="sm:max-h-auto max-h-[450px] object-center object-contain rounded-md"
               />
