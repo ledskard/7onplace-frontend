@@ -13,7 +13,7 @@ const nextConfig = withOptimizedImages({
       "images.unsplash.com",
     ],
   },
-  optimizeImagesInDev: false, // Otimiza imagens apenas na produção
+  optimizeImagesInDev: true, // Otimiza imagens apenas na produção
   handleImages: ['jpeg', 'png', 'svg', 'webp', 'gif'],
   mozjpeg: {
     quality: 75,
