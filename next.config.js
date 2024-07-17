@@ -1,9 +1,10 @@
 /** @type {import('next').NextConfig} */
 const withOptimizedImages = require('next-optimized-images');
+const imageminGifsicle = require('imagemin-gifsicle');
 
 const nextConfig = withOptimizedImages({
   experimental: {
-    serverActions: true
+    serverActions: true,
   },
   images: {
     domains: [
@@ -27,12 +28,34 @@ const nextConfig = withOptimizedImages({
     plugins: [
       { removeViewBox: false },
       { cleanupIDs: false }
-    ]
+    ],
   },
   webp: {
     quality: 75, // Qualidade para conversão WebP
   },
+  gifsicle: {
+    interlaced: false,
+    optimizationLevel: 3,
+  },
   webpack(config, options) {
+    // Adicione o plugin imageminGifsicle
+    config.module.rules.push({
+      test: /\.(gif|jpe?g|png|svg)$/i,
+      use: [
+        {
+          loader: 'imagemin-webpack-plugin',
+          options: {
+            plugins: [
+              imageminGifsicle({
+                interlaced: false,
+                optimizationLevel: 3,
+              }),
+            ],
+          },
+        },
+      ],
+    });
+
     return config;
   },
 });
