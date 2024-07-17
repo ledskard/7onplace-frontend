@@ -180,7 +180,9 @@ export const CardModelEdit = ({
         method: "PUT",
       },
     );
+    
     const result = await res.json();
+    
     if (result.status === 401) {
       signOut();
     }
@@ -209,6 +211,7 @@ export const CardModelEdit = ({
   const handleUpdateInfoModel = async (e: any) => {
     e.preventDefault();
     setIsLoading(true);
+    console.log(model.username)
     const modelUpdated = {
       username: name || "",
       email: email,
@@ -274,7 +277,7 @@ export const CardModelEdit = ({
       });
     }
 
-    const res = await fetch(`https://api.bioup.ai/models/${model.username}`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_DATABASE_URL}/models/${model.username}`, {
       body: JSON.stringify(modelUpdated),
       headers: {
         "Content-Type": "application/json",
@@ -282,8 +285,9 @@ export const CardModelEdit = ({
       },
       method: "PUT",
     });
-
     const result = await res.json();
+    
+    console.log(result)
     if (result.status === 401) {
       signOut();
     }
