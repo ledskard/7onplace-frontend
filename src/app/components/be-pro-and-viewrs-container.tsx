@@ -45,12 +45,12 @@ export const BeProAndViewrsContainer = ({
       <Dialog>
         <DialogTrigger asChild>
           <Link href="https://t.me/seteonplace_bot" passHref target="_blank" className={cn(
-                "mx-auto",
-                device === "desktop"
-                  ? "max-w-fit px-10"
-                  : "px-4 md:px-6 lg:px-8 xl:px-10 mb-2 text-sm md:text-base lg:text-lg xl:text-xl max-w-fit"
-              )}>
-            <Button
+            "mx-auto",
+            device === "desktop"
+              ? "max-w-fit px-10"
+              : "px-4 md:px-6 lg:px-8 xl:px-10 mb-2 text-sm md:text-base lg:text-lg xl:text-xl max-w-fit"
+          )}>
+            {/* <Button
             
               className={cn(
                 "mx-auto",
@@ -60,7 +60,7 @@ export const BeProAndViewrsContainer = ({
               )}
             >
               Seja PREMIUM (exclusivo para modelos)
-            </Button>
+            </Button> */}
           </Link>
         </DialogTrigger>
       </Dialog>

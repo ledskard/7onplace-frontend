@@ -8,6 +8,7 @@ import { ModelsProps } from "@/types/model/models-filter-props";
 import { twMerge } from "tailwind-merge";
 
 import { Card } from "./card-models";
+import { imgLoading } from "./card-models/card-model-base64-img-loading";
 
 type ListModelsCardsWithAddsProps = ComponentProps<"section"> & {
   models: ModelsProps[];
@@ -103,6 +104,7 @@ const CardModel = ({ model }: { model: ModelsProps }) => {
             src={model.profileImage?.url ?? "/default-profile.jpg"}
             alt={model.username}
             placeholder="blur"
+            blurDataURL={imgLoading}
             width={56}
             height={56}
           />
@@ -133,6 +135,7 @@ const CardModelAdds = ({ cicle }: CardModelAddsProps) => {
           className="aspect-video object-fill object-center"
           fill
           placeholder="blur"
+          blurDataURL={imgLoading}
           src={isExistsImage.image}
           alt={isExistsImage.alt}
         />
