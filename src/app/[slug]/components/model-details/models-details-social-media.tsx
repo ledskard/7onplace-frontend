@@ -19,28 +19,28 @@ export const ModelDetailsSocialMedia = ({
 
   const isPro =
     flags && flags.map((flag: any) => flag.includes("enable_social_media"));
-  // if (href === "#" || href === null || !href || !isPro) {
+  if (href === "#" || href === null || !href) {
+    return (
+      <div>
+        <Icon
+          className={`w-7 h-7 text-gray-600 ${social === "tiktok" && "h-5 w-5"
+            }`}
+        />
+      </div>
+    );
+  }
+
   return (
     <div>
-      <Icon
-        className={`w-7 h-7 text-gray-600 ${social === "tiktok" && "h-5 w-5"
-          }`}
-      />
+      <a {...props} href={href} target="_blank">
+        <Icon
+          className={twMerge(
+            "text-red-main/80 w-7 h-7 cursor-pointer",
+            social === "tiktok" && "w-5 h-5",
+            className
+          )}
+        />
+      </a>
     </div>
   );
-  // }
-
-  // return (
-  //   <div>
-  //     <a {...props} href={href} target="_blank">
-  //       <Icon
-  //         className={twMerge(
-  //           "text-red-main/80 w-7 h-7 cursor-pointer",
-  //           social === "tiktok" && "w-5 h-5",
-  //           className
-  //         )}
-  //       />
-  //     </a>
-  //   </div>
-  // );
 };
