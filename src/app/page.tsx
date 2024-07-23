@@ -30,7 +30,7 @@ export default function Home({
         className="w-full mx-auto mt-10 "
       >
         <TabsList className="xl:fixed xl:z-[50] mx-auto xl:max-w-[1920px] xl:w-[100%] px-4 xl:bg-[#f3f3f3] xl:top-14 xl:translate-x-1/2 xl:right-1/2">
-          <FlexDiv className="gap-0 flex-wrap gap-y-3 sm:ml-5">
+          <FlexDiv className="gap-0 flex-wrap gap-y-3 ml-5">
             <Link href={`/?page=1&tab=mulheres`}>
               <TabsTrigger value="mulheres">mulheres</TabsTrigger>
             </Link>
