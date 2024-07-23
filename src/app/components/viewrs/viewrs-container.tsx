@@ -13,14 +13,14 @@ export const ViewrsContainer = ({ className, ...props }: ViewrsContainer) => {
   return (
     <div
       className={twMerge(
-        "max-w-fit flex gap-2 items-center justify-center",
+        "max-w-fit flex gap-2 items-center justify-center text-center",
         className
       )}
       {...props}
     >
       <Eye className="text-red-main w-8 h-8" />
-      {numberView ? numberView :  <Skeleton className='h-6 w-11'  />}
-      <p>Visualizadores</p>
+      {numberView ? numberView : <Skeleton className='h-6 w-11' />}
+      <p className="text-center">Visualizadores</p>
     </div>
   );
 };

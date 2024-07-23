@@ -226,6 +226,7 @@ export const CardModelEdit = ({
       type: genderData,
       images: displayImages,
       coverImg: coverImage,
+      coverImageId: null
     };
 
     if (modelUpdated.profileImg.length === 0) {
