@@ -211,7 +211,6 @@ export const CardModelEdit = ({
   const handleUpdateInfoModel = async (e: any) => {
     e.preventDefault();
     setIsLoading(true);
-    console.log(model.username)
     const modelUpdated = {
       username: name || "",
       email: email,
@@ -288,7 +287,6 @@ export const CardModelEdit = ({
     });
     const result = await res.json();
 
-    console.log(result)
     if (result.status === 401) {
       signOut();
     }

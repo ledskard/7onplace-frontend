@@ -54,7 +54,6 @@ export const FormModalRoot = ({ model }: { model: ModelsProps }) => {
         },
       );
       const result = await res.json();
-
       if (result.status === 401) {
         signOut();
       }
