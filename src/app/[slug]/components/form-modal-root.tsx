@@ -25,7 +25,7 @@ const EditModelButtonsSchema = z.object({
 export type EditModelButtonSchemaProps = z.infer<typeof EditModelButtonsSchema>;
 
 export const FormModalRoot = ({ model }: { model: ModelsProps }) => {
-  const [buttons, setButtons] = useState<ModelButtonsProps>(model.buttons);
+  const [buttons, setButtons] = useState<ModelButtonsProps>(model.buttons || []);
   const { data: session } = useSession();
   const { slug } = useParams();
 
