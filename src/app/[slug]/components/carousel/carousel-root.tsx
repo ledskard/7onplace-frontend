@@ -62,7 +62,6 @@ export const CarouselRoot = ({ model }: CarouselContentProps) => {
                 alt={image.name}
                 height={600}
                 width={1280}
-                placeholder="blur"
                 loading="lazy"
                 quality={100}
                 className="sm:max-h-auto max-h-[450px] object-center object-contain rounded-md"

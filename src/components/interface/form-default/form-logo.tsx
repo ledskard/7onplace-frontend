@@ -8,7 +8,6 @@ export const FormLogo = () => {
       alt="Form Logo"
       width={900}
       height={900}
-      placeholder="blur"
       // blurDataURL={imgLoading}
       className="max-w-3xl pb-16 sm:w-5/12 w-4/12 sm:max-w-xl"
     />

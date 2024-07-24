@@ -8,7 +8,6 @@ import { ReturnToHomeButton } from "./components/return-to-home-button";
 import { FlexDiv } from "@/components/interface/flex-div";
 import { Button } from "@/components/ui/button-main";
 
-import { Flags } from "@/types/model/models-filter-props";
 import { getDataById } from "@/utils/get-model-by-id";
 import { incrementLike } from "@/utils/increment-like-to-model";
 

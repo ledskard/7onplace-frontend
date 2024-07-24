@@ -113,7 +113,7 @@ export const CardModelEdit = ({
   const hasFeatureFlags = model.featureFlags && model.featureFlags.length > 0;
 
   const [isPro, setIsPro] = useState(hasFeatureFlags);
-
+  const [coverImageId, setCoverImageId] = useState<any>(model.coverImage);
   const [coverImage, setCoverImage] = useState<Base64Img | null>(null);
 
   const [oldCoverImage, setOldCoverImage] = useState<CoverImg | null>(
@@ -122,6 +122,7 @@ export const CardModelEdit = ({
 
   const handleDeleteCoverImage = () => {
     setCoverImage(null);
+    setCoverImageId(null)
   };
 
   const handleCoverImageChange = (event: any) => {
@@ -225,7 +226,7 @@ export const CardModelEdit = ({
       type: genderData,
       images: displayImages,
       coverImg: coverImage,
-      coverImageId: null
+      coverImageId: coverImageId
     };
 
     if (modelUpdated.profileImg.length === 0) {
@@ -315,7 +316,6 @@ export const CardModelEdit = ({
 
   const handleSelectPreviewImages = (e: any) => {
     const files = e.target.files;
-
     if (files) {
       const newImages = Array.from(files);
       newImages.forEach((file: any) => {
