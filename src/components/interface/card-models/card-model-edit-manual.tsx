@@ -113,7 +113,7 @@ export const CardModelEdit = ({
   const hasFeatureFlags = model.featureFlags && model.featureFlags.length > 0;
 
   const [isPro, setIsPro] = useState(hasFeatureFlags);
-  const [coverImageId, setCoverImageId] = useState<any>(model.coverImage);
+  const [coverImageId, setCoverImageId] = useState<any>(model.coverImageId);
   const [coverImage, setCoverImage] = useState<Base64Img | null>(null);
 
   const [oldCoverImage, setOldCoverImage] = useState<CoverImg | null>(
