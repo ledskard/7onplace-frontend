@@ -104,7 +104,7 @@ const CardModel = ({ model }: { model: ModelsProps }) => {
             src={model.profileImage?.url ?? "/default-profile.jpg"}
             alt={model.username}
             placeholder="blur"
-            blurDataURL={imgLoading}
+            // blurDataURL={imgLoading}
             width={56}
             height={56}
           />
@@ -135,7 +135,7 @@ const CardModelAdds = ({ cicle }: CardModelAddsProps) => {
           className="aspect-video object-fill object-center"
           fill
           placeholder="blur"
-          blurDataURL={imgLoading}
+          // blurDataURL={imgLoading}
           src={isExistsImage.image}
           alt={isExistsImage.alt}
         />
