@@ -9,12 +9,14 @@ import { incrementLike } from "@/utils/increment-like-to-model";
 type CardModelFavoriteProps = ComponentProps<"button"> & {
   favorites: number;
   modelName: string;
+  shouldRevalidate: boolean;
 };
 
 export const CardModelFavorite = ({
   favorites,
   className,
   modelName,
+  shouldRevalidate,
   ...props
 }: CardModelFavoriteProps) => {
   const [isLiked, setIsLiked] = useState(false);
@@ -25,7 +27,6 @@ export const CardModelFavorite = ({
       setIsLiked(true);
     }
   }, [modelName]);
-
 
   const handleLike = async (e: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>) => {
     e.stopPropagation();
@@ -44,7 +45,7 @@ export const CardModelFavorite = ({
       // Se não estava curtido, adiciona o modelo aos curtidos.
       localStorage.setItem("likedModels", JSON.stringify([...likedModels, modelName]));
       // Só chama incrementLike se o modelo realmente não estava curtido antes.
-      await incrementLike(modelName);
+      await incrementLike(modelName, false);
     }
   };
 

@@ -8,7 +8,7 @@ interface LastCallTimestamps {
 
 const lastCallTimestamps: LastCallTimestamps = {};
 
-export const incrementLike = async (slug: string) => {
+export const incrementLike = async (slug: string, shouldRevalidate: boolean) => {
   const currentTimestamp = Date.now();
   const lastTimestamp = lastCallTimestamps[slug];
   const fiveMinutes = 5 * 60 * 1000;
@@ -39,9 +39,10 @@ export const incrementLike = async (slug: string) => {
     );
 
     lastCallTimestamps[slug] = currentTimestamp;
-
-    revalidateTagAPI("modelsList");
-    revalidateTagAPI("modelById");
+    if (shouldRevalidate) {
+      revalidateTagAPI("modelsList");
+      revalidateTagAPI("modelById");
+    }
     return await res.json();
   } catch (error) {
     throw new Error("API ERROR");

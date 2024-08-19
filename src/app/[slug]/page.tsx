@@ -23,7 +23,7 @@ export type ModelsButtons = {
 export default async function Model({ params }: { params: { slug: string } }) {
   const findDataModel = getDataById(params.slug);
   const findSession = getServerSession();
-  incrementLike(params.slug);
+  incrementLike(params.slug, true);
   const [dataModel, session] = await Promise.all([findDataModel, findSession]);
 
   return (
