@@ -27,6 +27,7 @@ export type ModelsProps = {
   images: ModelImage[];
   profileImage: ModelImage;
   coverImage: ModelImage;
+  coverImageId: any;
   buttons: Array<{
     id: string;
     url: string;

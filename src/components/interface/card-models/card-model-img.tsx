@@ -14,8 +14,7 @@ export const CardModelImage = ({
       className={twMerge("object-fill object-center", className)}
       fill
       loading={"lazy"}
-      blurDataURL={imgLoading}
-      placeholder="blur"
+      // blurDataURL={imgLoading}
       sizes="(max-width: 1280px) 50vw, 33vw"
       {...props}
     />

@@ -30,26 +30,20 @@ export const BeProAndViewrsContainer = ({
   return (
     <div
       className={cn(
-        device === "desktop"
-          ? "xl:flex flex-wrap gap-x-6 hidden"
-          : "xl:hidden flex flex-wrap text-center",
+        "flex items-center justify-center", // Centralização para ambos os dispositivos
+        device === "desktop" ? "xl:flex hidden" : "xl:hidden flex",
         className
       )}
     >
-      <Viewrs.Container
-        className={cn(
-          "xl:flex flex mx-auto",
-          device === "desktop" && y && y >= 300 && "xl:flex"
-        )}
-      />
-      <Dialog>
+      <Viewrs.Container className="flex items-center justify-center" />
+      {/* <Dialog>
         <DialogTrigger asChild>
           <Link href="https://t.me/seteonplace_bot" passHref target="_blank" className={cn(
-                "mx-auto",
-                device === "desktop"
-                  ? "max-w-fit px-10"
-                  : "px-4 md:px-6 lg:px-8 xl:px-10 mb-2 text-sm md:text-base lg:text-lg xl:text-xl max-w-fit"
-              )}>
+            "mx-auto",
+            device === "desktop"
+              ? "max-w-fit px-10"
+              : "px-4 md:px-6 lg:px-8 xl:px-10 mb-2 text-sm md:text-base lg:text-lg xl:text-xl max-w-fit"
+          )}>
             <Button
             
               className={cn(
@@ -63,7 +57,7 @@ export const BeProAndViewrsContainer = ({
             </Button>
           </Link>
         </DialogTrigger>
-      </Dialog>
-    </div>
+      </Dialog> */}
+    </div >
   );
 };

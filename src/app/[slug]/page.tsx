@@ -8,7 +8,6 @@ import { ReturnToHomeButton } from "./components/return-to-home-button";
 import { FlexDiv } from "@/components/interface/flex-div";
 import { Button } from "@/components/ui/button-main";
 
-import { Flags } from "@/types/model/models-filter-props";
 import { getDataById } from "@/utils/get-model-by-id";
 import { incrementLike } from "@/utils/increment-like-to-model";
 
@@ -35,17 +34,14 @@ export default async function Model({ params }: { params: { slug: string } }) {
         <CarouselRoot model={dataModel} />
         <FlexDiv col>
           {session &&
-            dataModel.featureFlags &&
-            dataModel.featureFlags.length > 0 &&
-            dataModel.featureFlags.map((flag: Flags) => {
-              if (flag.name === "enable_create_button")
-                return (
-                  <ModelDetails.AddNewButtonModal
-                    key={flag.name}
-                    model={dataModel}
-                  />
-                );
-            })}
+            (
+              <ModelDetails.AddNewButtonModal
+                key={dataModel.id}
+                model={dataModel}
+              />
+            )
+          }
+
           <a
             href={dataModel.telegramVip}
             target="_blank"
@@ -60,7 +56,6 @@ export default async function Model({ params }: { params: { slug: string } }) {
           </a>
           {dataModel.buttons &&
             dataModel.buttons.length > 0 &&
-            dataModel.featureFlags.length > 0 &&
             dataModel.buttons.map((but: ModelsButtons) => {
               if (
                 but.url !== null &&
