@@ -98,13 +98,13 @@ export const MostViewedModelsSlider = ({
                     </div>
                     <div className="flex gap-3 h-auto p-1">
                       <Image
-                        className="rounded-full sm:w-14 sm:h-14 h-12 w-12 object-cover object-top shadow-md shadow-slate-500"
+                        className="rounded-full sm:w-14 sm:h-14 h-12 w-12 object-cover object-top shadow-md shadow-slate-500 hidden sm:block"
                         src={model.profileImage?.url ?? "/default-profile.jpg"}
                         alt={model.username}
                         width={56}
                         height={56}
                       />
-                      <div className="space-y-1">
+                      <div className="sm:text-left text-center flex flex-col items-center sm:items-start space-y-1 w-full">
                         <Card.Name>{model.username}</Card.Name>
                         <Card.Fav
                           modelName={model.username}

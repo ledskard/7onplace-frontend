@@ -19,13 +19,12 @@ export const ModelDetailsSocialMedia = ({
 
   const isPro =
     flags && flags.map((flag: any) => flag.includes("enable_social_media"));
-  if (href === "#" || href === null || !href || !isPro) {
+  if (href === "#" || href === null || !href) {
     return (
       <div>
         <Icon
-          className={`w-7 h-7 text-gray-600 ${
-            social === "tiktok" && "h-5 w-5"
-          }`}
+          className={`w-7 h-7 text-gray-600 ${social === "tiktok" && "h-5 w-5"
+            }`}
         />
       </div>
     );
