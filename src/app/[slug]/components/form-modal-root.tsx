@@ -40,6 +40,7 @@ export const FormModalRoot = ({ model }: { model: ModelsProps }) => {
     reValidateMode: "onChange",
   });
 
+
   const handleAddButton = async (data: EditModelButtonSchemaProps) => {
     try {
       const res = await fetch(
