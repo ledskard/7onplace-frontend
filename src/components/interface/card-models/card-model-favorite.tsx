@@ -9,12 +9,14 @@ import { incrementLike } from "@/utils/increment-like-to-model";
 type CardModelFavoriteProps = ComponentProps<"button"> & {
   favorites: number;
   modelName: string;
+  shouldRevalidate: boolean;
 };
 
 export const CardModelFavorite = ({
   favorites,
   className,
   modelName,
+  shouldRevalidate,
   ...props
 }: CardModelFavoriteProps) => {
   const [isLiked, setIsLiked] = useState(false);

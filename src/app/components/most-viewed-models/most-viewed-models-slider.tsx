@@ -109,6 +109,7 @@ export const MostViewedModelsSlider = ({
                         <Card.Fav
                           modelName={model.username}
                           favorites={model.likes}
+                          shouldRevalidate={false}
                         />
                       </div>
                     </div>
