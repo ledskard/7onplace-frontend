@@ -25,7 +25,7 @@ export const registerSchema = z.object({
       }
       return acceptedImageTypes.includes(file[0]?.type);
     }, "Somente os formatos .jpg, .jpeg, .png e .webp são suportados"),
-    coverImg: z.any().optional(),
+  coverImg: z.any().optional(),
   displayImg: z
     .any()
     .refine((files: Array<File>) => {
@@ -48,3 +48,4 @@ export const registerSchema = z.object({
     .string()
     .min(10, "Descrição deve conter pelo menos 10 caracteres"),
 });
+
