@@ -8,7 +8,7 @@ export const CardModelLoading = () => {
         <Card.Root key={index} className="animate-pulse bg-gray-300">
           <Card.ContentDiv>
             <Card.Name>Carregando...</Card.Name>
-            <Card.Fav favorites={1} modelName="000000" />
+            <Card.Fav shouldRevalidate={false} favorites={1} modelName="000000" />
           </Card.ContentDiv>
         </Card.Root>
       ))}
