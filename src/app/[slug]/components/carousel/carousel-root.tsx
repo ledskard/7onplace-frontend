@@ -115,7 +115,7 @@ export const CarouselRoot = ({ model }: CarouselContentProps) => {
               flags={flags}
             />
             <div className="ml-auto">
-              <Card.Fav modelName={model.username} favorites={model.likes} shouldRevalidate={false} />
+              <Card.Fav modelName={model.username} favorites={model.likes} shouldRevalidate={true} />
             </div>
           </FlexDiv>
         </FlexDiv>

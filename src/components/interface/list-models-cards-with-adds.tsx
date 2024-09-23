@@ -108,7 +108,7 @@ const CardModel = ({ model }: { model: ModelsProps }) => {
             height={56}
           />
           <Card.Name className="sm:pt-3 pt-2.5">{model.username}</Card.Name>
-          <Card.Fav modelName={model.username} favorites={model.likes} shouldRevalidate={false} />
+          <Card.Fav modelName={model.username} favorites={model.likes} shouldRevalidate={true} />
         </Card.ContentDiv>
       </Card.Root>
     </div>

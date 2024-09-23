@@ -19,7 +19,7 @@ export const updateModelButtons = async ({
     res = await fetch(
       `${process.env.NEXT_PUBLIC_DATABASE_URL}/models/${slug}`,
       {
-        next: { revalidate: 1 },
+        next: { revalidate: 1500000 },
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -32,7 +32,6 @@ export const updateModelButtons = async ({
   if (result.status === 401) {
     signOut()
   }
-  revalidateTagAPI("modelById");
 
 
   return await res.json();
