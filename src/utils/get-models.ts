@@ -19,7 +19,7 @@ export const getModels = async ({
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_DATABASE_URL}/models?page=${page}&type=${type}&filter=${query}`,
       {
-        next: { revalidate: 1500000 },
+        next: { revalidate: 1 },
         headers: {
           "Content-Type": "application/json",
           Authorization: "Bearer " + session?.user.token,

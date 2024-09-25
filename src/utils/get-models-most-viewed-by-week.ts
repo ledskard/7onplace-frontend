@@ -10,7 +10,7 @@ export const getModelsMostViewedByWeek = async (): Promise<
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_DATABASE_URL}/models/likes/weekly`,
       {
-        next: { revalidate: 1500000, tags: ["modelsByWeek"] },
+        next: { revalidate: 1, tags: ["modelsByWeek"] },
         headers: {
           "Content-Type": "application/json",
           // Authorization: "Bearer " + session?.user.token,

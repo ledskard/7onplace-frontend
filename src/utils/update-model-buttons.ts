@@ -19,7 +19,7 @@ export const updateModelButtons = async ({
     res = await fetch(
       `${process.env.NEXT_PUBLIC_DATABASE_URL}/models/${slug}`,
       {
-        next: { revalidate: 1500000 },
+        next: { revalidate: 1 },
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
