@@ -58,6 +58,7 @@ export const FormModalRoot = ({ model }: { model: ModelsProps }) => {
       if (result.status === 401) {
         signOut();
       }
+      revalidateTagAPI("modelById");
       reset();
       setButtons((prev) => prev.concat(data));
     } catch (error) {
