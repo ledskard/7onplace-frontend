@@ -39,9 +39,17 @@ export const authOptions: NextAuthOptions = {
     }),
   ],
   callbacks: {
+    // @ts-ignore
     async session({ session, token }) {
-
       if (token) {        
+        const currentDate = Math.floor(Date.now() / 1000); // Data atual em segundos
+        const tokenExpiration = Number(token.expiration) || 0;
+
+        // Verifica se o token já expirou (considerando 24 horas)
+        if (currentDate > tokenExpiration) {
+          // Se expirou, retorna null para deslogar o usuário
+          return null;
+        }
         session = {
           ...session,
           user: {
@@ -58,6 +66,7 @@ export const authOptions: NextAuthOptions = {
       if (user) {
         token.token = user.token;
         token.user = user.user;
+        token.expiration = Math.floor(Date.now() / 1000) + 60 * 60 * 24;
       }
       return token;
     },
