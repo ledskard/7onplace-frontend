@@ -13,7 +13,7 @@ export const getModels = async ({
   type,
   query,
 }: GetModelsProps): Promise<ModelsFilterProps> => {
-  const session = await getServerSession();
+  // const session = await getServerSession();
 
   try {
     const res = await fetch(
@@ -22,7 +22,7 @@ export const getModels = async ({
         next: { revalidate: 1 },
         headers: {
           "Content-Type": "application/json",
-          Authorization: "Bearer " + session?.user.token,
+          // Authorization: "Bearer " + session?.user.token,
         },
       },
     );

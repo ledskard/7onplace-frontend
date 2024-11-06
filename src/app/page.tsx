@@ -44,10 +44,10 @@ export default function Home({
               <TabsTrigger value="homens">homens</TabsTrigger>
             </Link>
           </FlexDiv>
-
+{/* 
           <div className="items-center justify-center gap-8 max-w-fit w-full mx-auto xl:flex hidden">
             <BeProAndViewrsContainer device="desktop" className="py-2" />
-          </div>
+          </div> */}
 
           <Search.Input className="sm:sticky hidden" />
         </TabsList>
