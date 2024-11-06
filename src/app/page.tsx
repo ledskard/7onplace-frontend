@@ -49,6 +49,7 @@ export default function Home({
             <BeProAndViewrsContainer device="desktop" className="py-2" />
           </div> */}
 
+
           <Search.Input className="sm:sticky hidden" />
         </TabsList>
 
