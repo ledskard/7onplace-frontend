@@ -45,7 +45,7 @@ export default function Home({
             </Link>
           </FlexDiv>
           <div className="items-center justify-center gap-8 max-w-fit w-full mx-auto xl:flex hidden">
-            {/* <BeProAndViewrsContainer device="desktop" className="py-2" /> */}
+            <BeProAndViewrsContainer device="desktop" className="py-2" />
           </div> 
 
 
