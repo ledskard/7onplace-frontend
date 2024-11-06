@@ -18,9 +18,9 @@ export const ViewrsContainer = ({ className, ...props }: ViewrsContainer) => {
       )}
       {...props}
     >
-      {/* <Eye className="text-red-main w-8 h-8" /> */}
-      {/* {numberView ? numberView : <Skeleton className='h-6 w-11' />} */}
-      {/* <p className="text-center">Visualizadores</p> */}
+      <div className="text-red-main w-8 h-8" />
+      {/* <Skeleton className='h-6 w-11' /> */}
+      <p className="text-center"></p>
     </div>
   );
 };

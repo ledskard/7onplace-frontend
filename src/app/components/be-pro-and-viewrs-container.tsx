@@ -35,7 +35,7 @@ export const BeProAndViewrsContainer = ({
         className
       )}
     >
-      {/* <Viewrs.Container className="flex items-center justify-center" /> */}
+      <Viewrs.Container className="flex items-center justify-center" />
       {/* <Dialog>
         <DialogTrigger asChild>
           <Link href="https://t.me/seteonplace_bot" passHref target="_blank" className={cn(
