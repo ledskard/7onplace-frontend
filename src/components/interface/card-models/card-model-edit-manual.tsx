@@ -384,7 +384,7 @@ export const CardModelEdit = ({
                       onChange={handleIsFeaturedOfWeek}
                       className="mr-2 border-slate-200 rounded"
                     />
-                    <label className="text-slate-950">Modelo PRO</label>
+                    <label className="text-slate-950">Modelo Destaque</label>
                   </div>
                 </FlexDiv>
                 <FlexDiv className="mx-auto">
