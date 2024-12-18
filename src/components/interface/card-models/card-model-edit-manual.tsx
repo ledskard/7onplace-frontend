@@ -112,7 +112,7 @@ export const CardModelEdit = ({
   );
   const hasFeatureFlags = model.featureFlags && model.featureFlags.length > 0;
 
-  const [isPro, setIsPro] = useState(hasFeatureFlags);
+  const [isFeaturedOfWeek, setIsFeaturedOfWeek] = useState(hasFeatureFlags);
   const [coverImageId, setCoverImageId] = useState<any>(model.coverImageId);
   const [coverImage, setCoverImage] = useState<Base64Img | null>(null);
 
@@ -144,50 +144,38 @@ export const CardModelEdit = ({
     }
   };
 
-  // const handleIsPro = async (e: any) => {
-  //   const isChecked = e.target.checked;
+  const handleIsFeaturedOfWeek = async (e: any) => {
+    const isChecked = e.target.checked;
 
-  //   setIsPro(isChecked);
+    setIsFeaturedOfWeek(isChecked);
 
-  //   let featureFlags: any = [];
+    let isFeaturedOfWeek: boolean = false;
 
-  //   if (!isChecked) {
-  //     featureFlags = [];
-  //   }
-  //   if (isChecked) {
-  //     featureFlags = [
-  //       {
-  //         id: 1,
-  //         name: "enable_social_media",
-  //         description: "Habilitar redes sociais",
-  //       },
-  //       { id: 2, name: "enable_star", description: "Estrela de modelo PRO" },
-  //       {
-  //         id: 3,
-  //         name: "enable_create_button",
-  //         description: "Habilitar botões",
-  //       },
-  //     ];
-  //   }
+    if (!isChecked) {
+      isFeaturedOfWeek = false;
+    }
+    if (isChecked) {
+      isFeaturedOfWeek = true
+    }
 
-  //   const res = await fetch(
-  //     `${process.env.NEXT_PUBLIC_DATABASE_URL}/models/${model.username}`,
-  //     {
-  //       body: JSON.stringify({ featureFlags }),
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //         Authorization: `Bearer ${session?.user.token}`,
-  //       },
-  //       method: "PUT",
-  //     },
-  //   );
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_DATABASE_URL}/models/${model.username}`,
+      {
+        body: JSON.stringify({ featuredOfWeek: isFeaturedOfWeek }),
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${session?.user.token}`,
+        },
+        method: "PUT",
+      },
+    );
 
-  //   const result = await res.json();
+    const result = await res.json();
 
-  //   if (result.status === 401) {
-  //     signOut();
-  //   }
-  // };
+    if (result.status === 401) {
+      signOut();
+    }
+  };
 
   const gender = ["mulheres", "casais", "trans", "homens"];
 
@@ -389,15 +377,15 @@ export const CardModelEdit = ({
                       id="profileImg"
                     />
                   </FlexDiv>
-                  {/* <div className="flex items-center mb-4">
+                  <div className="flex items-center mb-4">
                     <input
                       type="checkbox"
-                      checked={isPro}
-                      onChange={handleIsPro}
+                      checked={isFeaturedOfWeek}
+                      onChange={handleIsFeaturedOfWeek}
                       className="mr-2 border-slate-200 rounded"
                     />
                     <label className="text-slate-950">Modelo PRO</label>
-                  </div> */}
+                  </div>
                 </FlexDiv>
                 <FlexDiv className="mx-auto">
                   <Button
