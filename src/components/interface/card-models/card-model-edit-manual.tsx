@@ -110,9 +110,7 @@ export const CardModelEdit = ({
   const [description, setDescription] = useState<string>(
     model.description || "",
   );
-  const hasFeatureFlags = model.featureFlags && model.featureFlags.length > 0;
-
-  const [isFeaturedOfWeek, setIsFeaturedOfWeek] = useState(hasFeatureFlags);
+  const [isFeaturedOfWeek, setIsFeaturedOfWeek] = useState(model.featuredOfWeek);
   const [coverImageId, setCoverImageId] = useState<any>(model.coverImageId);
   const [coverImage, setCoverImage] = useState<Base64Img | null>(null);
 

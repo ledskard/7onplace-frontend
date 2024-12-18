@@ -34,6 +34,7 @@ export type ModelsProps = {
     title: string;
   }>;
   featureFlags: Array<Flags>;
+  featuredOfWeek: boolean;
 };
 
 export type ModelsFilterProps = {
