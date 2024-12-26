@@ -17,8 +17,8 @@ export const modelAddsConfig: ModelAddsConfigProps = {
   },
   ads: [
     {
-      image: "/template-ads.png",
-      href: "https://t.me/addlist/_I2jv0vzoTVjYzFh",
+      image: "/template-ads.jpg",
+      href: "https://jetbet365.com/cadastro?ref=tigrehack",
       alt: "ad 7onsexy",
     },
   ],
